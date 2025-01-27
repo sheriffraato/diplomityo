@@ -1,0 +1,30 @@
+### .gitattributes
+#
+# This file tells Git which files in the project are to be considered as text
+# files (among other possibilities). Text files are subject to normalization
+# operations, such as Windows line endings being automatically converted to
+# Linux equivalents, as a file is added to the project Git index.
+#
+# Documentation: https://git-scm.com/docs/gitattributes
+#
+
+*.c     text
+*.cc    text
+*.cls   text
+*.cpp   text
+*.h     text
+*.hh    text
+*.jl    text
+*.js    text
+*.json  text
+*.m     text
+*.md    text
+*.py    text
+*.rs    text
+*.tex   text
+*.toml  text
+*.ts    text
+*.txt   text
+*.yaml  text
+*.yml   text
+*.zig   text

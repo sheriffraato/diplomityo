@@ -1,0 +1,102 @@
+% Enable the use of @ character in command names.
+
+\makeatletter
+
+% The titles of the work. If there is no subtitle, leave the \myfisubtitle or
+% \myensubtitle command arguments empty. Pass the title in the primary
+% language as the first argument and its translation to the secondary language
+% as the second.
+
+\if@langenglish
+
+    \title{\myentitle}{\myfititle}
+
+\else
+
+    \title{\myfititle}{\myentitle}
+
+\fi
+
+\if@langenglish
+
+    \subtitle{\myensubtitle}{\myfisubtitle}
+
+\else
+
+    \subtitle{\myfisubtitle}{\myensubtitle}
+
+\fi
+
+% The author name.
+
+\author{\myauthor}
+
+% The examiner information. If your work has multiple examiners, replace with
+%
+%   \examiner[<label>]{<name> \\ <name>}
+%
+% where <label> is an appropriate (plural) label, e.g. Examiners or
+% Tarkastajat, and <name>s are replaced by the examiner names, each on their
+% separate line.
+
+\examiner{\myexaminers}
+
+% The finishing date of the thesis (YYYY-MM-DD).
+
+\finishdate{\myyear}{\mymonth}{\myday}
+
+% The type of the thesis (e.g. Kandidaatintyö or Master of Science Thesis) in
+% the primary and the secondary languages of the thesis.
+
+\if@langenglish
+
+    \thesistype{\myenthesistype}{\myfithesistype}
+
+\else
+
+    \thesistype{\myfithesistype}{\myenthesistype}
+
+\fi
+
+% The faculty and degree programme names in the primary and the secondary
+% languages of the thesis, respectively.
+
+\if@langenglish
+
+    \facultyname{\myenfacultyname}{\myfifacultyname}
+
+\else
+
+    \facultyname{\myfifacultyname}{\myenfacultyname}
+
+\fi
+
+\if@langenglish
+
+    \programmename{\myenprogrammename}{\myfiprogrammename}
+
+\else
+
+    \programmename{\myfiprogrammename}{\myenprogrammename}
+
+\fi
+
+% The keywords of the thesis in the primary and the secondary languages of the
+% thesis.
+
+\if@langenglish
+
+    \keywords{\myenkeywords}{\myfikeywords}
+
+\else
+
+    \keywords{\myfikeywords}{\myenkeywords}
+\fi
+
+% Make @ a regular letter again.
+
+\makeatother
+
+% Actually generate the title page based on the above commands.
+
+\maketitle

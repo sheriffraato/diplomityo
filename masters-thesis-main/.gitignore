@@ -1,0 +1,69 @@
+### .gitignore
+#
+# Defines which files are to be allowed as a part of the project. Instead of
+# denying specific folder and/or files, this file first denies EVERYTHING, and
+# then specifically allows for wanted files and file types with an exclamation
+# mark ! at the start of each allowed pattern.
+#
+
+## Disallow everything.
+
+*
+
+## Allow specific files.
+
+!.gitignore
+
+!.gitattributes
+
+!README.md
+
+!LICENSE
+
+!CONTRIBUTING.md
+
+!CHANGELOG.md
+
+!tauthesis.cls
+
+!titlepage.tex
+
+!preamble.tex
+
+!set-pdf-version.tex
+
+!main.tex
+
+## Allow file types in subdirectories.
+
+!tex/
+!tex/*.tex
+
+!code/
+!code/*.c
+!code/*.cc
+!code/*.cpp
+!code/*.h
+!code/*.hh
+!code/*.jl
+!code/*.js
+!code/*.json
+!code/*.m
+!code/*.py
+!code/*.rs
+!code/*.toml
+!code/*.ts
+!code/*.yaml
+!code/*.yml
+!code/*.zig
+
+!figures/
+!figures/**/*.eps
+!figures/**/*.jpg
+!figures/**/*.pdf
+!figures/**/*.png
+
+# Disallow PDF figures automatically generated from EPS via epstopdf. Only the
+# original EPS figures should be in the repository to avoid repetition.
+
+figures/**/*-eps-converted-to.pdf

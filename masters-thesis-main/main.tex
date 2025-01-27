@@ -1,0 +1,219 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Congratulations, you've made an excellent choice
+%% of writing your Tampere University thesis using
+%% the LaTeX system. This document attempts to be
+%% as complete a template as possible to let you focus
+%% on the most important part: the writing itself.
+%% Thus the details regarding the visual appearance
+%% and even structure have already been worked out
+%% for you!
+%%
+%% I sincerely hope you will find this template useful
+%% in completing your thesis project. I've tried to
+%% add comments (followed by the % sign) to clarify
+%% the structure and purpose of some of the commands.
+%% Most of the magic happens in the file tauthesis.cls,
+%% which you are more than welcome to take a look at.
+%% Just refrain from editing it in the most crucial
+%% versions of the thesis!
+%%
+%% I wish you and your thesis project the best of luck!
+%% If this template causes you trouble along the way
+%% or if you've any suggestions for improving it,
+%% please be in contact through GitHub
+%% (<URL HERE>)
+%%
+%% Yours,
+%%
+%% Ville Koljonen
+%%
+%% PS. This template or its associated class file don't
+%% come with a warranty. The content is provided as is,
+%% without even the implied promise of fitness to the
+%% mentioned purpose. You, as the author of the thesis,
+%% are responsible for the entire work, including the
+%% provided material. No one else is liable to you for
+%% any damage inflicted on you or your thesis, were it
+%% caused by using this template or not.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% NOTICE %%%%%
+%% Please read through the entire template
+%% (files under ./tex) to find all instructions.
+%% It is possible that the attached pdf files
+%% do not include the latest information.
+%%%%%%%%%%%%%%%%%%
+
+%%%%% INSTRUCTIONS FOR COMPILING THE DOCUMENT %%%%%
+%% Overleaf: just click Recompile.
+%% Terminal:
+%%  1. pdflatex main.tex
+%%  2. makeindex -s main.ist -t main.glg -o main.gls main.glo
+%%  3. biber main
+%%  4. pdflatex main.tex
+%%  5. pdflatex main.tex
+%% Similar sequence of commands is also required
+%% in LaTeX specific editors.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Set PDF version before doing anything else.
+
+\input{set-pdf-version.tex}
+
+%%%%% METADATA %%%%%
+%
+% Always keep the following metadata up to date! This is important for your
+% PDF file to comply to accessibility standards. (And yes, this information
+% must remain here, before \documentclass[...]{...}.)
+
+\def\myfititle{Dieselmoottorin hiukkassuodattimen tilan estimointi}
+\def\myentitle{State Estimation of a Diesel Particulate Filter}
+\def\myauthor{Tuomas Haataja}
+\def\myfisubtitle{}
+\def\myensubtitle{}
+\def\myfithesistype{Diplomityö}
+\def\myenthesistype{Masters of Science Thesis}
+\def\myexaminers{Veli-Pekka Pyrhönen}
+\def\myfifacultyname{Tekniikan ja luonnontieteiden tiedekunta}
+\def\myenfacultyname{Faculty of Engineering and Natural Sciences}
+\def\myfiprogrammename{Automaatiotekniikka}
+\def\myenprogrammename{Automation Engineering}
+\def\myfikeywords{Hiukkassuodatin, DPF, noki}
+\def\myenkeywords{Diesel Particulate Filter, DPF, soot}
+\def\mylanguagecode{en-GB}
+\def\mysubject{A short description of the thesis subject.}
+\def\myyear{2023}
+\def\mymonth{06}
+\def\myday{03}
+
+% Define your citation options here. Valid values for style and sorting options
+% can be found in the BibLaTeX manual: https://ctan.org/pkg/biblatex.
+
+\def\mycitationstyle{numeric}
+\def\mycitationsorting{nyt}
+
+%%%%% PREAMBLE %%%%%
+
+%%%%% Document class declaration.
+%
+% The possible optional arguments are
+%
+%   finnish - thesis in Finnish (default)
+%   english - thesis in English
+%   draft - for faster non-final works, also skips images
+%           (recommended, remove in final version)
+%   programs - if you wish to display code snippets
+% Example: \documentclass[english, authoryear]{tauthesis}
+%          thesis in English with author-year citations
+
+\documentclass[finnish]{tauthesis}
+
+\input{preamble.tex} % You can add packages and define new commands in this file.
+
+\begin{document}
+
+%%%%% FRONT MATTER %%%%%
+
+\frontmatter
+
+%%%%% Thesis information and title page.
+
+\input{titlepage.tex}
+
+%%%%% Abstracts and preface.
+%
+% Write the abstract(s) and the preface into a separate file for the sake of
+% clarity. Pass the appropriate file name as the first argument to these
+% commands. Put the \abstract in the primary language first and the
+% \otherabstract in the secondary language second. Those who do not speak
+% Finnish only need the first abstract. The second argument of the \preface
+% command takes the place where the thesis was signed in.
+%
+% Edit the files tex/{use-of-ai,tekoalyn-kaytto}.tex to match your use of AI in
+% generating this thesis.
+%
+
+\abstract{tex/tiivistelma.tex}
+
+\otherabstract{tex/abstract.tex}
+
+\aidisclaimerinclusioncmd
+
+\preface{tex/alkusanat.tex}{Tampereella}
+
+%%%%% Table of contents.
+
+\tableofcontents
+
+%%%%% Lists of figures, tables, listings and terms.
+%
+% Print the lists of figures and/or tables. Uncomment either of these commands
+% as required. Both are optional, but if there are many important
+% figures/tables, listing them may be a good idea.
+
+% \listoffigures
+% \listoftables
+% \lstlistoflistings
+
+% Misc stuff related to how the glossary is displayed. You can especially
+% tweak the lengths to suit you!
+
+\glsaddall
+\setglossarystyle{taulong}
+\setlength{\glsnamewidth}{0.25\textwidth}
+\setlength{\glsdescwidth}{0.75\textwidth}
+\renewcommand*{\glsgroupskip}{}
+
+% Print the default glossary of abbreviations, if necessary. Otherwise comment
+% out. The appropriate Finnish variant is 'Lyhenteet'
+
+\printglossary[title={Lyhenteet ja merkinnät}]
+% Print more than one glossary with these lines. Otherwise comment out.
+
+% \printglossary[type=symbs]
+% \printglossary[type=label]
+% ...
+
+%%%%% MAIN MATTER %%%%%
+
+\mainmatter
+
+% Write each of the chapters of the thesis into a separate file for the sake
+% of clarity. They can be \input as shown below. Give both the chapters and
+% their files as descriptive names as possible.
+
+\input{tex/johdanto.tex}
+
+\input{tex/dpf.tex}
+
+\input{tex/estimointi.tex}
+
+\input{tex/dpf_estimointi.tex}
+
+\input{tex/tulokset.tex}
+
+\input{tex/yhteenveto.tex}
+
+
+
+
+%%%%% Bibliography/references.
+
+% Print the bibliography according to the information in ./tex/references.bib
+% and the in-line citations used in the body of the thesis.
+
+% \emergencystretch=2em
+\printbibliography[heading=bibintoc]
+
+%%%%% Appendices.
+
+% Use only if it clarifies the structure of the document. Remember to
+% introduce each appendix and its content.
+
+% \begin{appendices}
+
+% \input{./tex/liite.tex}
+
+% \end{appendices}
+
+\end{document}
