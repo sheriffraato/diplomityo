@@ -4,7 +4,7 @@ Dieselmoottori on muun muassa toimintavarmuutensa ja energiatehokkuutensa vuoksi
 \cite[s. 121, 137-138]{Koten_2024}.
 Pelkästään Yhdysvalloissa noin 75\% maatalouden työkoneista käyttää dieselmoottoria voimanlähteenään \cite[s. 122]{Koten_2024}.  
 Dieselmoottori kuitenkin tuottaa palamisolosuhteiden vuoksi
-huomattavasti päästöjä \cite{FiebigMichael2014Pefd}. Erityisesti typen oksidi- (NO\(_x\)) ja hiukkaspäästöt (PM) ovat ongelma niin terveydelle kuin ympäristöllekin \cite{YaoDongwei2023Rodm}\cite[s. 138]{Koten_2024}, joten  lainsäädäntö asettaa yhä tiukentuvat rajat dieselmoottorien päästöille. Tämän vuoksi moderneissa työkoneissa on käytettävä pakokaasun jälkikäsittelyjärjestelmiä, jotka pyrkivät minimoimaan dieselmoottorin tuottamien haitallisten päästöjen pääsyä ilmakehään. Koska lainsäädännön rajat tiukentuvat, täytyy jälkikäsittelyjärjestelmiä kehittää ja parantaa jatkuvasti.
+huomattavasti päästöjä \cite{FiebigMichael2014Pefd}. Erityisesti typen oksidit (NO\(_x\)) ja hiukkaspäästöt (PM) ovat ongelma niin terveydelle kuin ympäristöllekin \cite{YaoDongwei2023Rodm}\cite[s. 138]{Koten_2024}, joten  lainsäädäntö asettaa yhä tiukentuvat rajat dieselmoottorien päästöille. Tämän vuoksi moderneissa työkoneissa on käytettävä pakokaasun jälkikäsittelyjärjestelmiä, jotka pyrkivät minimoimaan dieselmoottorin tuottamien haitallisten päästöjen pääsyä ilmakehään. Koska lainsäädännön rajat tiukentuvat, täytyy jälkikäsittelyjärjestelmiä kehittää ja parantaa jatkuvasti.
 
 Hiukkaspäästöjä voidaan pienentää merkittävästi hiukkassuodattimella (DPF, \emph{eng. Diesel Particulate Filter}).
 Tyypillisin \cite{SHIYunxi2020Eota} DPF-järjestelmän rakenne on hunajakennomainen sylinteri, jossa on vuoronperään eri päistä suljettuja putkia. Putkien välillä on huokoiset seinämät, joiden läpi pakokaasu pääsee virtaamaan.
@@ -13,9 +13,15 @@ DPF suodattaa läpivirtaavasta pakokaasusta hiilestä ja hiilivedyistä koostuva
 
 DPF-järjestelmään kertynyt noki ja tuhka tulee aika ajoin poistaa. Tuhka poistetaan manuaalisella puhdistuksella, mutta nokea voidaan hapettaa hiilidioksidiksi hapen ja typen oksidien avulla. Tätä kutsutaan regeneroinniksi, joka jaetaan karkeasti passiiviseen ja aktiiviseen regenerointiin.
 Aktiivisen regeneroinnin ajoitus on syytä toteuttaa oikeaan aikaan, sillä liian aikainen regenerointi kuluttaa ylimäärin polttoainetta, kun taas liian myöhäinen nostaa vastapainetta, mikä voi olla jopa vaarallista \cite{YaoDongwei2023Rodm}. 
-
-
 Näin ollen DPF-järjestelmän tila -- erityisesti noen määrä -- on syytä tuntea mahdollisimman tarkasti. 
 
-Noen määrää arvioidaan 
+Nokilatausta arvioidaan painehäviömittauksilla ja fysikaaliseen malliin perustuvalla ennusteella \cite{YaoDongwei2023Rodm}. Painehäviömittaus on kuitenkin herkkä häiriöille ja vikaantumiselle, eikä se kykene erottelemaan noen ja tuhkan vaikutuksia toisistaan.
+Toisaalta mallin virhe kumuloituu ajan myötä \cite{YaoDongwei2023Rodm}.
+Tämän työn tarkoituksena on toteuttaa näitä arvioita yhdistelemällä hyvä nokilatausestimaatti. 
 
+Hiukkassuodattimeen kertyneen tuhkan määrää arvioidaan mallipojaisesti \cite{??}. 
+Kertynyt tuhka aiheuttaa painemittaukseen kasvavan trendin. Työssä on tarkoitus toteuttaa estimointimenetelmä tuhkalataukselle painemittaukseen perustuen.
+
+Estimointiin käytetään Bayesilaisia suotimia, erityisesti Kalman-suodinta. Hiukkassuodatinta mallintavien yhtälöiden epälineaarisuuden vuoksi työssä tarkastellaan Kalman-suotimen epälineaarisia versioita, kuten laajennettua Kalman-suodinta (EKF, \emph{Extended Kalman Filter}).
+
+Työssä ei suoriteta uusia mittauksia, vaan käytetään usean kenttäkäyttöisen koneen moottorinohjausyksikön (ECU, \emph{eng. Engine Control Unit}) keräämää dataa.
