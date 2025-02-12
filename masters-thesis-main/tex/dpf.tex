@@ -2,17 +2,41 @@
 \label{ch:dpf}
 
 
-Dieselmoottorin hiukkassuodatin, eli DPF (\emph{eng. Diesel Particulate Filter}), suodattaa pakokaasusta tehokkaasti noki- ja tuhkapartikkeleita 
+Dieselmoottorin hiukkassuodatin, eli DPF (\emph{eng. Diesel Particulate Filter}) on tehokkain järjestelmä pakokaasun noki- ja tuhkapartikkeleiden suodatukseen. 
+Hyvä DPF suodattaa läpivirtaavasta pakokaasusta jopa 99\% hiukkaslukumäärästä ja 95\% -massasta \cite{Yan_state_of_the_art}. 
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/EAT.pdf}
+\end{figure}
 
 \section{Järjestelmän fyysinen rakenne}
 
+Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), jossa pakokaasu virtaa vuoronperään vastakkaisista päistään suljetuissa putkissa. Pakokaasu virtaa putkien välillä huokoisten seinämien läpi. Virtausta on havainnollistettu Kuvassa \ref{fig:wall-flow-dpf}  
+
+
 \begin{figure}[H]
     \centering 
-    \input{figures/wall-flow-dpf.tex}
-    \caption{DPF:n rakenne ja toiminta. Pakokaasu virtaa huokoisten seinämien läpi. }
+    
+    \pdftooltip{\input{figures/wall-flow-dpf.tex}}
+                {Kuvituskuvassa on neljä päällekkäistä putkea. Nuolilla kuvattu pakokaasu virtaa vasemmalta avoimiin putkiin. Putket ovat suljettuja oikeasta päästään, joten nuolet kulkevat putkien välisen seinämän läpi putkiin, jotka ovat avoimia oikealta. Nuolet poistuvat putkista oikealta puolelta.
+                }
+    \caption{Pakokaasu virtaa suodattimessa huokoisten seinämien läpi. Yli 90\% pakokaasun hiukkasmassasta jää huokoisten seinämien sisään ja pinnalle.}
     \label{fig:wall-flow-dpf}
 \end{figure}
+
+
+
+\section{Regenerointi}
+\begin{align*}
+    \ce{C + 1/2 O2 &-> CO }\\
+    \ce{C + O2 &-> CO2}\\
+    \ce{C + NO2 &-> CO +  NO}  \\
+    \ce{C + 2 NO2 &-> CO2 + 2 NO}  \\
+    \ce{C + NO2 + 1/2 O2 &-> CO2 + NO}  \\
+    \ce{C + NO2 + 1/2 O2 &-> CO + NO2} 
+\end{align*}
+
 
 \section{Hiukkassuodattimen matemaattinen esitys}
 
@@ -20,6 +44,6 @@ Dieselmoottorin hiukkassuodatin, eli DPF (\emph{eng. Diesel Particulate Filter})
     \centering 
     \input{figures/blocks1.tex}
     \caption{}
-    \label{fig:}
+    \label{fig:blocks1}
 \end{figure}
-
+\cite{LiuGuanlin2021Roio}
