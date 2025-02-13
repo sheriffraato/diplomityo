@@ -3,15 +3,17 @@
 
 
 
+Dieselmoottorin hiukkassuodatin, eli DPF (\emph{eng. Diesel Particulate Filter}) on tehokkain järjestelmä pakokaasun noki- ja tuhkapartikkeleiden suodatukseen. 
+Hyvä DPF suodattaa läpivirtaavasta pakokaasusta jopa 99\% hiukkaslukumäärästä ja 95\% -massasta \cite{Yan_state_of_the_art}. Hiukkassuodatin on osa useammasta komponentista koostuvaa jälkikäsittelyjärjestelmää, jota on havainnollistettu Kuvassa \ref{fig:EAT_full}. %Moderni jälkikäsittelyjärjestelmä koostuu yleensä hapettavasta katalysaattorista(DOC, \emph{eng. Diesel Oxidation Catalyst}), hiukkassuodattimesta (DPF),  SCR, ASC
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/EAT.pdf}
-    \caption{Moderni jälkikäsittelyjä}
+    \pdftooltip{\includegraphics[width=\textwidth]{figures/EAT.pdf}}
+                {Kuvituskuva hapetuskatalysaattorista ja hiukkassuodattimesta.}
+    \caption{Modernin jälkikäsittelyjärjestelmän osat.}
+    \label{fig:EAT_full}
 \end{figure}
 
-
-Dieselmoottorin hiukkassuodatin, eli DPF (\emph{eng. Diesel Particulate Filter}) on tehokkain järjestelmä pakokaasun noki- ja tuhkapartikkeleiden suodatukseen. 
-Hyvä DPF suodattaa läpivirtaavasta pakokaasusta jopa 99\% hiukkaslukumäärästä ja 95\% -massasta \cite{Yan_state_of_the_art}. 
 
 
 \section{Järjestelmän fyysinen rakenne}
@@ -21,10 +23,8 @@ Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), 
 
 \begin{figure}[H]
     \centering 
-    
-    \pdftooltip{\input{figures/wall-flow-dpf.tex}}
-                {Kuvituskuvassa on neljä päällekkäistä putkea. Nuolilla kuvattu pakokaasu virtaa vasemmalta avoimiin putkiin. Putket ovat suljettuja oikeasta päästään, joten nuolet kulkevat putkien välisen seinämän läpi putkiin, jotka ovat avoimia oikealta. Nuolet poistuvat putkista oikealta puolelta.
-                }
+    \pdftooltip{\includegraphics[width=\textwidth]{figures/wall_flow_DPF_figure.pdf}}
+               {Kuvituskuva hiukkassuodattimen toiminnasta. Pakokaasu virtaa avoimiin putkiin ja kulkee seinämien läpi.}
     \caption{Pakokaasu virtaa suodattimessa huokoisten seinämien läpi. Yli 90\% pakokaasun hiukkasmassasta jää huokoisten seinämien sisään ja pinnalle.}
     \label{fig:wall-flow-dpf}
 \end{figure}
@@ -40,6 +40,7 @@ Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), 
     \ce{C + NO2 + 1/2 O2 &-> CO2 + NO}  \\
     \ce{C + NO2 + 1/2 O2 &-> CO + NO2} 
 \end{align*}
+\cite{LiuGuanlin2021Roio}
 
 
 \section{Hiukkassuodattimen matemaattinen esitys}
@@ -50,4 +51,46 @@ Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), 
     \caption{}
     \label{fig:blocks1}
 \end{figure}
-\cite{LiuGuanlin2021Roio}
+
+Painehäviö suodattimen sisäänmenossa
+\begin{align}
+    \Delta P_{inletch} = \frac{1}{6} \cdot
+    \frac{\dot{m}}{\rho(T)} \cdot \mu(T) 
+    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}-\alpha_{out}+2 d_{wall})^2}{(\alpha_{in}-2d_{soot}-2d_{ash})^4}
+    \label{eq:PDinletchannel}
+\end{align}
+
+Painehäviö suodattimen ulostulossa 
+\begin{align}
+    \Delta P_{outletopen} = \frac{1}{6} \cdot
+    \frac{\dot{m}}{\rho(T)} \cdot \mu(T) 
+    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}-\alpha_{out}+2 d_{wall})^2}{\alpha_{out}^4}
+    \label{eq:PDoutletopen}
+\end{align}
+
+Painehäviö suodattimen seinämillä
+\begin{align}
+    \Delta P_{filterwall} = \frac{1}{4} \cdot
+    \frac{\dot{m}}{\rho(T)} \cdot \mu(T) 
+    \cdot \frac{d_{wall}}
+    {n_{open}\cdot L \cdot \kappa_{wall} \cdot \alpha_{out}}
+    \label{eq:PDfilterwall}
+\end{align}
+
+Nokikerroksen aiheuttama painehäviö
+\begin{align}
+    \Delta P_{soot} =  \frac{1}{8} \cdot
+    \frac{\dot{m}}{\rho(T)} \cdot \mu(T) \cdot 
+    \frac{\ln{\frac{\alpha_{out}-2d_{ash}}{\alpha_{out}-2d_{soot}-2d_{ash}}}}
+    {n_{open}\cdot L \cdot \kappa_{soot}}
+    \label{eq:PDsootlayer}
+\end{align}
+
+Tuhkakerroksen aiheuttama painehäviö
+\begin{align}
+    \Delta P_{ash} = \frac{1}{8} \cdot
+    \frac{\dot{m}}{\rho(T)} \cdot \mu(T) \cdot 
+    \frac{\ln{\frac{\alpha_{out}}{\alpha_{out}-2d_{ash}}}}
+    {n_{open}\cdot L \cdot \kappa_{ash}}
+    \label{eq:PDashlayer}
+\end{align}
