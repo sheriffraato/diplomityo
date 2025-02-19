@@ -18,30 +18,35 @@ Hyvä DPF suodattaa läpivirtaavasta pakokaasusta jopa 99\% hiukkaslukumääräs
 
 \section{Järjestelmän fyysinen rakenne}
 
-Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), jossa pakokaasu virtaa vuoronperään vastakkaisista päistään suljetuissa putkissa. Pakokaasu virtaa putkien välillä huokoisten seinämien läpi. Virtausta on havainnollistettu Kuvassa \ref{fig:wall-flow-dpf}  
+Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), jossa pakokaasu virtaa hunajakennomaisessa suodattimessa puoliavoimissa putkissa. Pakokaasu virtaa putkien välillä huokoisten seinämien läpi. Pakokaasun hiukkaset jäävät kiinni seinämien sisään ja pinnalle. Virtausta on havainnollistettu Kuvassa \ref{fig:wall-flow-dpf}  
 
 
 \begin{figure}[H]
     \centering 
     \pdftooltip{\includegraphics[width=\textwidth]{figures/wall_flow_DPF_figure.pdf}}
                {Kuvituskuva hiukkassuodattimen toiminnasta. Nuolilla kuvattu pakokaasu virtaa avoimiin putkiin ja kulkee seinämien läpi.}
-    \caption{Pakokaasu virtaa suodattimessa huokoisten seinämien läpi. Yli 90\% pakokaasun hiukkasmassasta jää huokoisten seinämien sisään ja pinnalle.}
+    \caption{Pakokaasu virtaa suodattimessa huokoisten seinämien läpi. Yli 90\% pakokaasun hiukkasmassasta jää huokoisten seinämien sisään ja pinnalle. Mukailtu lähteestä \cite{dieselnet_dpf}}.
     \label{fig:wall-flow-dpf}
 \end{figure}
 
 
 
 \section{Regenerointi}
+Noen poistoa suodattimesta hapettamalla kutsutaan regeneroinniksi. Regenerointi jaetaan karkeasti kahteen tapaan: aktiiviseen ja passiiviseen regenerointiin. 
+Aktiivinen regenerointi tarkoittaa käytännössä noen polttamista ja se
+vaatii korkean, yli 600:n \degree C lämpötilan. Tarvittava energia saadaan ajoneuvon polttoainetta käyttämällä \cite{dieselnet_dpf}. Passiiviseen regenerointiin riittää huomattavasti matalammat lämpötilat ja se perustuu noen hapetusreaktioihin typpidioksidin (NO\(_2\)) kanssa. Tarvittava typpidioksidi saadaan hapettamalla moottorin raakapäästöinä muodostuvaa typpimonoksidia (NO) hapettavassa katalysaattorissa (DOC, \emph{Diesel Oxidation Catalyst}).
+
+
+Regenerointia kuvaavat reaktioyhtälöt ovat \cite{LiuGuanlin2021Roio} mukaan  
 \begin{align*}
     \ce{C + 1/2 O2 &-> CO }\\
     \ce{C + O2 &-> CO2}\\
     \ce{C + NO2 &-> CO +  NO}  \\
     \ce{C + 2 NO2 &-> CO2 + 2 NO}  \\
-    \ce{C + NO2 + 1/2 O2 &-> CO2 + NO}  \\
-    \ce{C + NO2 + 1/2 O2 &-> CO + NO2} 
+    \ce{C + NO2 + 1/2 O2 &-> CO2 + NO} \text{ ja }\\
+    \ce{C + NO2 + 1/2 O2 &-> CO + NO2},
 \end{align*}
-\cite{LiuGuanlin2021Roio}
-
+ja niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä.
 
 \section{Hiukkassuodattimen matemaattinen esitys}
 
@@ -52,28 +57,28 @@ Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), 
     \label{fig:blocks1}
 \end{figure}
 
-Painehäviö suodattimen sisäänmenossa
+Suodattimen sisäänmenossa painehäviö
 \begin{align}
-    \Delta P_{inletch} = \frac{1}{6} \cdot
+    \Delta P_{inlet} = \frac{1}{6} \cdot
     \frac{\dot{m}}{\rho(T)} \cdot \mu(T) 
-    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}-\alpha_{out}+2 d_{wall})^2}{(\alpha_{in}-2d_{soot}-2d_{ash})^4}
+    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}-\alpha_{out}+2 d_{wall})^2}{(\alpha_{in}-2d_{soot}-2d_{ash})^4}.
     \label{eq:PDinletchannel}
 \end{align}
 
-Painehäviö suodattimen ulostulossa 
+Suodattimen ulostulossa painehäviö
 \begin{align}
-    \Delta P_{outletopen} = \frac{1}{6} \cdot
+    \Delta P_{outlet} = \frac{1}{6} \cdot
     \frac{\dot{m}}{\rho(T)} \cdot \mu(T) 
-    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}-\alpha_{out}+2 d_{wall})^2}{\alpha_{out}^4}
+    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}-\alpha_{out}+2 d_{wall})^2}{\alpha_{out}^4}.
     \label{eq:PDoutletopen}
 \end{align}
 
-Painehäviö suodattimen seinämillä
+Suodattimen sisällä painehäviö 
 \begin{align}
-    \Delta P_{filterwall} = \frac{1}{4} \cdot
+    \Delta P_{wall} = \frac{1}{4} \cdot
     \frac{\dot{m}}{\rho(T)} \cdot \mu(T) 
     \cdot \frac{d_{wall}}
-    {n_{open}\cdot L \cdot \kappa_{wall} \cdot \alpha_{out}}
+    {n_{open}\cdot L \cdot \kappa_{wall} \cdot \alpha_{out}}.
     \label{eq:PDfilterwall}
 \end{align}
 
@@ -82,7 +87,7 @@ Nokikerroksen aiheuttama painehäviö
     \Delta P_{soot} =  \frac{1}{8} \cdot
     \frac{\dot{m}}{\rho(T)} \cdot \mu(T) \cdot 
     \frac{\ln{\frac{\alpha_{out}-2d_{ash}}{\alpha_{out}-2d_{soot}-2d_{ash}}}}
-    {n_{open}\cdot L \cdot \kappa_{soot}}
+    {n_{open}\cdot L \cdot \kappa_{soot}}.
     \label{eq:PDsootlayer}
 \end{align}
 
@@ -91,6 +96,11 @@ Tuhkakerroksen aiheuttama painehäviö
     \Delta P_{ash} = \frac{1}{8} \cdot
     \frac{\dot{m}}{\rho(T)} \cdot \mu(T) \cdot 
     \frac{\ln{\frac{\alpha_{out}}{\alpha_{out}-2d_{ash}}}}
-    {n_{open}\cdot L \cdot \kappa_{ash}}
+    {n_{open}\cdot L \cdot \kappa_{ash}}.
     \label{eq:PDashlayer}
+\end{align}
+
+Kokonaispainehäviö
+\begin{align}
+    \Delta P_{tot}  = \Delta P_{inlet} +  \Delta P_{outlet} + \Delta P_{wall} + \Delta P_{soot} +  \Delta P_{ash}.
 \end{align}
