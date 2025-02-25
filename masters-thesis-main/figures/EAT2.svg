@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="209.55mm"
+   width="220mm"
    height="53mm"
-   viewBox="0 0 209.54999 53"
+   viewBox="0 0 219.99999 53"
    version="1.1"
    id="svg1"
    sodipodi:docname="EAT2.svg"
@@ -24,9 +24,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="0.81780891"
-     inkscape:cx="278.18235"
-     inkscape:cy="-51.96813"
+     inkscape:zoom="2.6377914"
+     inkscape:cx="573.39637"
+     inkscape:cy="129.08527"
      inkscape:window-width="1440"
      inkscape:window-height="794"
      inkscape:window-x="0"
@@ -114,7 +114,7 @@
      id="layer1">
     <g
        id="g15"
-       transform="translate(4.7625002)">
+       transform="translate(9.9736896,0.02836946)">
       <g
          id="g14"
          transform="translate(-14.925002,-30.087499)">
@@ -138,7 +138,7 @@
     </g>
     <g
        id="g8"
-       transform="translate(-10.162499,-30.087499)">
+       transform="translate(-4.9513096,-30.059133)">
       <path
          style="fill:#66a2ae;fill-opacity:1;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
          d="m 40.000002,39.999999 h 24.999999 v 30 H 40.000002 v -30"
@@ -266,7 +266,7 @@
     </g>
     <g
        id="g8-9"
-       transform="translate(44.837501,-30.087499)"
+       transform="translate(50.048692,-30.059133)"
        style="fill:#b4bc8e;fill-opacity:1">
       <path
          style="fill:#b4bc8e;fill-opacity:1;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
@@ -395,127 +395,127 @@
     </g>
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837503,11.837496 h 0.999998 v 0.999998 h -0.999998 v -0.999998"
+       d="m 90.048694,11.865862 h 0.999998 v 0.999998 h -0.999998 v -0.999998"
        id="path9" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837503,9.8374954 h 0.999998 V 10.837494 H 84.837503 V 9.8374954"
+       d="m 90.048694,9.8658643 h 0.999998 V 10.86586 H 90.048694 V 9.8658643"
        id="path9-3" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837503,13.837561 h 0.999998 v 0.999998 h -0.999998 v -0.999998"
+       d="m 90.048694,13.865927 h 0.999998 v 0.999998 h -0.999998 v -0.999998"
        id="path9-4" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837503,15.837626 h 0.999998 v 0.999998 h -0.999998 v -0.999998"
+       d="m 90.048694,15.865992 h 0.999998 v 0.999998 h -0.999998 v -0.999998"
        id="path9-9" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837501,17.837496 h 0.999998 v 0.999998 h -0.999998 v -0.999998"
+       d="M 90.048692,17.865862 H 91.04869 V 18.86586 H 90.048692 V 17.865862"
        id="path9-7" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837501,19.837366 h 0.999998 v 0.999998 h -0.999998 v -0.999998"
+       d="M 90.048692,19.865732 H 91.04869 V 20.86573 H 90.048692 V 19.865732"
        id="path9-79" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837501,23.837496 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 90.048692,23.865862 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-38" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837501,21.837496 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 90.048692,21.865862 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-3-5" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837501,25.837561 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 90.048692,25.865927 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-4-8" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837501,27.837626 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 90.048692,27.865992 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-9-9" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837501,29.837496 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 90.048692,29.865862 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-7-6" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 84.837501,31.837366 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 90.048692,31.865732 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-79-0" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="M 84.837502,35.8375 H 85.8375 v 0.999998 H 84.837502 V 35.8375"
+       d="m 90.048693,35.865866 h 0.999998 v 0.999998 h -0.999998 v -0.999998"
        id="path9-92" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="M 84.837502,33.8375 H 85.8375 v 0.999998 H 84.837502 V 33.8375"
+       d="m 90.048693,33.865866 h 0.999998 v 0.999998 h -0.999998 v -0.999998"
        id="path9-3-9" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="M 84.837502,37.837565 H 85.8375 v 0.999998 h -0.999998 v -0.999998"
+       d="m 90.048693,37.865931 h 0.999998 v 0.999998 h -0.999998 v -0.999998"
        id="path9-4-1" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,12.912499 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,12.940865 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-6" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,10.912499 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,10.940865 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-3-4" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,14.912564 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,14.94093 h 1 v 0.999998 h -1 V 14.94093"
        id="path9-4-4" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,16.912629 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,16.940995 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-9-8" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,18.912499 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,18.940865 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-7-61" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,20.912369 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,20.940735 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-79-4" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,24.912499 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,24.940865 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-38-0" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,22.912499 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,22.940865 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-3-5-8" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,26.912564 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,26.94093 h 1 v 0.999998 h -1 V 26.94093"
        id="path9-4-8-1" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,28.912629 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,28.940995 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-9-9-0" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,30.912499 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,30.940865 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-7-6-3" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,32.912369 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,32.940735 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-79-0-1" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,36.912503 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,36.940869 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-92-1" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,34.912503 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,34.940869 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-3-9-5" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 108.83753,38.912568 h 1 v 0.999998 h -1 v -0.999998"
+       d="m 114.04873,38.940934 h 1 v 0.999998 h -1 v -0.999998"
        id="path9-4-1-0" />
     <g
        id="g12"
-       transform="translate(-11.75,-30.087499)">
+       transform="translate(-6.5388106,-30.059133)">
       <path
          style="fill:#e6e6e6;fill-opacity:1;stroke:#000000;stroke-width:0.25;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
          d="m 140.2196,50.202963 -3,-4 h 5 l 3,4"
@@ -527,69 +527,188 @@
     </g>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,4.7379855,2.5873862)"
+       transform="matrix(0.26458333,0,0,0.26458333,9.9491746,2.6157558)"
        id="text1"
        style="font-size:20px;line-height:1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;white-space:pre;shape-inside:url(#rect1);display:inline;fill:#000000;stroke:#000000;stroke-width:0;stroke-miterlimit:3.7;paint-order:markers fill stroke"><tspan
          x="119.51074"
          y="166.69673"
-         id="tspan2">DOC</tspan></text>
+         id="tspan1">DOC</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,4.6798481,2.5202068)"
+       transform="matrix(0.26458333,0,0,0.26458333,9.8910376,2.5485764)"
        id="text2"
        style="font-size:20px;line-height:1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;white-space:pre;shape-inside:url(#rect2);display:inline;fill:#000000;stroke:#000000;stroke-width:0;stroke-miterlimit:3.7;paint-order:markers fill stroke"><tspan
          x="329.88965"
          y="166.69673"
-         id="tspan3">DPF</tspan></text>
+         id="tspan2">DPF</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,4.7625002,1.5875)"
+       transform="matrix(0.26458333,0,0,0.26458333,9.8750019,1.8002538)"
        id="text4"
        style="font-size:10.6667px;line-height:1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;white-space:pre;shape-inside:url(#rect4);display:inline;fill:#000000;stroke:#000000;stroke-width:0;stroke-miterlimit:3.7;paint-order:markers fill stroke"><tspan
          x="489.35938"
          y="68.747396"
-         id="tspan7"><tspan
+         id="tspan4"><tspan
            dx="0 7.7031493 7.1146054"
-           id="tspan5">DEF</tspan></tspan></text>
+           id="tspan3">DEF</tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-2.1126185,3.9855353)"
+       transform="matrix(0.26458333,0,0,0.26458333,3.0985709,4.0139049)"
        id="text5"
        style="font-size:20px;line-height:1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;white-space:pre;shape-inside:url(#rect5);display:inline;fill:#000000;stroke:#000000;stroke-width:0;stroke-miterlimit:3.7;paint-order:markers fill stroke"><tspan
          x="448.97656"
          y="34.413526"
-         id="tspan8">DEF-ruisku</tspan></text>
+         id="tspan5">DEF-ruisku</tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,6.5250843,2.4823235)"
+       transform="matrix(0.26458333,0,0,0.26458333,11.736275,2.5106931)"
        id="text6"
        style="font-size:20px;line-height:1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;white-space:pre;shape-inside:url(#rect6);display:inline;fill:#000000;stroke:#000000;stroke-width:0;stroke-miterlimit:3.7;paint-order:markers fill stroke"><tspan
          x="552.71191"
          y="166.69673"
-         id="tspan9">SCR/ASC</tspan></text>
+         id="tspan6">SCR/ASC</tspan></text>
     <path
-       style="fill:#d38d5f;stroke:#000000;stroke-width:0.149781;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       d="m 149.7834,9.9582675 h 30 V 39.870629 h -30 z"
-       id="path16" />
-    <path
-       style="fill:#000000;stroke:#000000;stroke-width:0.35;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke;marker-end:url(#Triangle)"
-       d="M 5.0000003,24.999999 H 20.000001"
+       style="fill:#000000;stroke:#000000;stroke-width:0.35;stroke-miterlimit:3.7;stroke-dasharray:none;marker-end:url(#Triangle);paint-order:markers fill stroke"
+       d="M 10.211191,25.028365 H 25.211192"
        id="path17" />
     <text
        xml:space="preserve"
        style="font-size:2.11667px;line-height:1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.349999;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
-       x="12.000001"
-       y="22.250237"
+       x="17.211189"
+       y="22.278612"
        id="text17"><tspan
          sodipodi:role="line"
          id="tspan17"
          style="font-size:2.11667px;stroke:none;stroke-width:0.35"
-         x="12.000001"
-         y="22.250237">Pakokaasun </tspan><tspan
+         x="17.211189"
+         y="22.278612">Pakokaasun </tspan><tspan
          sodipodi:role="line"
          style="font-size:2.11667px;stroke:none;stroke-width:0.35"
-         x="12.000001"
-         y="24.366907"
+         x="17.211189"
+         y="24.395283"
          id="tspan18">virtaus</tspan></text>
+    <g
+       id="g1">
+      <path
+         style="fill:#d38d5f;stroke:#000000;stroke-width:0.149781;stroke-miterlimit:3.7;stroke-dasharray:none;paint-order:markers fill stroke"
+         d="m 154.9946,9.9866344 h 30 V 39.898995 h -30 z"
+         id="path16" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,11 h 30"
+         id="path1" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,12 h 30"
+         id="path1-1" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,13 h 30"
+         id="path1-8" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,14 h 30"
+         id="path1-5" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,15 h 30"
+         id="path1-3" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,16 h 30"
+         id="path1-52" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,17 h 30"
+         id="path1-1-1" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,18 h 30"
+         id="path1-8-1" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,19 h 30"
+         id="path1-5-0" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,20 h 30"
+         id="path1-3-1" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,21 h 30"
+         id="path1-0" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,22 h 30"
+         id="path1-1-0" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,23 h 30"
+         id="path1-8-9" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,24 h 30"
+         id="path1-5-5" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,25 h 30"
+         id="path1-3-6" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,25.999999 h 30"
+         id="path1-9" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,26.999999 h 30"
+         id="path1-1-4" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,27.999999 h 30"
+         id="path1-8-3" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,28.999999 h 30"
+         id="path1-5-9" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,29.999999 h 30"
+         id="path1-3-0" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,30.999999 h 30"
+         id="path1-52-5" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,31.999999 h 30"
+         id="path1-1-1-6" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,32.999999 h 30"
+         id="path1-8-1-3" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,33.999999 h 30"
+         id="path1-5-0-6" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,34.999999 h 30"
+         id="path1-3-1-3" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,35.999999 h 30"
+         id="path1-0-0" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,36.999999 h 30"
+         id="path1-1-0-8" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,37.999999 h 30"
+         id="path1-8-9-4" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.15;stroke-miterlimit:3.7;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 155,38.999999 h 30"
+         id="path1-5-5-0" />
+    </g>
   </g>
 </svg>
