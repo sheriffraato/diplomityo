@@ -1,2 +1,44 @@
 \chapter{Systeemin tilan estimointi Bayesilaisilla suotimilla}%
 \label{ch:estimointi}
+Optimaaliset suotimet ovat  menetelmiä tai algoritmeja, joilla estimoidaan systeemien tiloja kohinaisiin mittauksiin perustuen \cite{sarkka_bayesian}. Tässä työssä tarkastellaan Bayesilaisia suotimia, jotka ovat ratkaisevat optimointiongelman Bayesilaisittain. 
+
+
+\section{Kalman-suodin}
+
+Kalman-suodin on algoritmi, jolla voidaan estimoida lineaarisen ja kohinaisen systeemin tilaa. Systeemin kohinan tulee olla valkoista kohinaa \cite[s. 56]{sarkka_bayesian}. Algoritmi on kaksivaiheinen ja se koostuu ennuste- ja päivitysvaiheista. 
+Ennustevaihe tehdään lähtökohtaisesti jokaisella aika-askeleella. Päivitysvaihe sen sijaan voidaan laskennan tai saavuttamattoman mittauksen vuoksi toteuttaa harvemminkin. 
+
+Tarkastellaan lineaarista systeemiä
+\begin{align}
+    \begin{split}
+        x_k &= A_{k-1}x_{k-1} + q_{k-1} \\
+        y_k &= H_k x_k + r_k,
+    \end{split}
+\end{align}
+jossa \(x_k \in \R^n \) on systeemin tila hetkellä \(k\), \(A_{k-1}\in \R^{n\times n}\) on tilamatriisi, \(y_k\in \R^m\) on mittaus, \(H_k \in \R^{m \times n}\) on mittausmatriisi. Muuttujat \(q_{k-1} \sim \mathcal{N}(0, Q_{k-1})\) ja \(r_k \sim \mathcal{N}(0, R_k)\) ovat normaalijakautuneet (Gaussiset) prosessi- ja mittauskohinat, joissa \(Q_{k-1}\) ja \(R_k\) ovat vastaavat kovarianssimatriisit. Tilan ja mittauksen estimaatteja merkitään \(\hat{x}_k\) ja \(\hat{y}_k\).
+
+Kalman-suodin ratkaisee jokaisella iteraatiolla normaalijakautuneen estimaatin, jossa keskiarvo on \(\hat{x}_k\) ja optimoitu kovarianssi on \(P_k\).  
+
+Ennustevaihe:
+\begin{align}
+    \hat{x}_{k | k-1}  &= A_{k-1} \hat{x}_{k-1}\\
+    P_{k | k-1} &= A_{k-1} P_{k-1} A_{k-1}^T + Q_{k-1}.
+\end{align}
+
+Päivitysvaihetta varten tarvitaan mittausennuste
+\begin{align}
+    \hat{y}_k = H_k \hat{x}_{k | k-1} 
+\end{align}
+ja Kalman-vahvistus 
+\begin{align}
+    K_k = P_{k | k-1} H_k^T \left(H_k P_{k | k-1} H_k^T + R_k \right)^{-1}.
+\end{align}
+Kalman-vahvistuksen yhtälö minimoi todellisen ja estimoidun tilan keskiarvon neliöllisen virheen \cite{sparse_kalman_gain}, ja se määrittää kuinka paljon uuteen mittaukseen uskotaan vanhaan estimaattiin verrattuna \cite{becker2023kalman}.
+
+Päivitysvaihe:
+\begin{align}
+    \hat{x}_{k | k} &= \hat{x}_{k | k-1} + K_k (y_k - \hat{y}_k)\\
+    P_{k|k}         &= (I - K_k H_k)P_{k|k-1},
+\end{align}
+jossa \(I \in \R^{n\times n}\) on identiteettimatriisi.
+

@@ -76,6 +76,7 @@
 %
 % Source: https://tex.stackexchange.com/a/574950.
 
+
 \lstset{
     inputencoding = utf8,  % Input encoding
     extendedchars = true,  % Extended ASCII
@@ -119,6 +120,14 @@
 \usetikzlibrary{decorations.pathmorphing,calc,shapes,arrows,snakes,shapes.geometric,patterns,fadings}
 \usepackage[version=4]{mhchem}
 \usepackage{gensymb}
+
+
+\newcommand{\bm}[1]{\begin{bmatrix}
+                        #1
+                    \end{bmatrix}}
+
+\DeclareMathOperator{\e}{e}
+\DeclareMathOperator{\R}{\mathbb{R}}
 
 % Print verbatim LaTeX commands
 \newcommand{\verbcommand}[1]{\texttt{\textbackslash #1}}
