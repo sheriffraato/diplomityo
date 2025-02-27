@@ -31,7 +31,7 @@ Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), 
     \label{fig:wall-flow-dpf}
 \end{figure}
 
-
+Tässä työssä noen kerääntymistä seinämien sisään ja pinnalle ei erotella, vaan oletetaan nokimäärän kerääntyvän homogeeniseksi kerrokseksi.
 
 
 \section{Regenerointi}
@@ -59,11 +59,17 @@ ja niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{
 %     \caption{}
 %     \label{fig:blocks1}
 % \end{figure}
+
 Suodattimen painehäviötä mallinnetaan useimmiten Darcyn lain, tai Forcheimer-Darcyn yhtälöiden avulla \cite{dieselnet_wall_flow_monolith}.
+
+\begin{align}
+    Q = \frac{\dot{m}}{\rho(T)}.
+\end{align}
+
 Suodattimen sisäänmenossa painehäviö
 \begin{align}
     \Delta P_{inlet} = \frac{1}{6} \cdot
-    \frac{\dot{m}}{\rho(T)} \cdot \mu(T) 
+    Q \cdot \mu(T) 
     \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}-\alpha_{out}+2 d_{wall})^2}{(\alpha_{in}-2d_{soot}-2d_{ash})^4}.
     \label{eq:PDinletchannel}
 \end{align}
@@ -71,7 +77,7 @@ Suodattimen sisäänmenossa painehäviö
 Suodattimen ulostulossa painehäviö
 \begin{align}
     \Delta P_{outlet} = \frac{1}{6} \cdot
-    \frac{\dot{m}}{\rho(T)} \cdot \mu(T) 
+    Q \cdot \mu(T) 
     \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}-\alpha_{out}+2 d_{wall})^2}{\alpha_{out}^4}.
     \label{eq:PDoutletopen}
 \end{align}
@@ -79,7 +85,7 @@ Suodattimen ulostulossa painehäviö
 Suodattimen sisällä painehäviö 
 \begin{align}
     \Delta P_{wall} = \frac{1}{4} \cdot
-    \frac{\dot{m}}{\rho(T)} \cdot \mu(T) 
+    Q \cdot \mu(T) 
     \cdot \frac{d_{wall}}
     {n_{open}\cdot L \cdot \kappa_{wall} \cdot \alpha_{out}}.
     \label{eq:PDfilterwall}
@@ -88,7 +94,7 @@ Suodattimen sisällä painehäviö
 Nokikerroksen aiheuttama painehäviö
 \begin{align}
     \Delta P_{soot} =  \frac{1}{8} \cdot
-    \frac{\dot{m}}{\rho(T)} \cdot \mu(T) \cdot 
+    Q \cdot \mu(T) \cdot 
     \frac{\ln{\frac{\alpha_{out}-2d_{ash}}{\alpha_{out}-2d_{soot}-2d_{ash}}}}
     {n_{open}\cdot L \cdot \kappa_{soot}}.
     \label{eq:PDsootlayer}
@@ -97,7 +103,7 @@ Nokikerroksen aiheuttama painehäviö
 Tuhkakerroksen aiheuttama painehäviö
 \begin{align}
     \Delta P_{ash} = \frac{1}{8} \cdot
-    \frac{\dot{m}}{\rho(T)} \cdot \mu(T) \cdot 
+    Q \cdot \mu(T) \cdot 
     \frac{\ln{\frac{\alpha_{out}}{\alpha_{out}-2d_{ash}}}}
     {n_{open}\cdot L \cdot \kappa_{ash}}.
     \label{eq:PDashlayer}
