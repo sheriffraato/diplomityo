@@ -51,7 +51,7 @@ Regenerointia kuvaavat reaktioyhtälöt ovat
 \end{align}
 ja niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{LiuGuanlin2021Roio}.
 
-\section{Hiukkassuodattimen matemaattinen esitys}
+\section{Painehäviö ja sen mallintaminen}
 
 % \begin{figure}[H]
 %     \centering 
@@ -60,17 +60,33 @@ ja niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{
 %     \label{fig:blocks1}
 % \end{figure}
 
-Suodattimen painehäviötä mallinnetaan useimmiten Darcyn lain, tai Forcheimer-Darcyn yhtälöiden avulla \cite{dieselnet_wall_flow_monolith}.
-
+% Suodattimen painehäviötä mallinnetaan useimmiten Darcyn lain, Forcheimer-Darcyn tai Darcy-Weisbachin yhtälöiden avulla \cite{dieselnet_wall_flow_monolith}.
+Konstandopoulos et al. esittelevät artikkelissaan \cite{Konstandopoulos2000} symmetrisen, nokilatautuneen hiukkassuodattimen painehäviömallin. Tässä työssä tarkastellaan yleisesti epäsymmetristä suodatinta. Toisin sanoen tarkastellaan tilannetta, jossa sisäänmeno- ja ulostulokanavien poikkipinta-alat voivat olla eri kokoisia. Lisäksi kokonaispainehäviömalliin otetaan mukaan myös tuhkakerroksen aiheuttama painehäviö. Näin ollen kokonaispainehäviö on puhtaan suodattimen sisäänmenon, ulostulon ja seinämien, sekä noki- ja tuhkakerrosten aiheuttamien painehäviöiden summa \cite{Konstandopoulos2000,Konstandopoulos2008}, eli
 \begin{align}
-    Q = \frac{\dot{m}}{\rho(T)}.
+    \Delta P_{tot}  = \Delta P_{inlet} +  \Delta P_{outlet} + \Delta P_{wall} + \Delta P_{soot} +  \Delta P_{ash}.
 \end{align}
+Lisäksi painehäviötä tapahtuu sisäänmeno- ja ulostuloaukolla, mutta häviöt näissä ovat merkityksettömän pieniä \cite{Konstandopoulos2000}.
+% Tilavuusvirtaus saadaan massavirrasta ja tiheydestä
+% \begin{align}
+%     Q(t,T) = \frac{\dot{m}(t)}{\rho(T)}.
+% \end{align}
+
+Puhtaan, symmetrisen suodattimen sisäänmenovirtauksen nopeus määritellään 
+\begin{align}
+    U = \frac{Q}{A_{trap}},
+\end{align}
+jossa \(Q\) on tilavuusvirtaus ja \(A\) on suodattimen sisäänmenon efektiivinen pinta-ala \cite{Konstandopoulos2000}
+\begin{align}
+    A = \frac{1}{2}\cdot \pi \left(\frac{D}{2}\right)^2 \cdot \frac{\alpha^2}{(\alpha + w_s)^2}.
+\end{align}
+
+
 
 Suodattimen sisäänmenossa painehäviö
 \begin{align}
     \Delta P_{inlet} = \frac{1}{6} \cdot
     Q \cdot \mu(T) 
-    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}-\alpha_{out}+2 d_{wall})^2}{(\alpha_{in}-2d_{soot}-2d_{ash})^4}.
+    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2}{(\alpha_{in}-2w_{soot}-2w_{ash})^4}.
     \label{eq:PDinletchannel}
 \end{align}
 
@@ -78,7 +94,7 @@ Suodattimen ulostulossa painehäviö
 \begin{align}
     \Delta P_{outlet} = \frac{1}{6} \cdot
     Q \cdot \mu(T) 
-    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}-\alpha_{out}+2 d_{wall})^2}{\alpha_{out}^4}.
+    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2}{\alpha_{out}^4}.
     \label{eq:PDoutletopen}
 \end{align}
 
@@ -86,7 +102,7 @@ Suodattimen sisällä painehäviö
 \begin{align}
     \Delta P_{wall} = \frac{1}{4} \cdot
     Q \cdot \mu(T) 
-    \cdot \frac{d_{wall}}
+    \cdot \frac{w_s}
     {n_{open}\cdot L \cdot \kappa_{wall} \cdot \alpha_{out}}.
     \label{eq:PDfilterwall}
 \end{align}
@@ -95,7 +111,7 @@ Nokikerroksen aiheuttama painehäviö
 \begin{align}
     \Delta P_{soot} =  \frac{1}{8} \cdot
     Q \cdot \mu(T) \cdot 
-    \frac{\ln{\frac{\alpha_{out}-2d_{ash}}{\alpha_{out}-2d_{soot}-2d_{ash}}}}
+    \frac{\ln{\frac{\alpha_{out}-2w_{ash}}{\alpha_{out}-2w_{soot}-2w_{ash}}}}
     {n_{open}\cdot L \cdot \kappa_{soot}}.
     \label{eq:PDsootlayer}
 \end{align}
@@ -104,12 +120,7 @@ Tuhkakerroksen aiheuttama painehäviö
 \begin{align}
     \Delta P_{ash} = \frac{1}{8} \cdot
     Q \cdot \mu(T) \cdot 
-    \frac{\ln{\frac{\alpha_{out}}{\alpha_{out}-2d_{ash}}}}
+    \frac{\ln{\frac{\alpha_{out}}{\alpha_{out}-2w_{ash}}}}
     {n_{open}\cdot L \cdot \kappa_{ash}}.
     \label{eq:PDashlayer}
-\end{align}
-
-Kokonaispainehäviö
-\begin{align}
-    \Delta P_{tot}  = \Delta P_{inlet} +  \Delta P_{outlet} + \Delta P_{wall} + \Delta P_{soot} +  \Delta P_{ash}.
 \end{align}
