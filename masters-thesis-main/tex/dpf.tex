@@ -63,7 +63,7 @@ ja niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{
 % Suodattimen painehäviötä mallinnetaan useimmiten Darcyn lain, Forcheimer-Darcyn tai Darcy-Weisbachin yhtälöiden avulla \cite{dieselnet_wall_flow_monolith}.
 Konstandopoulos et al. esittelevät artikkelissaan \cite{Konstandopoulos2000} symmetrisen, nokilatautuneen hiukkassuodattimen painehäviömallin. Tässä työssä tarkastellaan yleisesti epäsymmetristä suodatinta. Toisin sanoen tarkastellaan tilannetta, jossa sisäänmeno- ja ulostulokanavien poikkipinta-alat voivat olla eri kokoisia. Lisäksi kokonaispainehäviömalliin otetaan mukaan myös tuhkakerroksen aiheuttama painehäviö. Näin ollen kokonaispainehäviö on puhtaan suodattimen sisäänmenon, ulostulon ja seinämien, sekä noki- ja tuhkakerrosten aiheuttamien painehäviöiden summa \cite{Konstandopoulos2000,Konstandopoulos2008}, eli
 \begin{align}
-    \Delta P_{tot}  = \Delta P_{inlet} +  \Delta P_{outlet} + \Delta P_{wall} + \Delta P_{soot} +  \Delta P_{ash}.
+    \Delta P_{tot} = \Delta P_{inlet} +  \Delta P_{outlet} + \Delta P_{wall} + \Delta P_{soot} +  \Delta P_{ash}.
 \end{align}
 Lisäksi painehäviötä tapahtuu sisäänmeno- ja ulostuloaukolla, mutta häviöt näissä ovat merkityksettömän pieniä \cite{Konstandopoulos2000}.
 % Tilavuusvirtaus saadaan massavirrasta ja tiheydestä
@@ -71,16 +71,65 @@ Lisäksi painehäviötä tapahtuu sisäänmeno- ja ulostuloaukolla, mutta hävi�
 %     Q(t,T) = \frac{\dot{m}(t)}{\rho(T)}.
 % \end{align}
 
-Puhtaan, symmetrisen suodattimen sisäänmenovirtauksen nopeus määritellään 
-\begin{align}
-    U = \frac{Q}{A_{trap}},
+Tarkastellaan aluksi puhdasta suodatinta.
+Konstandopoulos et al. artikkelin mukaan puhtaan symmetrisen suodattimen sisäänmeno- ja ulostulokanavien painehäviöt ovat samat:
+\begin{align}\label{eq:clean_channel_pd}
+    \Delta P_{inlet} = \Delta P_{outlet} = \frac{\mu F}{3 \alpha^2} LU,
 \end{align}
-jossa \(Q\) on tilavuusvirtaus ja \(A\) on suodattimen sisäänmenon efektiivinen pinta-ala \cite{Konstandopoulos2000}
+jossa \(\mu \) on pakokaasun viskositeetti, \(F\) on kanavien kitkaan liittyvä kerroin \cite{dieselnet_wall_flow_monolith}, \(\alpha\) on kanavan leveys, \(L\) on kanavan pituus ja \(U\) on virtausnopeus.
+Puhtaan, symmetrisen suodattimen virtausnopeus määritellään 
+\begin{align}\label{eq:flow_velocity_clean}
+    U = \frac{Q}{A_{eff}},
+\end{align}
+jossa \(Q\) on tilavuusvirtaus ja \(A_{eff}\) on suodattimen sisäänmenon efektiivinen pinta-ala \cite{Konstandopoulos2000}
+\begin{align}\label{eq:area_eff}
+    A_{eff} = \frac{1}{2}\cdot \pi \left(\frac{D}{2}\right)^2 \cdot \frac{\alpha^2}{(\alpha + w_s)^2}.
+\end{align}
+Yhtälössä \(w_s\) seinämän paksuus ja \(D \) suodattimen halkaisija.
+Kerroin \(\frac{1}{2}\) poistaa efektiivisestä pinta-alasta sisäänmenosuunnasta suljetut kanavat.
+Sijoittamalla yhtälöt \eqref{eq:flow_velocity_clean} ja \eqref{eq:area_eff} yhtälöön \eqref{eq:clean_channel_pd} saadaan
 \begin{align}
-    A = \frac{1}{2}\cdot \pi \left(\frac{D}{2}\right)^2 \cdot \frac{\alpha^2}{(\alpha + w_s)^2}.
+    \Delta P_{inlet} = \Delta P_{outlet}= \frac{\mu F}{3 \alpha^2}\cdot L Q\cdot \frac{2(\alpha + w_s)^2}{\pi \left( \frac{D}{2}\right)^2 \alpha^2}.
+\end{align}
+Muokataan yhtälöä hyödyntämällä sylinterin geometriaa. Kun merkitään \(\frac{1}{A} = \frac{L}{V}\), jossa \(V\) on suodattimen kokonaistilavuus, painehäviö voidaan esittää muodossa
+\begin{align}
+    \Delta P_{inlet} = \Delta P_{outlet} =\frac{Q \mu F}{3}\cdot \frac{L^2}{V} \cdot \frac{2(\alpha + w_s)^2}{\alpha^4}.
 \end{align}
 
+Tarkastellaan nyt epäsymmetristä suodatinta, jossa \(\alpha_{in} \neq \alpha_{out}\).
+Puhtaan sisäänmenon ja ulostulon painehäviöt eroavat toisistaan ja ovat tällöin
+\begin{align}
+    \Delta P_{inlet} &=\frac{Q \mu F}{3}\cdot \frac{L^2}{V} \cdot \frac{2A_{cell}}{\alpha_{in}^4}
+ \\ \Delta P_{outlet} &=\frac{Q \mu F}{3}\cdot \frac{L^2}{V} \cdot \frac{2A_{cell}}{\alpha_{out}^4},
+\end{align}
+jossa \(A_{cell}\) on yhden solun poikkipinta-ala. Puhtaan epäsymmetrisen hiukkassuodattimen poikkileikkausgeometriaa on esitelty Kuvassa \ref{fig:hac_dpf_clean}.
 
+\begin{figure}[H]
+    \centering 
+    \pdftooltip{\includegraphics[width=0.5\textwidth]{figures/HAC_DPF.pdf}}
+               {Poikkileikkauskuva neljästä DPF-solusta. Kuvassa menokanavat ovat suuremmat kuin ulostulokanavat.}
+    \caption{DPF-poikkielikkaus neljästä solusta.}
+    \label{fig:hac_dpf_clean}
+\end{figure}
+Yksi solu on poikkipinta-alaltaan
+\begin{align}
+    A_{cell}=\frac{1}{4}(\alpha_{in}+\alpha_{out}+2w_s)^2,
+\end{align}
+eli yksi neljäsosa Kuvan \ref{fig:hac_dpf_clean} solukosta. Näin ollen puhtaan suodattimen sisäänmenon ja ulostulon painehäviöt ovat
+\begin{align}
+    \Delta P_{inlet} &=\frac{Q \mu F}{6}\cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2w_s)^2}{\alpha_{in}^4}
+    \\ 
+    \Delta P_{outlet} &=\frac{Q \mu F}{6}\cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2w_s)^2}{\alpha_{out}^4}.
+\end{align}
+Kanavien lisäksi painehäviötä tapahtuu seinämissä. Seinämien painehäviötä mallinnetaan usein Darcyn lailla \cite{dieselnet_wall_flow_monolith}\cite{Konstandopoulos1989_wallflow}
+\begin{align}
+    q = - \frac{\kappa}{\mu}\nabla P,
+\end{align}
+jossa \(q\) on Darcyn nopeus, \(\kappa\) on väliaineen permeabiliteetti ja \(\nabla P\) on painegradientti. 
+Pakokaasun oletetaan kulkevan seinämän läpi kohtisuoraan, joten painehäviö voidaan laskea yksiulotteisesti. 
+
+
+Kertyneet noki ja tuhka mallinnetaan erillisiksi kerroksiksi suodattimen sisäänmenokanavissa. Kerrosten paksuudet voidaan  olettaa yhtenäisiksi \cite{Konstandopoulos2000} , sillä virtaus pyrkii aina kulkemaan pienimmän vastuksen reittiä. Noki- ja tuhkakerroksen paksuutta merkitään \(w_{soot}\) ja \(w_{ash}\).
 
 Suodattimen sisäänmenossa painehäviö
 \begin{align}
@@ -98,7 +147,7 @@ Suodattimen ulostulossa painehäviö
     \label{eq:PDoutletopen}
 \end{align}
 
-Suodattimen sisällä painehäviö 
+Suodattimen seinämien aiheuttama painehäviö 
 \begin{align}
     \Delta P_{wall} = \frac{1}{4} \cdot
     Q \cdot \mu(T) 
