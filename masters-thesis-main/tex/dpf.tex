@@ -106,7 +106,7 @@ jossa \(A_{cell}\) on yhden solun poikkipinta-ala. Puhtaan epäsymmetrisen hiukk
 
 \begin{figure}[H]
     \centering 
-    \pdftooltip{\includegraphics[width=0.5\textwidth]{figures/HAC_DPF.pdf}}
+    \pdftooltip{\includegraphics[width=0.4\textwidth]{figures/HAC_DPF.pdf}}
                {Poikkileikkauskuva neljästä DPF-solusta. Kuvassa menokanavat ovat suuremmat kuin ulostulokanavat.}
     \caption{DPF-poikkielikkaus neljästä solusta.}
     \label{fig:hac_dpf_clean}
@@ -117,7 +117,7 @@ Yksi solu on poikkipinta-alaltaan
 \end{align}
 eli yksi neljäsosa Kuvan \ref{fig:hac_dpf_clean} solukosta. Näin ollen puhtaan suodattimen sisäänmenon ja ulostulon painehäviöt ovat
 \begin{align}
-    \Delta P_{inlet} &=\frac{Q \mu F}{6}\cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2w_s)^2}{\alpha_{in}^4}
+    \Delta P_{inlet} &=\frac{Q \mu F}{6}\cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2w_s)^2}{\alpha_{in}^4} \label{eq:DeltaP_inlet_clean}
     \\ 
     \Delta P_{outlet} &=\frac{Q \mu F}{6}\cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2w_s)^2}{\alpha_{out}^4}.
 \end{align}
@@ -125,36 +125,78 @@ Kanavien lisäksi painehäviötä tapahtuu seinämissä. Seinämien painehäviö
 \begin{align}
     q = - \frac{\kappa}{\mu}\nabla P,
 \end{align}
-jossa \(q\) on Darcyn nopeus, \(\kappa\) on väliaineen permeabiliteetti ja \(\nabla P\) on painegradientti. 
-Pakokaasun oletetaan kulkevan seinämän läpi kohtisuoraan, joten painehäviö voidaan laskea yksiulotteisesti. 
-
-
-Kertyneet noki ja tuhka mallinnetaan erillisiksi kerroksiksi suodattimen sisäänmenokanavissa. Kerrosten paksuudet voidaan  olettaa yhtenäisiksi \cite{Konstandopoulos2000} , sillä virtaus pyrkii aina kulkemaan pienimmän vastuksen reittiä. Noki- ja tuhkakerroksen paksuutta merkitään \(w_{soot}\) ja \(w_{ash}\).
-
-Suodattimen sisäänmenossa painehäviö
+jossa \(q\) on Darcyn nopeus, \(\kappa\) on väliaineen permeabiliteetti ja \(\nabla P\) on painegradientti \cite{feder2021_porous}. 
+ Darcyn nopeus on vuo \cite{reible_env_eng}, joka kuvaa tilavuusvirtausta pinnan läpi. Näin ollen saadaan yhtälö
 \begin{align}
-    \Delta P_{inlet} = \frac{1}{6} \cdot
-    Q \cdot \mu(T) 
-    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2}{(\alpha_{in}-2w_{soot}-2w_{ash})^4}.
+    Q = \int_A q \cdot dA = \int_A - \frac{\kappa}{\mu} \nabla P \cdot dA.
+\end{align}
+Pakokaasun oletetaan kulkevan seinämän läpi kohtisuoraan, joten painehäviö voidaan laskea yksiulotteisesti. Kun valitaan suunnan merkiksi \(x\) saadaan
+\begin{align}
+    Q = - \frac{\kappa}{\mu} \frac{dP}{dx} \int_A dA = - \frac{\kappa}{\mu} \frac{dP}{dx} A.
+\end{align}
+Kun \(dx \to w_s\), niin \(dP \to -\Delta P_{wall}\). Näin ollen painehäviö on
+\begin{align}
+    \Delta P_{wall} = Q\mu \frac{w_s}{\kappa}.
+\end{align}
+Suodattimessa on jokaista sisäänmenokanavaa kohden neljä seinämää, ja avoimia kanavia on yhteensä \(n_{open}\) kappaletta. Yhden seinämän pinta-ala on \(L\cdot \alpha_{out}\), joten 
+\begin{align}
+    A = 4 n_{open} L \alpha_{out}.
+\end{align}
+Seinien kokonaispainehäviö on
+\begin{align}
+    \Delta P_{wall} =  Q \mu \frac{w_s}{4 n_{open} L  \alpha_{out}  \kappa_{wall}}.
+\end{align}
+
+Tarkastellaan nyt partikkelilatautunutta suodatinta.
+Kertyneet noki ja tuhka mallinnetaan erillisiksi kerroksiksi suodattimen sisäänmenokanavissa. Kerrosten paksuudet voidaan  olettaa yhtenäisiksi \cite{Konstandopoulos2000}, sillä virtaus pyrkii aina kulkemaan pienimmän vastuksen reittiä. Kuvassa \ref{fig:hac_dpf_loaded} on havainnollistettu noki- ja tuhkakerrosta suodattimen sisäänmenokanavissa.
+\begin{figure}[H]
+    \centering 
+    \pdftooltip{\includegraphics[width=0.5\textwidth]{figures/HAC_DPF_loaded.pdf}}
+               {}
+    \caption{}
+    \label{fig:hac_dpf_loaded}
+\end{figure}
+Noki- ja tuhkakerroksen paksuuksia merkitään \(w_{soot}\) ja \(w_{ash}\).
+Koska noki ja tuhka kertyvät mallissa tasaisesti sisäänmenokanavien seinämille, tulee partikkelikerrokset ottaa huomioon sisäänmenon painehäviöyhtälössä \eqref{eq:DeltaP_inlet_clean}. Uusi sisäänmenokanavan leveys on 
+\begin{align}
+    \alpha_{in}^* = \alpha_{in} -2w_{soot}-2w_{ash}.
+\end{align}
+Näin ollen saadaan suodattimen sisäänmenon painehäviö
+\begin{align}
+    \Delta P_{inlet} = \frac{Q \mu F}{6}\cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2}{(\alpha_{in}-2w_{soot}-2w_{ash})^4}.
     \label{eq:PDinletchannel}
 \end{align}
+Seinämien ja ulostulon painehäviöihin noki- ja tuhka eivät vaikuta. 
+Tarkastellaan vielä noki- ja tuhkakerroksen aiheuttamia painehäviöitä. Molemmat kerrokset ovat huokoisia, joten niiden aiheuttama painehäviö saadaan artikkelin \cite{Konstandopoulos2000} mukaan laskettua integroimalla Darcyn lakia partikkelikerroksen läpi. Oletetaan mallissa kaiken tuhkan olevan seinämää lähempi kerros, ja vastaavasti kaiken noen olevan tuhkakerroksen päällä.
+Tuhkakerroksen painehäviö on
+\begin{align*}
+    \Delta P_{ash} &= \frac{\mu}{\kappa_{ash}} \int_0^{w_{ash}}  \frac{Q}{A}dx 
+    \\ &= \frac{Q \mu }{4 n_{open} L \kappa_{ash}} \int_0^{w_{ash}}  \frac{1}{\alpha_{out}-2w_{ash}+2x}dx 
+    \\ &= \frac{Q\mu}{8 n_{open} L \kappa_{ash}}\ln\left(\frac{\alpha_{out}}{\alpha_{out}-2w_{ash}}\right).
+\end{align*}
+vastaavasti nokikerroksen painehäviö voidaan laskea integroimalla Darcyn lakia 
+\begin{align*}
+    \Delta P_{soot }&= \frac{\mu}{\kappa_{soot}} \int_{0}^{w_{soot}}  \frac{Q}{A}dx \\
+    &= \frac{Q \mu }{4 n_{open} L \kappa_{soot}} \int_{0}^{w_{soot}}  \frac{1}{\alpha_{out}-2w_{ash}-2w_{soot}+2x}dx 
+    \\ &= \frac{Q\mu}{8 n_{open} L \kappa_{soot}}\ln\left(\frac{\alpha_{out}-2w_{ash}}{\alpha_{out}-2w_{ash}-2w_{soot}}\right).
+\end{align*}
+% Suodattimen ulostulossa painehäviö
+% \begin{align}
+%     \Delta P_{outlet} = \frac{1}{6} \cdot
+%     Q \cdot \mu(T) 
+%     \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2}{\alpha_{out}^4}.
+%     \label{eq:PDoutletopen}
+% \end{align}
 
-Suodattimen ulostulossa painehäviö
-\begin{align}
-    \Delta P_{outlet} = \frac{1}{6} \cdot
-    Q \cdot \mu(T) 
-    \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2}{\alpha_{out}^4}.
-    \label{eq:PDoutletopen}
-\end{align}
+% Suodattimen seinämien aiheuttama painehäviö 
+% \begin{align}
+%     \Delta P_{wall} = \frac{1}{4} \cdot
+%     Q \cdot \mu(T) 
+%     \cdot \frac{w_s}
+%     {n_{open}\cdot L \cdot \kappa_{wall} \cdot \alpha_{out}}.
+%     \label{eq:PDfilterwall}
+% \end{align}
 
-Suodattimen seinämien aiheuttama painehäviö 
-\begin{align}
-    \Delta P_{wall} = \frac{1}{4} \cdot
-    Q \cdot \mu(T) 
-    \cdot \frac{w_s}
-    {n_{open}\cdot L \cdot \kappa_{wall} \cdot \alpha_{out}}.
-    \label{eq:PDfilterwall}
-\end{align}
 
 Nokikerroksen aiheuttama painehäviö
 \begin{align}
