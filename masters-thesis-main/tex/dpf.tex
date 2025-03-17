@@ -42,17 +42,20 @@ vaatii korkean, yli 600:n \degree C lämpötilan. Tarvittava energia saadaan ajo
 
 Regenerointia kuvaavat reaktioyhtälöt ovat  
 \begin{align}
-    \ce{C + 1/2 O2 &-> CO }\label{req:regen_c2co}\\
-    \ce{C + O2 &-> CO2}\label{req:regen_c2co2}\\
-    \ce{C + NO2 &-> CO +  NO}  \\
-    \ce{C + 2 NO2 &-> CO2 + 2 NO}  \\
-    \ce{C + NO2 + 1/2 O2 &-> CO2 + NO} \text{ ja }\\
-    \ce{C + NO2 + 1/2 O2 &-> CO + NO2},
+    \ce{C + 1/2 O2 &->[$R_1$] CO }\label{req:regen_c2co}\\
+    \ce{C + O2 &->[$R_2$] CO2}\label{req:regen_c2co2}\\
+    \ce{C + NO2 &->[$R_3$] CO +  NO}  \\
+    \ce{C + 2 NO2 &->[$R_4$] CO2 + 2 NO} \text{ ja }\\
+    \ce{NO + 1/2 O2 &<=>[$R_5$] NO2}.
 \end{align}
-ja niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{LiuGuanlin2021Roio}.
+Niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{LiuGuanlin2021Roio} \cite{Penghao_regen}
+\begin{align}
+    k =  A\exp\left({-\frac{E_a}{RT}}\right),
+\end{align}
+jossa \(A\) on frekvenssitekijä, \(E_a\) on aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila.
+
 
 \section{Painehäviö ja sen mallintaminen}
-
 % \begin{figure}[H]
 %     \centering 
 %     \input{figures/blocks1.tex}
@@ -60,8 +63,7 @@ ja niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{
 %     \label{fig:blocks1}
 % \end{figure}
 
-% Suodattimen painehäviötä mallinnetaan useimmiten Darcyn lain, Forcheimer-Darcyn tai Darcy-Weisbachin yhtälöiden avulla \cite{dieselnet_wall_flow_monolith}.
-Konstandopoulos et al. esittelevät artikkelissaan \cite{Konstandopoulos2000} symmetrisen, nokilatautuneen hiukkassuodattimen painehäviömallin. Tässä työssä tarkastellaan yleisesti epäsymmetristä suodatinta. Toisin sanoen tarkastellaan tilannetta, jossa sisäänmeno- ja ulostulokanavien poikkipinta-alat voivat olla eri kokoisia. Lisäksi kokonaispainehäviömalliin otetaan mukaan myös tuhkakerroksen aiheuttama painehäviö. Näin ollen kokonaispainehäviö on puhtaan suodattimen sisäänmenon, ulostulon ja seinämien, sekä noki- ja tuhkakerrosten aiheuttamien painehäviöiden summa \cite{Konstandopoulos2000,Konstandopoulos2008}, eli
+Konstandopoulos et al. esittelevät artikkelissaan \cite{Konstandopoulos2000} symmetrisen, nokilatautuneen hiukkassuodattimen painehäviömallin. Tässä työssä tarkastellaan yleisesti epäsymmetristä suodatinta. Toisin sanoen tarkastellaan tilannetta, jossa sisäänmeno- ja ulostulokanavien poikkipinta-alat voivat olla eri kokoisia. Lisäksi kokonaispainehäviömalliin otetaan mukaan myös tuhkakerroksen aiheuttama painehäviö. Näin ollen kokonaispainehäviö on puhtaan suodattimen sisäänmenon, ulostulon ja seinämien, sekä noki- ja tuhkakerrosten aiheuttamien painehäviöiden summa \cite{Konstandopoulos2000}\cite{Konstandopoulos2008}, eli
 \begin{align}
     \Delta P_{tot} = \Delta P_{inlet} +  \Delta P_{outlet} + \Delta P_{wall} + \Delta P_{soot} +  \Delta P_{ash}.
 \end{align}
@@ -106,9 +108,9 @@ jossa \(A_{cell}\) on yhden solun poikkipinta-ala. Puhtaan epäsymmetrisen hiukk
 
 \begin{figure}[H]
     \centering 
-    \pdftooltip{\includegraphics[width=0.4\textwidth]{figures/HAC_DPF.pdf}}
+    \pdftooltip{\includegraphics[width=0.6\textwidth]{figures/HAC_DPF.pdf}}
                {Poikkileikkauskuva neljästä DPF-solusta. Kuvassa menokanavat ovat suuremmat kuin ulostulokanavat.}
-    \caption{DPF-poikkielikkaus neljästä solusta.}
+    \caption{DPF-poikkileikkaus neljästä solusta.}
     \label{fig:hac_dpf_clean}
 \end{figure}
 Yksi solu on poikkipinta-alaltaan
@@ -151,9 +153,9 @@ Tarkastellaan nyt partikkelilatautunutta suodatinta.
 Kertyneet noki ja tuhka mallinnetaan erillisiksi kerroksiksi suodattimen sisäänmenokanavissa. Kerrosten paksuudet voidaan  olettaa yhtenäisiksi \cite{Konstandopoulos2000}, sillä virtaus pyrkii aina kulkemaan pienimmän vastuksen reittiä. Kuvassa \ref{fig:hac_dpf_loaded} on havainnollistettu noki- ja tuhkakerrosta suodattimen sisäänmenokanavissa.
 \begin{figure}[H]
     \centering 
-    \pdftooltip{\includegraphics[width=0.5\textwidth]{figures/HAC_DPF_loaded.pdf}}
-               {}
-    \caption{}
+    \pdftooltip{\includegraphics[width=0.6\textwidth]{figures/HAC_DPF_loaded.pdf}}
+               {Kuvituskuva neljästä DPF-solusta. Sisäänmenokanavien reunoilla on kerros tuhkaa ja nokea.}
+    \caption{Noki- ja tuhkalatautunut DPF. Sisäänmenokanavan efektiivinen leveys on pienempi, mikä täytyy ottaa mallissa huomioon.}
     \label{fig:hac_dpf_loaded}
 \end{figure}
 Noki- ja tuhkakerroksen paksuuksia merkitään \(w_{soot}\) ja \(w_{ash}\).
@@ -163,55 +165,29 @@ Koska noki ja tuhka kertyvät mallissa tasaisesti sisäänmenokanavien seinämil
 \end{align}
 Näin ollen saadaan suodattimen sisäänmenon painehäviö
 \begin{align}
-    \Delta P_{inlet} = \frac{Q \mu F}{6}\cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2}{(\alpha_{in}-2w_{soot}-2w_{ash})^4}.
+    \Delta P_{inlet} = \frac{Q \mu F}{6}\cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2}{(\alpha_{in}^*)^4}.
     \label{eq:PDinletchannel}
 \end{align}
 Seinämien ja ulostulon painehäviöihin noki- ja tuhka eivät vaikuta. 
 Tarkastellaan vielä noki- ja tuhkakerroksen aiheuttamia painehäviöitä. Molemmat kerrokset ovat huokoisia, joten niiden aiheuttama painehäviö saadaan artikkelin \cite{Konstandopoulos2000} mukaan laskettua integroimalla Darcyn lakia partikkelikerroksen läpi. Oletetaan mallissa kaiken tuhkan olevan seinämää lähempi kerros, ja vastaavasti kaiken noen olevan tuhkakerroksen päällä.
 Tuhkakerroksen painehäviö on
-\begin{align*}
-    \Delta P_{ash} &= \frac{\mu}{\kappa_{ash}} \int_0^{w_{ash}}  \frac{Q}{A}dx 
-    \\ &= \frac{Q \mu }{4 n_{open} L \kappa_{ash}} \int_0^{w_{ash}}  \frac{1}{\alpha_{out}-2w_{ash}+2x}dx 
-    \\ &= \frac{Q\mu}{8 n_{open} L \kappa_{ash}}\ln\left(\frac{\alpha_{out}}{\alpha_{out}-2w_{ash}}\right).
-\end{align*}
-vastaavasti nokikerroksen painehäviö voidaan laskea integroimalla Darcyn lakia 
-\begin{align*}
-    \Delta P_{soot }&= \frac{\mu}{\kappa_{soot}} \int_{0}^{w_{soot}}  \frac{Q}{A}dx \\
-    &= \frac{Q \mu }{4 n_{open} L \kappa_{soot}} \int_{0}^{w_{soot}}  \frac{1}{\alpha_{out}-2w_{ash}-2w_{soot}+2x}dx 
-    \\ &= \frac{Q\mu}{8 n_{open} L \kappa_{soot}}\ln\left(\frac{\alpha_{out}-2w_{ash}}{\alpha_{out}-2w_{ash}-2w_{soot}}\right).
-\end{align*}
-% Suodattimen ulostulossa painehäviö
-% \begin{align}
-%     \Delta P_{outlet} = \frac{1}{6} \cdot
-%     Q \cdot \mu(T) 
-%     \cdot F \cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2}{\alpha_{out}^4}.
-%     \label{eq:PDoutletopen}
-% \end{align}
-
-% Suodattimen seinämien aiheuttama painehäviö 
-% \begin{align}
-%     \Delta P_{wall} = \frac{1}{4} \cdot
-%     Q \cdot \mu(T) 
-%     \cdot \frac{w_s}
-%     {n_{open}\cdot L \cdot \kappa_{wall} \cdot \alpha_{out}}.
-%     \label{eq:PDfilterwall}
-% \end{align}
-
-
-Nokikerroksen aiheuttama painehäviö
 \begin{align}
-    \Delta P_{soot} =  \frac{1}{8} \cdot
-    Q \cdot \mu(T) \cdot 
-    \frac{\ln{\frac{\alpha_{out}-2w_{ash}}{\alpha_{out}-2w_{soot}-2w_{ash}}}}
-    {n_{open}\cdot L \cdot \kappa_{soot}}.
-    \label{eq:PDsootlayer}
+    \Delta P_{ash} &= \frac{\mu}{\kappa_{ash}} \int_0^{w_{ash}}  \frac{Q}{A}dx 
+    \nonumber\\ &= \frac{Q \mu }{4 n_{open} L \kappa_{ash}} \int_0^{w_{ash}}  \frac{1}{\alpha_{out}-2w_{ash}+2x}dx 
+    \nonumber \\ &= \frac{Q\mu}{8 n_{open} L \kappa_{ash}}\ln\left(\frac{\alpha_{out}}{\alpha_{out}-2w_{ash}}\right).
+\end{align}
+vastaavasti nokikerroksen painehäviö voidaan laskea integroimalla Darcyn lakia. 
+\begin{align}
+    \Delta P_{soot }&= \frac{\mu}{\kappa_{soot}} \int_{0}^{w_{soot}}  \frac{Q}{A}dx 
+    \nonumber\\    &= \frac{Q \mu }{4 n_{open} L \kappa_{soot}} \int_{0}^{w_{soot}}  \frac{1}{\alpha_{out}-2w_{ash}-2w_{soot}+2x}dx 
+    \nonumber \\ &= \frac{Q\mu}{8 n_{open} L \kappa_{soot}}\ln\left(\frac{\alpha_{out}-2w_{ash}}{\alpha_{out}-2w_{ash}-2w_{soot}}\right).
 \end{align}
 
-Tuhkakerroksen aiheuttama painehäviö
+Tuhkakerroksen paksuus saadaan kaavalla
 \begin{align}
-    \Delta P_{ash} = \frac{1}{8} \cdot
-    Q \cdot \mu(T) \cdot 
-    \frac{\ln{\frac{\alpha_{out}}{\alpha_{out}-2w_{ash}}}}
-    {n_{open}\cdot L \cdot \kappa_{ash}}.
-    \label{eq:PDashlayer}
+    w_{ash} = \frac{\alpha_{in} - \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{ n_{open} L \rho_{ash}}}}{2},
+\end{align}
+ja nokikerroksen paksuus vastaavasti kaavalla
+\begin{align}
+    w_{soot}= \frac{\alpha_{in}-2w_{ash} - \sqrt{(\alpha_{in}-2w_{ash})^2 - \frac{m_{soot}}{ n_{open} L \rho_{soot}}}}{2}.
 \end{align}
