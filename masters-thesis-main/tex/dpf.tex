@@ -50,7 +50,7 @@ Regenerointia kuvaavat reaktioyhtälöt ovat
 \end{align}
 Niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{LiuGuanlin2021Roio} \cite{Penghao_regen}
 \begin{align}
-    k =  A\exp\left({-\frac{E_a}{RT}}\right),
+    R_i =  A\exp\left({-\frac{E_a}{RT}}\right),
 \end{align}
 jossa \(A\) on frekvenssitekijä, \(E_a\) on aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila.
 
@@ -74,55 +74,60 @@ Lisäksi painehäviötä tapahtuu sisäänmeno- ja ulostuloaukolla, mutta hävi�
 % \end{align}
 
 Tarkastellaan aluksi puhdasta suodatinta.
-Konstandopoulos et al. artikkelin mukaan puhtaan symmetrisen suodattimen sisäänmeno- ja ulostulokanavien painehäviöt ovat samat:
+Konstandopoulos et al. mukaan puhtaassa suodattimessa yhden kanavan painehäviö on
+\begin{align}
+    \Delta P_{channel} = \frac{\mu F}{3 \alpha^2} LU_{channel},
+\end{align}
+jossa \(\mu \) on pakokaasun viskositeetti, \(F\) on kanavien kitkaan liittyvä kerroin \cite{dieselnet_wall_flow_monolith}, \(\alpha\) on kanavan leveys, \(L\) on kanavan pituus ja \(U_{channel}\) on virtausnopeus.
+Muokataan yhtälöä hyödyntäen sylinterin geometriaa. Kun merkitään \(\frac{1}{A} = \frac{L}{V}\), jossa \(A\) on suodattimen poikkileikkauspinta-ala ja \(V\) on suodattimen kokonaistilavuus, painehäviö voidaan esittää muodossa
 \begin{align}\label{eq:clean_channel_pd}
-    \Delta P_{inlet} = \Delta P_{outlet} = \frac{\mu F}{3 \alpha^2} LU,
-\end{align}
-jossa \(\mu \) on pakokaasun viskositeetti, \(F\) on kanavien kitkaan liittyvä kerroin \cite{dieselnet_wall_flow_monolith}, \(\alpha\) on kanavan leveys, \(L\) on kanavan pituus ja \(U\) on virtausnopeus.
-Puhtaan, symmetrisen suodattimen virtausnopeus määritellään 
-\begin{align}\label{eq:flow_velocity_clean}
-    U = \frac{Q}{A_{eff}},
-\end{align}
-jossa \(Q\) on tilavuusvirtaus ja \(A_{eff}\) on suodattimen sisäänmenon efektiivinen pinta-ala \cite{Konstandopoulos2000}
-\begin{align}\label{eq:area_eff}
-    A_{eff} = \frac{1}{2}\cdot \pi \left(\frac{D}{2}\right)^2 \cdot \frac{\alpha^2}{(\alpha + w_s)^2}.
-\end{align}
-Yhtälössä \(w_s\) seinämän paksuus ja \(D \) suodattimen halkaisija.
-Kerroin \(\frac{1}{2}\) poistaa efektiivisestä pinta-alasta sisäänmenosuunnasta suljetut kanavat.
-Sijoittamalla yhtälöt \eqref{eq:flow_velocity_clean} ja \eqref{eq:area_eff} yhtälöön \eqref{eq:clean_channel_pd} saadaan
-\begin{align}
-    \Delta P_{inlet} = \Delta P_{outlet}= \frac{\mu F}{3 \alpha^2}\cdot L Q\cdot \frac{2(\alpha + w_s)^2}{\pi \left( \frac{D}{2}\right)^2 \alpha^2}.
-\end{align}
-Muokataan yhtälöä hyödyntämällä sylinterin geometriaa. Kun merkitään \(\frac{1}{A} = \frac{L}{V}\), jossa \(V\) on suodattimen kokonaistilavuus, painehäviö voidaan esittää muodossa
-\begin{align}
-    \Delta P_{inlet} = \Delta P_{outlet} =\frac{Q \mu F}{3}\cdot \frac{L^2}{V} \cdot \frac{2(\alpha + w_s)^2}{\alpha^4}.
+    \Delta P_{channel} = \frac{\mu F}{3 \alpha^2} \frac{L^2}{V}U_{channel},
 \end{align}
 
-Tarkastellaan nyt epäsymmetristä suodatinta, jossa \(\alpha_{in} \neq \alpha_{out}\).
-Puhtaan sisäänmenon ja ulostulon painehäviöt eroavat toisistaan ja ovat tällöin
-\begin{align}
-    \Delta P_{inlet} &=\frac{Q \mu F}{3}\cdot \frac{L^2}{V} \cdot \frac{2A_{cell}}{\alpha_{in}^4}
- \\ \Delta P_{outlet} &=\frac{Q \mu F}{3}\cdot \frac{L^2}{V} \cdot \frac{2A_{cell}}{\alpha_{out}^4},
-\end{align}
-jossa \(A_{cell}\) on yhden solun poikkipinta-ala. Puhtaan epäsymmetrisen hiukkassuodattimen poikkileikkausgeometriaa on esitelty Kuvassa \ref{fig:hac_dpf_clean}.
-
+Yleisesti suodattimen sisäänmeno- ja ulostulokanavien leveydet \(\alpha_{in}\) ja \(\alpha_{out}\) eivät ole identtiset. Toisin sanoen \(\alpha_{in} \neq \alpha_{out}\). Tällaista suodatinta on havainnollistettu Kuvassa \ref{fig:hac_dpf_clean}.
+%
 \begin{figure}[H]
     \centering 
-    \pdftooltip{\includegraphics[width=0.6\textwidth]{figures/HAC_DPF.pdf}}
+    \pdftooltip{\includegraphics[width=0.6\textwidth]{figures/dpf_clean_new.pdf}}
                {Poikkileikkauskuva neljästä DPF-solusta. Kuvassa menokanavat ovat suuremmat kuin ulostulokanavat.}
-    \caption{DPF-poikkileikkaus neljästä solusta.}
+    \caption{DPF-poikkileikkaus neljästä solusta. Sisäänmeno- ja ulostulokanavien leveydet eivät ole välttämättä samat. Havainnollistuksessa \(\alpha_{in}>\alpha_{out}\).}
     \label{fig:hac_dpf_clean}
 \end{figure}
-Yksi solu on poikkipinta-alaltaan
-\begin{align}
-    A_{cell}=\frac{1}{4}(\alpha_{in}+\alpha_{out}+2w_s)^2,
+
+Puhtaan suodattimen yhden kanavan sisäänmenonvirtausnopeus määritellään 
+\begin{align}\label{eq:flow_velocity_clean}
+    U_{channel} = \frac{Q}{A_{cell}},
 \end{align}
-eli yksi neljäsosa Kuvan \ref{fig:hac_dpf_clean} solukosta. Näin ollen puhtaan suodattimen sisäänmenon ja ulostulon painehäviöt ovat
+jossa \(Q\) on tilavuusvirtaus ja \(A_{cell}\) on  yhden solun poikkipinta-ala ja suodattimen sisäänmenon efektiivinen pinta-ala \cite{Konstandopoulos2000}. Solulla tarkoitetaan kanavan ja seinämän muodostamaa kokonaisuutta, ja sen pinta-ala on Kuvan \ref{fig:hac_dpf_clean}  geometriaan nojaten
+\begin{align}
+    A_{cell}=\frac{1}{4}(\alpha_{in}+\alpha_{out}+2w_s)^2.
+\end{align}
+
+Kokonaisvirtausnopeudet saadaan sisäänmenon ja ulostulon solujen pinta-alan avulla
+\begin{align}
+    A_{eff, in} &= 2 \pi \left(\frac{D}{2}\right)^2 \cdot \frac{\alpha_{in}^2}{(\alpha_{in}+\alpha_{out}+2w_s)^2}, \label{eq:area_eff_in} \\
+    A_{eff, out} &= 2 \pi \left(\frac{D}{2}\right)^2 \cdot \frac{\alpha_{out}^2}{(\alpha_{in}+\alpha_{out}+2w_s)^2},\label{eq:area_eff_out}
+\end{align}
+jossa \(D \) suodattimen halkaisija, ja kerroin \(\frac{1}{2}\) poistaa efektiivisestä pinta-alasta suljetut kanavat.
+
+Sisäänmenon ja ulostulon virtausnopeudet ovat tällöin
+\begin{align}
+    U_{in} &= \frac{Q}{A_{eff, in}}, \label{eq:uin}\\
+    U_{out} &= \frac{Q}{A_{eff, out}}. \label{eq:uout}
+\end{align}
+
+Sijoittamalla yhtälöt \eqref{eq:uin} ja \eqref{eq:area_eff_in}, sekä \eqref{eq:uout} ja \eqref{eq:area_eff_out} yhtälöön \eqref{eq:clean_channel_pd} saadaan
 \begin{align}
     \Delta P_{inlet} &=\frac{Q \mu F}{6}\cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2w_s)^2}{\alpha_{in}^4} \label{eq:DeltaP_inlet_clean}
     \\ 
     \Delta P_{outlet} &=\frac{Q \mu F}{6}\cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2w_s)^2}{\alpha_{out}^4}.
 \end{align}
+Jos kanavat ovat keskenään saman kokoiset, eli  \(\alpha_{in}=\alpha_{out}=\alpha\), saadaan sisäänmeno- ja ulostulokanavien painehäviöiksi 
+\begin{align}
+    \Delta P_{inlet}= \Delta P_{outlet} =  \frac{Q\mu F}{3} \frac{L^2}{V}\frac{(\alpha+w_s)^2}{\alpha^2}
+\end{align}
+
+
 Kanavien lisäksi painehäviötä tapahtuu seinämissä. Seinämien painehäviötä mallinnetaan usein Darcyn lailla \cite{dieselnet_wall_flow_monolith}\cite{Konstandopoulos1989_wallflow}
 \begin{align}
     q = - \frac{\kappa}{\mu}\nabla P,
@@ -153,7 +158,7 @@ Tarkastellaan nyt partikkelilatautunutta suodatinta.
 Kertyneet noki ja tuhka mallinnetaan erillisiksi kerroksiksi suodattimen sisäänmenokanavissa. Kerrosten paksuudet voidaan  olettaa yhtenäisiksi \cite{Konstandopoulos2000}, sillä virtaus pyrkii aina kulkemaan pienimmän vastuksen reittiä. Kuvassa \ref{fig:hac_dpf_loaded} on havainnollistettu noki- ja tuhkakerrosta suodattimen sisäänmenokanavissa.
 \begin{figure}[H]
     \centering 
-    \pdftooltip{\includegraphics[width=0.6\textwidth]{figures/HAC_DPF_loaded.pdf}}
+    \pdftooltip{\includegraphics[width=0.6\textwidth]{figures/dpf_loaded_new.pdf}}
                {Kuvituskuva neljästä DPF-solusta. Sisäänmenokanavien reunoilla on kerros tuhkaa ja nokea.}
     \caption{Noki- ja tuhkalatautunut DPF. Sisäänmenokanavan efektiivinen leveys on pienempi, mikä täytyy ottaa mallissa huomioon.}
     \label{fig:hac_dpf_loaded}
