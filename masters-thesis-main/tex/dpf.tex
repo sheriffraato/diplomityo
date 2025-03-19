@@ -39,20 +39,20 @@ Noen poistoa suodattimesta hapettamalla kutsutaan regeneroinniksi. Regenerointi 
 Aktiivinen regenerointi tarkoittaa käytännössä noen polttamista ja se
 vaatii korkean, yli 600:n \degree C lämpötilan. Tarvittava energia saadaan ajoneuvon polttoainetta käyttämällä \cite{dieselnet_dpf}. Passiiviseen regenerointiin riittää huomattavasti matalammat lämpötilat ja se perustuu noen hapetusreaktioihin typpidioksidin (NO\(_2\)) kanssa. Tarvittava typpidioksidi saadaan hapettamalla moottorin raakapäästöinä muodostuvaa typpimonoksidia (NO) hapettavassa katalysaattorissa (DOC, \emph{Diesel Oxidation Catalyst}).
 
-
-Regenerointia kuvaavat reaktioyhtälöt ovat  
+Regeneroidessa tapahtuvat reaktiot ovat  
 \begin{align}
-    \ce{C + 1/2 O2 &->[$R_1$] CO }\label{req:regen_c2co}\\
-    \ce{C + O2 &->[$R_2$] CO2}\label{req:regen_c2co2}\\
-    \ce{C + NO2 &->[$R_3$] CO +  NO}  \\
-    \ce{C + 2 NO2 &->[$R_4$] CO2 + 2 NO} \text{ ja }\\
-    \ce{NO + 1/2 O2 &<=>[$R_5$] NO2}.
+    \ce{C + 1/2 O2 &->[$R_1$] CO }\label{req:active1}\\
+    \ce{C + O2 &->[$R_2$] CO2}\label{req:active2}\\
+    \ce{C + NO2 &->[$R_3$] CO +  NO} \text{ ja }  \label{req:passive1} \\
+    \ce{C + 2 NO2 &->[$R_4$] CO2 + 2 NO}. \label{req:passive2}
+    % \\\ce{NO + 1/2 O2 &<=>[$R_5$] NO2}.
 \end{align}
 Niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{LiuGuanlin2021Roio} \cite{Penghao_regen}
 \begin{align}
-    R_i =  A\exp\left({-\frac{E_a}{RT}}\right),
+    R_i =  A_i \exp\left({-\frac{E_a}{RT}}\right),
 \end{align}
-jossa \(A\) on frekvenssitekijä, \(E_a\) on aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila.
+jossa \(A_i\) on frekvenssitekijä, \(E_{a, i}\) on aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila. Karkeasti jaoteltuna reaktiot \eqref{req:active1} ja \eqref{req:active2} kuvaavat aktiivista regenerointia ja vastaavasti reaktiot \eqref{req:passive1} ja \eqref{req:passive2} passiivista regenerointia.
+Suodattimessa tapahtuu paljon muitakin reaktioita \cite{Penghao_regen}, mutta ne eivät ole tämän työn kannalta olennaisia.
 
 
 \section{Painehäviö ja sen mallintaminen}
@@ -124,7 +124,7 @@ Sijoittamalla yhtälöt \eqref{eq:uin} ja \eqref{eq:area_eff_in}, sekä \eqref{e
 \end{align}
 Jos kanavat ovat keskenään saman kokoiset, eli  \(\alpha_{in}=\alpha_{out}=\alpha\), saadaan sisäänmeno- ja ulostulokanavien painehäviöiksi 
 \begin{align}
-    \Delta P_{inlet}= \Delta P_{outlet} =  \frac{Q\mu F}{3} \frac{L^2}{V}\frac{(\alpha+w_s)^2}{\alpha^2}
+    \Delta P_{inlet}= \Delta P_{outlet} =  \frac{Q\mu F}{3} \frac{L^2}{V}\frac{(\alpha+w_s)^2}{\alpha^2}.
 \end{align}
 
 
