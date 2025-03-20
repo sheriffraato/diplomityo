@@ -51,18 +51,36 @@ Niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{Liu
 \begin{align}
     R_i =  A_i \exp\left({-\frac{E_a}{RT}}\right),
 \end{align}
-jossa \(A_i\) on frekvenssitekijä, \(E_{a, i}\) on aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila. Karkeasti jaoteltuna reaktiot \eqref{req:active1} ja \eqref{req:active2} kuvaavat aktiivista regenerointia ja vastaavasti reaktiot \eqref{req:passive1} ja \eqref{req:passive2} passiivista regenerointia.
+jossa \(A_i\) on frekvenssitekijä, \(E_{a, i}\) on aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila. Karkeasti jaoteltuna reaktiot \eqref{req:active1} ja \eqref{req:active2} kuvaavat aktiivista regenerointia, ja vastaavasti reaktiot \eqref{req:passive1} ja \eqref{req:passive2} passiivista regenerointia.
 Suodattimessa tapahtuu paljon muitakin reaktioita \cite{Penghao_regen}, mutta ne eivät ole tämän työn kannalta olennaisia.
+Reaktionopeus kuvaa kunkin aineen konsentraation muutosnopeutta, eli aikaderivaattaa \cite[s. 24-26]{chemical_reaction_kinetics}. Suljetulle reaktiolle
+\begin{align}
+    \ce{a1 X1 + a2 X2 + \cdots {} + a_n X_n ->[R] b1 Y1 + b2 Y2 + \cdots {} + b_m Y_m}
+\end{align}
+reaktionopeus \(R\) määritellään
+\begin{align}
+    R   = -\frac{1}{\ce{a1}}\frac{d[\ce{X1}]}{dt} 
+        % = -\frac{1}{\ce{a2}}\frac{d[\ce{X2}]}{dt}
+        = \cdots 
+        = -\frac{1}{\ce{a_n}}\frac{d[\ce{X_n}]}{dt}
+        = \frac{1}{\ce{b1}}\frac{d[\ce{Y1}]}{dt} 
+        = \cdots 
+        = \frac{1}{\ce{b_m}}\frac{d[\ce{Y_m}]}{dt},
+\end{align}
+jossa \(\ce{[X_i], [Y_i]}\) on aineiden \(\ce{X_i, Y_i}\) konsentraatiot. 
+
+Noen regeneroitumista reaktioissa \eqref{req:active1} ja \eqref{req:active2} kuvaa massataseyhtälö \cite{BaiShuzhan2016Slem} \cite{ZhongChao2022Eaos}
+\begin{align}
+    \frac{d m_{soot}}{dt}\Big |_{[\ce{NO2}]} = (R_1 + R_2) m_{soot}^\gamma,
+\end{align}
+ja reaktioissa \eqref{req:passive1} ja \eqref{req:passive2} massataseyhtälö 
+\begin{align}
+    \frac{d m_{soot}}{dt}\Big |_{[\ce{O2}]} = (R_3 + R_4) m_{soot}^\gamma [\ce{NO2}]^\alpha.
+\end{align}
+Taseyhtälöissä \(m_{soot}\) on suodattimeen kertyneen noen massa, \(R_i\) on reaktionopeus, ja \(\alpha\) ja \(\gamma\) ovat noen massaan ja typpidioksidin konsentraatioon liittyvät parametrit.
 
 
 \section{Painehäviö ja sen mallintaminen}
-% \begin{figure}[H]
-%     \centering 
-%     \input{figures/blocks1.tex}
-%     \caption{}
-%     \label{fig:blocks1}
-% \end{figure}
-
 Konstandopoulos et al. esittelevät artikkelissaan \cite{Konstandopoulos2000} symmetrisen, nokilatautuneen hiukkassuodattimen painehäviömallin. Tässä työssä tarkastellaan yleisesti epäsymmetristä suodatinta. Toisin sanoen tarkastellaan tilannetta, jossa sisäänmeno- ja ulostulokanavien poikkipinta-alat voivat olla eri kokoisia. Lisäksi kokonaispainehäviömalliin otetaan mukaan myös tuhkakerroksen aiheuttama painehäviö. Näin ollen kokonaispainehäviö on puhtaan suodattimen sisäänmenon, ulostulon ja seinämien, sekä noki- ja tuhkakerrosten aiheuttamien painehäviöiden summa \cite{Konstandopoulos2000}\cite{Konstandopoulos2008}, eli
 \begin{align}
     \Delta P_{tot} = \Delta P_{inlet} +  \Delta P_{outlet} + \Delta P_{wall} + \Delta P_{soot} +  \Delta P_{ash}.
