@@ -69,15 +69,42 @@ reaktionopeus \(R\) määritellään
 \end{align}
 jossa \(\ce{[X_i], [Y_i]}\) on aineiden \(\ce{X_i, Y_i}\) konsentraatiot. 
 
-Noen regeneroitumista reaktioissa \eqref{req:active1} ja \eqref{req:active2} kuvaa massataseyhtälö \cite{BaiShuzhan2016Slem} \cite{ZhongChao2022Eaos}
+% Noen regeneroitumista reaktioissa \eqref{req:active1} ja \eqref{req:active2} kuvaa massataseyhtälö \cite{BaiShuzhan2016Slem} \cite{ZhongChao2022Eaos}
+% \begin{align}
+%     \frac{d m_{soot}}{dt}\Big |_{[\ce{NO2}]} = (R_1 + R_2) m_{soot}^\gamma,
+% \end{align}
+% ja reaktioissa \eqref{req:passive1} ja \eqref{req:passive2} massataseyhtälö 
+% \begin{align}
+%     \frac{d m_{soot}}{dt}\Big |_{[\ce{O2}]} = (R_3 + R_4) m_{soot}^\gamma [\ce{NO2}]^\alpha.
+% \end{align}
+% Taseyhtälöissä \(m_{soot}\) on suodattimeen kertyneen noen massa, \(R_i\) on reaktionopeus, ja \(\alpha\) ja \(\gamma\) ovat noen massaan ja typpidioksidin konsentraatioon liittyvät parametrit.
+
+
+Aktiivisen regeneroinnin reaktionopeudet voidaan kirjoittaa muodossa
 \begin{align}
-    \frac{d m_{soot}}{dt}\Big |_{[\ce{NO2}]} = (R_1 + R_2) m_{soot}^\gamma,
+    R_1 &= f_{\ce{CO}} k_1 \exp{\left( \frac{E_1}{RT} \right)} [\ce{O2}], \\
+    R_2 &= (1-f_{\ce{CO}}) k_1 \exp{\left( \frac{E_1}{RT} \right)} [\ce{O2}],
 \end{align}
-ja reaktioissa \eqref{req:passive1} ja \eqref{req:passive2} massataseyhtälö 
+ja vastaavasti passiivisen regeneroinnin reaktionopeudet voidaan kirjoittaa muodossa
 \begin{align}
-    \frac{d m_{soot}}{dt}\Big |_{[\ce{O2}]} = (R_3 + R_4) m_{soot}^\gamma [\ce{NO2}]^\alpha.
+    R_3 &= f_{\ce{NO}} k_2 \exp{\left( \frac{E_2}{RT} \right)} [\ce{NO2}], \\
+    R_4 &= (1-f_{\ce{NO}}) k_2 \exp{\left( \frac{E_2}{RT} \right)} [\ce{NO2}].
 \end{align}
-Taseyhtälöissä \(m_{soot}\) on suodattimeen kertyneen noen massa, \(R_i\) on reaktionopeus, ja \(\alpha\) ja \(\gamma\) ovat noen massaan ja typpidioksidin konsentraatioon liittyvät parametrit.
+Kaasujen konsetraatiot hiukkassuodattimessa ovat paikan suhteen vakioita, joten työssä voidaan tarkastella vain aktiiviseksi ja passiiviseksi reaktioksi yksinkertaistettuja reaktioita.
+Näin ollen regenerointien kokonaisreaktionopeudet ovat
+\begin{align}
+    R_{active} &= R_1 + R_2 =   k_1 \exp{\left( \frac{E_1}{RT} \right)} [\ce{O2}], \\ \text{ ja }
+    R_{passive} &= R_3+ R_4 =  k_2 \exp{\left( \frac{E_2}{RT} \right)} [\ce{NO2}].
+\end{align}
+Termit \( f_{\ce{CO}}\) ja \( f_{\ce{NO}}\) ovat reaktioiden selektiivisyyteen liittyvät termit. \cite{ZhongChao2022Eaos} \cite{DengYuanwang2017Iogc}
+
+% Tästä eteenpäin ei fco, fno
+
+Ainemäärätase {\color{red} Tekstiä!!!}
+\begin{align}
+    \frac{dn_{soot}}{dt} = n_{soot, in} - n_{soot, out}
+\end{align}
+
 
 
 \section{Painehäviö ja sen mallintaminen}
@@ -91,12 +118,11 @@ Lisäksi painehäviötä tapahtuu sisäänmeno- ja ulostuloaukolla, mutta hävi�
 %     Q(t,T) = \frac{\dot{m}(t)}{\rho(T)}.
 % \end{align}
 
-Tarkastellaan aluksi puhdasta suodatinta.
-Konstandopoulos et al. mukaan puhtaassa suodattimessa yhden kanavan painehäviö on
+Tarkastellaan aluksi puhdasta suodatinta. Puhtaassa suodattimessa yhden kanavan painehäviö on
 \begin{align}
     \Delta P_{channel} = \frac{\mu F}{3 \alpha^2} LU_{channel},
 \end{align}
-jossa \(\mu \) on pakokaasun viskositeetti, \(F\) on kanavien kitkaan liittyvä kerroin \cite{dieselnet_wall_flow_monolith}, \(\alpha\) on kanavan leveys, \(L\) on kanavan pituus ja \(U_{channel}\) on virtausnopeus.
+jossa \(\mu \) on pakokaasun viskositeetti, \(F\) on kanavien kitkaan liittyvä kerroin \cite{dieselnet_wall_flow_monolith}, \(\alpha\) on kanavan leveys, \(L\) on kanavan pituus ja \(U_{channel}\) on virtausnopeus \cite{Konstandopoulos2000}.
 Muokataan yhtälöä hyödyntäen sylinterin geometriaa. Kun merkitään \(\frac{1}{A} = \frac{L}{V}\), jossa \(A\) on suodattimen poikkileikkauspinta-ala ja \(V\) on suodattimen kokonaistilavuus, painehäviö voidaan esittää muodossa
 \begin{align}\label{eq:clean_channel_pd}
     \Delta P_{channel} = \frac{\mu F}{3 \alpha^2} \frac{L^2}{V}U_{channel},
@@ -112,7 +138,7 @@ Yleisesti suodattimen sisäänmeno- ja ulostulokanavien leveydet \(\alpha_{in}\)
     \label{fig:hac_dpf_clean}
 \end{figure}
 
-Puhtaan suodattimen yhden kanavan sisäänmenonvirtausnopeus määritellään 
+Yhden puhtaan suodatinkanavan sisäänmenonvirtausnopeus määritellään 
 \begin{align}\label{eq:flow_velocity_clean}
     U_{channel} = \frac{Q}{A_{cell}},
 \end{align}
