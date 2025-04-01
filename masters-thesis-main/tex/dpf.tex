@@ -4,7 +4,7 @@
 
 
 Dieselmoottorin hiukkassuodatin, eli DPF (\emph{eng. Diesel Particulate Filter}) on tehokkain järjestelmä pakokaasun noki- ja tuhkapartikkeleiden suodatukseen. 
-Hyvä DPF suodattaa läpivirtaavasta pakokaasusta jopa 99\% hiukkaslukumäärästä ja 95\% -massasta \cite{Yan_state_of_the_art}. Hiukkassuodatin on osa useammasta komponentista koostuvaa jälkikäsittelyjärjestelmää, jota on havainnollistettu Kuvassa \ref{fig:EAT_full}. %
+Hyvä DPF suodattaa läpivirtaavasta pakokaasusta jopa 99 \% hiukkaslukumäärästä ja 95 \% -massasta \cite{Yan_state_of_the_art}. Hiukkassuodatin on osa useammasta komponentista koostuvaa jälkikäsittelyjärjestelmää, jota on havainnollistettu Kuvassa \ref{fig:EAT_full}. %
 
 \begin{figure}[H]
     \centering
@@ -20,14 +20,14 @@ Moderni jälkikäsittelyjärjestelmä koostuu yleensä hapettavasta katalysaatto
 
 \section{Järjestelmän fyysinen rakenne}
 
-Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), jossa pakokaasu virtaa hunajakennomaisessa suodattimessa puoliavoimissa putkissa. Pakokaasu virtaa putkien välillä huokoisten seinämien läpi. Pakokaasun hiukkaset jäävät kiinni seinämien sisään ja pinnalle. Virtausta on havainnollistettu Kuvassa \ref{fig:wall-flow-dpf}  
+Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), jossa pakokaasu virtaa hunajakennomaisessa suodattimessa puoliavoimissa putkissa. Pakokaasu virtaa putkien välillä huokoisten seinämien läpi. Pakokaasun hiukkaset jäävät kiinni seinämien sisään ja pinnalle. Virtausta on havainnollistettu Kuvassa \ref{fig:wall-flow-dpf}.
 
 
 \begin{figure}[H]
     \centering 
     \pdftooltip{\includegraphics[width=\textwidth]{figures/wall_flow_DPF_figure.pdf}}
                {Kuvituskuva hiukkassuodattimen toiminnasta. Nuolilla kuvattu pakokaasu virtaa avoimiin putkiin ja kulkee seinämien läpi.}
-    \caption{Pakokaasu virtaa suodattimessa huokoisten seinämien läpi. Yli 90\% pakokaasun hiukkasmassasta jää huokoisten seinämien sisään ja pinnalle. Mukailtu lähteestä \cite{dieselnet_dpf}.}
+    \caption{Pakokaasu virtaa suodattimessa huokoisten seinämien läpi. Yli 90 \% pakokaasun hiukkasmassasta jää huokoisten seinämien sisään ja pinnalle. Mukailtu lähteestä \cite{dieselnet_dpf}.}
     \label{fig:wall-flow-dpf}
 \end{figure}
 
@@ -82,7 +82,7 @@ jossa \(\ce{[X_i], [Y_i]}\) on aineiden \(\ce{X_i, Y_i}\) konsentraatiot.
 
 Aktiivisen regeneroinnin reaktionopeudet voidaan kirjoittaa muodossa
 \begin{align}
-    R_1 &= f_{\ce{CO}} k_1 \exp{\left( \frac{E_1}{RT} \right)} [\ce{O2}], \\
+    R_1 &= f_{\ce{CO}} k_1 \exp{\left( \frac{E_1}{RT} \right)} [\ce{O2}] \\
     R_2 &= (1-f_{\ce{CO}}) k_1 \exp{\left( \frac{E_1}{RT} \right)} [\ce{O2}],
 \end{align}
 ja vastaavasti passiivisen regeneroinnin reaktionopeudet voidaan kirjoittaa muodossa
@@ -90,13 +90,13 @@ ja vastaavasti passiivisen regeneroinnin reaktionopeudet voidaan kirjoittaa muod
     R_3 &= f_{\ce{NO}} k_2 \exp{\left( \frac{E_2}{RT} \right)} [\ce{NO2}], \\
     R_4 &= (1-f_{\ce{NO}}) k_2 \exp{\left( \frac{E_2}{RT} \right)} [\ce{NO2}].
 \end{align}
+Termit \( f_{\ce{CO}}\) ja \( f_{\ce{NO}}\) ovat reaktioiden selektiivisyyteen liittyvät termit \cite{ZhongChao2022Eaos} \cite{DengYuanwang2017Iogc}.
 Kaasujen konsetraatiot hiukkassuodattimessa ovat paikan suhteen vakioita, joten työssä voidaan tarkastella vain aktiiviseksi ja passiiviseksi reaktioksi yksinkertaistettuja reaktioita.
 Näin ollen regenerointien kokonaisreaktionopeudet ovat
 \begin{align}
     R_{active} &= R_1 + R_2 =   k_1 \exp{\left( \frac{E_1}{RT} \right)} [\ce{O2}], \\ \text{ ja }
     R_{passive} &= R_3+ R_4 =  k_2 \exp{\left( \frac{E_2}{RT} \right)} [\ce{NO2}].
 \end{align}
-Termit \( f_{\ce{CO}}\) ja \( f_{\ce{NO}}\) ovat reaktioiden selektiivisyyteen liittyvät termit. \cite{ZhongChao2022Eaos} \cite{DengYuanwang2017Iogc}
 
 % Tästä eteenpäin ei fco, fno
 
