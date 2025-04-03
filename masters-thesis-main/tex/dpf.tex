@@ -4,8 +4,17 @@
 
 
 Dieselmoottorin hiukkassuodatin, eli DPF (\emph{eng. Diesel Particulate Filter}) on tehokkain järjestelmä pakokaasun noki- ja tuhkapartikkeleiden suodatukseen. 
-Hyvä DPF suodattaa läpivirtaavasta pakokaasusta jopa 99 \% hiukkaslukumäärästä ja 95 \% -massasta \cite{Yan_state_of_the_art}. Hiukkassuodatin on osa useammasta komponentista koostuvaa jälkikäsittelyjärjestelmää, jota on havainnollistettu Kuvassa \ref{fig:EAT_full}. %
+Hyvä DPF suodattaa läpivirtaavasta pakokaasusta jopa 99 \% hiukkaslukumäärästä ja 95 \% -massasta \cite{Yan_state_of_the_art}. Suodatetut hiukkaset ovat nokea ja hapettumatonta tuhkaa. Tässä työssä noen oletetaan koostuvan puhtaasta hiilestä. 
 
+
+
+Tässä luvussa tarkastellaan hiukkassuodattimen toimintaa sekä fyysisenä järjestelmänä että matemaattisten mallien kautta. Luvussa esitellään noen massataseyhtälö ja siihen liittyvät regenerointi- ja painehäviöyhtälöt, joiden pohjalle työn estimointimenetelmä rakentuu.
+
+
+\section{Jälkikäsittelyjärjestelmän fyysinen rakenne}
+Moderni jälkikäsittelyjärjestelmä koostuu yleensä hapettavasta katalysaattorista (DOC, \emph{eng. Diesel Oxidation Catalyst}), hiukkassuodattimesta (DPF), sekä selektiivisestä katalyyttisestä pelkistimestä (SCR, \emph{eng. Selective Catalytic Reduction}). 
+Jälkikäsittelyjärjestelmää on havainnollistettu Kuvassa \ref{fig:EAT_full}. %
+%
 \begin{figure}[H]
     \centering
     \pdftooltip{\includegraphics[width=\textwidth]{figures/EAT2.pdf}}
@@ -13,16 +22,13 @@ Hyvä DPF suodattaa läpivirtaavasta pakokaasusta jopa 99 \% hiukkaslukumäärä
     \caption{Modernin jälkikäsittelyjärjestelmän osat.}
     \label{fig:EAT_full}
 \end{figure}
+%
+Jälkikäsittelyjärjestelmän ensimmäinen osa on hapettava katalysaattori, eli DOC. 
+Hapettavan katalysaattorin tehtävä on nimensä mukaan hapettaa moottorin raakapäästöjä, kuten hiilivetyjä, häkää ja typpimonoksidia \cite{dieselnet_doc}. Typpimonoksidista hapetettua typpidioksidia käytetään hiukkassuodattimessa noen hapettamiseen. 
 
-Moderni jälkikäsittelyjärjestelmä koostuu yleensä hapettavasta katalysaattorista (DOC, \emph{eng. Diesel Oxidation Catalyst}), hiukkassuodattimesta (DPF), sekä selektiivisestä katalyyttisestä pelkistimestä (SCR, \emph{eng. Selective Catalytic Reduction}). Hapettavan katalysaattorin tehtävä on nimensä mukaan hapettaa moottorin päästöjä, kuten hiilivetyjä, häkää, ja tämän työn kannalta olennaista typpimonoksidia \cite{dieselnet_doc}. SCR puolestaan pelkistää ympäristölle ja terveydelle haitalliset typen oksidit typpikaasuksi ja vedeksi \cite{dieselnet_scr}.
-
-
-
-\section{Järjestelmän fyysinen rakenne}
-
+Hapettavan katalysaattorin jälkeinen komponentti on hiukkassuodatin eli DPF.
 Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), jossa pakokaasu virtaa hunajakennomaisessa suodattimessa puoliavoimissa putkissa. Pakokaasu virtaa putkien välillä huokoisten seinämien läpi. Pakokaasun hiukkaset jäävät kiinni seinämien sisään ja pinnalle. Virtausta on havainnollistettu Kuvassa \ref{fig:wall-flow-dpf}.
-
-
+%
 \begin{figure}[H]
     \centering 
     \pdftooltip{\includegraphics[width=\textwidth]{figures/wall_flow_DPF_figure.pdf}}
@@ -30,14 +36,21 @@ Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), 
     \caption{Pakokaasu virtaa suodattimessa huokoisten seinämien läpi. Yli 90 \% pakokaasun hiukkasmassasta jää huokoisten seinämien sisään ja pinnalle. Mukailtu lähteestä \cite{dieselnet_dpf}.}
     \label{fig:wall-flow-dpf}
 \end{figure}
+%
+%Tässä työssä noen kerääntymistä seinämien sisään ja pinnalle ei erotella, vaan oletetaan nokimäärän kerääntyvän homogeeniseksi kerrokseksi.
 
-Tässä työssä noen kerääntymistä seinämien sisään ja pinnalle ei erotella, vaan oletetaan nokimäärän kerääntyvän homogeeniseksi kerrokseksi.
+
+Selektiivinen katalyyttinen pelkistin, eli SCR pelkistää ympäristölle ja terveydelle haitalliset typen oksidit typpikaasuksi ja vedeksi. Pelkistämiseen käytetään urealiuosta, josta käytetään nimitystä DEF (\emph{eng. Diesel Exhaust Fluid}) tai kauppanimeä AdBlue. Pelkistimen perässä on monesti vielä ammoniakin hapetuskatalysaattori (ASC, \emph{eng. Ammonia Slip Catalyst}), jolla voidaan hapettaa liikaruiskutettu ympäristölle ja terveydelle haitallinen DEF SCR-katalysaattorin poistovirtauksesta.
+ \cite{dieselnet_scr}
+
+Tässä työssä tarkastellaan jälkikäsittelyjärjestelmän komponenteista tarkemmin ainoastaan hiukkassuodatinta, vaikka DOC-katalysaattorin ulosvirtauksen typpidioksidikonsentraatio vaikuttaa DPF-järjestelmän regenerointiin. Typpidioksidikonsentraation mallin epävarmuuden vaikutusta DPF-tilan estimointimenetelmän varianssiin tutkitaan tarkemmin.
+
 
 
 \section{Regenerointi}
 Noen poistoa suodattimesta hapettamalla kutsutaan regeneroinniksi. Regenerointi jaetaan karkeasti kahteen tapaan: aktiiviseen ja passiiviseen regenerointiin. 
 Aktiivinen regenerointi tarkoittaa käytännössä noen polttamista ja se
-vaatii korkean, yli 600:n \degree C lämpötilan. Tarvittava energia saadaan ajoneuvon polttoainetta käyttämällä \cite{dieselnet_dpf}. Passiiviseen regenerointiin riittää huomattavasti matalammat lämpötilat ja se perustuu noen hapetusreaktioihin typpidioksidin (NO\(_2\)) kanssa. Tarvittava typpidioksidi saadaan hapettamalla moottorin raakapäästöinä muodostuvaa typpimonoksidia (NO) hapettavassa katalysaattorissa (DOC, \emph{Diesel Oxidation Catalyst}).
+vaatii korkean, yli 600:n \degree C lämpötilan. Tarvittava energia saadaan ajoneuvon polttoainetta käyttämällä \cite{dieselnet_dpf}. Passiiviseen regenerointiin riittää huomattavasti matalammat lämpötilat ja se perustuu noen hapetusreaktioihin typpidioksidin (NO\(_2\)) kanssa. Tarvittava typpidioksidi saadaan hapettamalla moottorin raakapäästöinä muodostuvaa typpimonoksidia (\ce{NO}) hapettavassa katalysaattorissa (DOC, \emph{Diesel Oxidation Catalyst}).
 
 Regeneroidessa tapahtuvat reaktiot ovat  
 \begin{align}
@@ -49,9 +62,9 @@ Regeneroidessa tapahtuvat reaktiot ovat
 \end{align}
 Niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{LiuGuanlin2021Roio} \cite{Penghao_regen}
 \begin{align}
-    R_i =  A_i \exp\left({-\frac{E_a}{RT}}\right),
+    R_i =  k_i \exp\left({-\frac{E_a}{RT}}\right),
 \end{align}
-jossa \(A_i\) on frekvenssitekijä, \(E_{a, i}\) on aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila. Karkeasti jaoteltuna reaktiot \eqref{req:active1} ja \eqref{req:active2} kuvaavat aktiivista regenerointia, ja vastaavasti reaktiot \eqref{req:passive1} ja \eqref{req:passive2} passiivista regenerointia.
+jossa \(k_i\) on frekvenssitekijä, \(E_{a, i}\) on aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila. Karkeasti jaoteltuna reaktiot \eqref{req:active1} ja \eqref{req:active2} kuvaavat aktiivista regenerointia, ja vastaavasti reaktiot \eqref{req:passive1} ja \eqref{req:passive2} passiivista regenerointia.
 Suodattimessa tapahtuu paljon muitakin reaktioita \cite{Penghao_regen}, mutta ne eivät ole tämän työn kannalta olennaisia.
 Reaktionopeus kuvaa kunkin aineen konsentraation muutosnopeutta, eli aikaderivaattaa \cite[s. 24-26]{chemical_reaction_kinetics}. Suljetulle reaktiolle
 \begin{align}
@@ -82,33 +95,35 @@ jossa \(\ce{[X_i], [Y_i]}\) on aineiden \(\ce{X_i, Y_i}\) konsentraatiot.
 
 Aktiivisen regeneroinnin reaktionopeudet voidaan kirjoittaa muodossa
 \begin{align}
-    R_1 &= f_{\ce{CO}} k_1 \exp{\left( \frac{E_1}{RT} \right)} [\ce{O2}] \\
-    R_2 &= (1-f_{\ce{CO}}) k_1 \exp{\left( \frac{E_1}{RT} \right)} [\ce{O2}],
+    R_1 &= f_{\ce{CO}} k_1 \exp{\left( \frac{E_{a, 1}}{RT} \right)} \\% [\ce{O2}] \\
+    R_2 &= (1-f_{\ce{CO}}) k_1 \exp{\left( \frac{E_{a, 1}}{RT} \right)} ,%[\ce{O2}],
 \end{align}
 ja vastaavasti passiivisen regeneroinnin reaktionopeudet voidaan kirjoittaa muodossa
 \begin{align}
-    R_3 &= f_{\ce{NO}} k_2 \exp{\left( \frac{E_2}{RT} \right)} [\ce{NO2}], \\
-    R_4 &= (1-f_{\ce{NO}}) k_2 \exp{\left( \frac{E_2}{RT} \right)} [\ce{NO2}].
+    R_3 &= f_{\ce{NO}} k_2 \exp{\left( \frac{E_{a, 2}}{RT} \right)} \\%[\ce{NO2}], \\
+    R_4 &= (1-f_{\ce{NO}}) k_2 \exp{\left( \frac{E_{a, 2}}{RT} \right)}, % [\ce{NO2}],
 \end{align}
-Termit \( f_{\ce{CO}}\) ja \( f_{\ce{NO}}\) ovat reaktioiden selektiivisyyteen liittyvät termit \cite{ZhongChao2022Eaos} \cite{DengYuanwang2017Iogc}.
+joissa \( f_{\ce{CO}}\) ja \( f_{\ce{NO}}\) ovat reaktioiden selektiivisyyteen liittyvät termit \cite{ZhongChao2022Eaos} \cite{DengYuanwang2017Iogc}.
 Kaasujen konsetraatiot hiukkassuodattimessa ovat paikan suhteen vakioita, joten työssä voidaan tarkastella vain aktiiviseksi ja passiiviseksi reaktioksi yksinkertaistettuja reaktioita.
 Näin ollen regenerointien kokonaisreaktionopeudet ovat
 \begin{align}
-    R_{active} &= R_1 + R_2 =   k_1 \exp{\left( \frac{E_1}{RT} \right)} [\ce{O2}], \\ \text{ ja }
-    R_{passive} &= R_3+ R_4 =  k_2 \exp{\left( \frac{E_2}{RT} \right)} [\ce{NO2}].
+    R_{active} &= R_1 + R_2 =   k_1 \exp{\left( \frac{E_{a, 1}}{RT} \right)} \\%[\ce{O2}], \\ \text{ ja }
+    R_{passive} &= R_3+ R_4 =  k_2 \exp{\left( \frac{E_{a, 2}}{RT} \right)} . %[\ce{NO2}].
 \end{align}
 
 % Tästä eteenpäin ei fco, fno
 
-Ainemäärätase {\color{red} Tekstiä!!!}
+Hiukkassuodattimen nokimäärän massataseyhtälö on tällöin
 \begin{align}
-    \frac{dn_{soot}}{dt} = n_{soot, in} - n_{soot, out}
+    \frac{dm_{soot}}{dt} = m_{soot, in} - m_{soot, out}
+    =m_{soot, in} - m_{soot} \left( R_{active}[\ce{O2}] + R_{passive}[\ce{NO2}] \right),
 \end{align}
-
+jossa \(m_{soot}\) on suodattimeen kertyneen noen massa.
 
 
 \section{Painehäviö ja sen mallintaminen}
-Konstandopoulos et al. esittelevät artikkelissaan \cite{Konstandopoulos2000} symmetrisen, nokilatautuneen hiukkassuodattimen painehäviömallin. Tässä työssä tarkastellaan yleisesti epäsymmetristä suodatinta. Toisin sanoen tarkastellaan tilannetta, jossa sisäänmeno- ja ulostulokanavien poikkipinta-alat voivat olla eri kokoisia. Lisäksi kokonaispainehäviömalliin otetaan mukaan myös tuhkakerroksen aiheuttama painehäviö. Näin ollen kokonaispainehäviö on puhtaan suodattimen sisäänmenon, ulostulon ja seinämien, sekä noki- ja tuhkakerrosten aiheuttamien painehäviöiden summa \cite{Konstandopoulos2000}\cite{Konstandopoulos2008}, eli
+Hiukkassuodattimeen kertyneiden hiukkasten lukumäärää arvioidaan painehäviön avulla. Painehäviötä voidaan mitata hiukkassuodattimen yli paineantureilla, mutta olennaisesti noen ja tuhkan määrän arvointiin tarvitaan matemaattinen malli.
+Konstandopoulos et al. esittelevät artikkelissaan \cite{Konstandopoulos2000} symmetrisen, nokilatautuneen hiukkassuodattimen painehäviömallin. Tässä työssä tarkastellaan yleisesti epäsymmetristä suodatinta ja laajennetaan mallia ottamaan huomioon myös tuhka. Toisin sanoen tarkastellaan tilannetta, jossa sisäänmeno- ja ulostulokanavien poikkipinta-alat voivat olla eri kokoisia. Lisäksi kokonaispainehäviömalliin otetaan mukaan myös tuhkakerroksen aiheuttama painehäviö. Näin ollen kokonaispainehäviö on puhtaan suodattimen sisäänmenon, ulostulon ja seinämien, sekä noki- ja tuhkakerrosten aiheuttamien painehäviöiden summa \cite{Konstandopoulos2000}\cite{Konstandopoulos2008}, eli
 \begin{align}
     \Delta P_{tot} = \Delta P_{inlet} +  \Delta P_{outlet} + \Delta P_{wall} + \Delta P_{soot} +  \Delta P_{ash}.
 \end{align}
@@ -218,7 +233,7 @@ Näin ollen saadaan suodattimen sisäänmenon painehäviö
     \label{eq:PDinletchannel}
 \end{align}
 Seinämien ja ulostulon painehäviöihin noki- ja tuhka eivät vaikuta. 
-Tarkastellaan vielä noki- ja tuhkakerroksen aiheuttamia painehäviöitä. Molemmat kerrokset ovat huokoisia, joten niiden aiheuttama painehäviö saadaan artikkelin \cite{Konstandopoulos2000} mukaan laskettua integroimalla Darcyn lakia partikkelikerroksen läpi. Oletetaan mallissa kaiken tuhkan olevan seinämää lähempi kerros, ja vastaavasti kaiken noen olevan tuhkakerroksen päällä.
+Tarkastellaan vielä noki- ja tuhkakerroksen aiheuttamia painehäviöitä. Molemmat kerrokset ovat huokoisia, joten niiden aiheuttamat painehäviöt voidaan mallintaa keskenään samalla tavalla. Nokikerroksen painehäviö saadaan \cite{Konstandopoulos2000} mukaan laskettua integroimalla Darcyn lakia partikkelikerroksen läpi. Laajennetaan mallia myös tuhkakerrokselle. Oletetaan mallissa kaiken tuhkan olevan seinämää lähempi kerros, ja vastaavasti kaiken noen olevan tuhkakerroksen päällä.
 Tuhkakerroksen painehäviö on
 \begin{align}
     \Delta P_{ash} &= \frac{\mu}{\kappa_{ash}} \int_0^{w_{ash}}  \frac{Q}{A}dx 
