@@ -62,7 +62,7 @@ Regeneroidessa tapahtuvat reaktiot ovat
 \end{align}
 Niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{LiuGuanlin2021Roio} \cite{Penghao_regen}
 \begin{align}
-    R_i =  k_i \exp\left({-\frac{E_a}{RT}}\right),
+    R_i =  k_i \exp\left({-\frac{E_{a,i}}{RT}}\right),
 \end{align}
 jossa \(k_i\) on frekvenssitekijä, \(E_{a, i}\) on aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila. Karkeasti jaoteltuna reaktiot \eqref{req:active1} ja \eqref{req:active2} kuvaavat aktiivista regenerointia, ja vastaavasti reaktiot \eqref{req:passive1} ja \eqref{req:passive2} passiivista regenerointia.
 Suodattimessa tapahtuu paljon muitakin reaktioita \cite{Penghao_regen}, mutta ne eivät ole tämän työn kannalta olennaisia.
@@ -115,7 +115,7 @@ Näin ollen regenerointien kokonaisreaktionopeudet ovat
 
 Hiukkassuodattimen nokimäärän massataseyhtälö on tällöin
 \begin{align}
-    \frac{dm_{soot}}{dt} = m_{soot, in} - m_{soot, out}
+    \frac{dm_{soot}}{dt} = m_{soot, in} - m_{soot, oxi}
     =m_{soot, in} - m_{soot} \left( R_{active}[\ce{O2}] + R_{passive}[\ce{NO2}] \right),
 \end{align}
 jossa \(m_{soot}\) on suodattimeen kertyneen noen massa.
