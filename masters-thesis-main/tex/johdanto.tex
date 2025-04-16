@@ -1,27 +1,35 @@
 \chapter{Johdanto}%
 \label{ch:johdanto}
 Dieselmoottori on muun muassa toimintavarmuutensa ja energiatehokkuutensa vuoksi yksi nykypäivän merkittävimmistä voimanlähteistä muun muassa työkoneissa \cite[s. 121, 137-138]{Koten_2024}.
-Pelkästään Yhdysvalloissa noin 75\% maatalouden työkoneista käyttää dieselmoottoria voimanlähteenään \cite[s. 122]{Koten_2024}.  
+Pelkästään Yhdysvalloissa noin 75 \% maatalouden työkoneista käyttää dieselmoottoria voimanlähteenään \cite[s. 122]{Koten_2024}.  
 Dieselmoottori kuitenkin tuottaa palamisolosuhteiden vuoksi
-huomattavasti päästöjä \cite{FiebigMichael2014Pefd}. Erityisesti typen oksidit (NO\(_x\)) ja hiukkaspäästöt ovat ongelma niin terveydelle kuin ympäristöllekin \cite[s. 138]{Koten_2024}\cite{YaoDongwei2023Rodm}, joten  lainsäädäntö asettaa yhä tiukentuvat rajat dieselmoottorien päästöille. Tämän vuoksi moderneissa työkoneissa on käytettävä pakokaasun jälkikäsittelyjärjestelmiä, jotka pyrkivät vähentämään dieselmoottorin tuottamien haitallisten päästöjen pääsyä ilmakehään. Koska lainsäädännön rajat tiukentuvat, täytyy jälkikäsittelyjärjestelmiä kehittää ja parantaa jatkuvasti.
+huomattavasti päästöjä \cite{FiebigMichael2014Pefd}. Erityisesti typen oksidit (\(\ce{NO}_x\)) ja hiukkaspäästöt ovat ongelma niin terveydelle kuin ympäristöllekin \cite[s. 138]{Koten_2024}\cite{YaoDongwei2023Rodm}, joten  lainsäädäntö asettaa yhä tiukentuvat rajat dieselmoottorien päästöille. Tämän vuoksi moderneissa työkoneissa on käytettävä pakokaasun jälkikäsittelyjärjestelmiä, jotka pyrkivät vähentämään dieselmoottorin tuottamien haitallisten päästöjen pääsyä ilmakehään.
+
+Koska lainsäädännön rajat tiukentuvat, jälkikäsittelyjärjestelmiä kehitetään jatkuvasti. Euroopan Unionin alueella tieliikennekäytön ulkopuolisten työkoneiden (NRMM \emph{eng. Non-road mobile machinery}) päästölainsäädäntöä ohjaavat Euroopan Unionin asettamat Stage-päästöstandardit, joista ensimmäinen (Stage I) otettiin käyttöön vuonna 1999. Nykyisin käytössä oleva Stage V-standardi  otettiin käyttöön vuonna 2016 EU-asetuksen myötä \cite{eu_asetus_stage_v}. Stage-päästöstandardit määrittävät ylärajat \(\ce{CO}\)-, \(\ce{HC}\)-, \(\ce{NO}_x\)- ja PM -päästöille yksikössä g/kWh, sekä Stage V-standardissa hiukkaslukumäärälle (PN) yksikössä 1/kWh.
+Standardien päästörajat on eritelty koneiden teholuokkien mukaan. Eri teholuokkien PM-päästörajoja on tiukennettu keskimäärin noin 97 \% vuoteen 1999 verrattuna. Lisäksi Stage V-standardi kattaa myös uusia teholuokkia, joita vanhemmat standardit eivät ole koskeneet. \cite{dieselnet_eu_legislation}  
 
 Hiukkaspäästöjä voidaan pienentää merkittävästi hiukkassuodattimella (DPF, \emph{eng. Diesel Particulate Filter}).
-Tyypillisin DPF-järjestelmän rakenne on hunajakennomainen sylinteri, jossa on vuoronperään eri päistä suljettuja putkia \cite{SHIYunxi2020Eota}. Putkien välillä on huokoiset seinämät, joiden läpi pakokaasu pääsee virtaamaan. {\color{red} TODO}
-
+%Tyypillisin DPF-järjestelmän rakenne on hunajakennomainen sylinteri, jossa on vuoronperään eri päistä suljettuja putkia \cite{SHIYunxi2020Eota}. Putkien välillä on huokoiset seinämät, joiden läpi pakokaasu pääsee virtaamaan. {\color{red} TODO}
 DPF suodattaa läpivirtaavasta pakokaasusta hiilestä ja hiilivedyistä koostuvan noen sekä palamattomasta materiaalista koostuvan tuhkan huokoisiin seinämiin ja niiden pinnalle. {\color{red} TODO}
 
-DPF-järjestelmään kertynyt noki ja tuhka tulee aika ajoin poistaa. Tuhka poistetaan manuaalisella puhdistuksella, mutta nokea voidaan hapettaa hiilidioksidiksi hapen ja typen oksidien avulla. Tätä kutsutaan regeneroinniksi, joka jaetaan karkeasti passiiviseen ja aktiiviseen regenerointiin.
+DPF-järjestelmään kertynyt noki ja tuhka tulee aika ajoin poistaa. Tuhka poistetaan mekaanisella puhdistuksella, joka vaatii suodattimen irrottamista järjestelmästä puhdistuksen ajaksi. Nokea puolestaan voidaan hapettaa hiilidioksidiksi hapen ja typen oksidien avulla jopa käytön aikana. Tätä kutsutaan regeneroinniksi, joka jaetaan karkeasti passiiviseen ja aktiiviseen regenerointiin \cite{Yan_state_of_the_art}.
+Passiivista regenerointia tapahtuu käytön aikana lähes jatkuvasti sen alhaisen aktivoitumisenergian, sekä hapettavan katalysaattorin tuottaman typpidioksidin ansiosta \cite{Yan_state_of_the_art}. Passiivinen regenerointi on kuitenkin hidasta \cite{YaoDongwei2023Rodm}, joten noen poistamiseksi tarvitaan nopeaa, aktiivista regenerointia.
 Aktiivisen regeneroinnin ajoitus on syytä toteuttaa oikeaan aikaan, sillä liian aikainen regenerointi kuluttaa ylimäärin polttoainetta, kun taas liian myöhäinen nostaa vastapainetta, mikä voi olla jopa vaarallista \cite{YaoDongwei2023Rodm}. 
-Näin ollen DPF-järjestelmän tila -- erityisesti noen  määrä -- on syytä tuntea mahdollisimman tarkasti. 
+Näin ollen DPF-järjestelmän tila -- erityisesti nokilataus -- on syytä tuntea mahdollisimman tarkasti. 
 
-Nokilatausta arvioidaan painehäviömittauksilla ja hiukkaslukumäärää kuvaavaan matemaattisfysikaaliseen malliin perustuvalla ennusteella \cite{YaoDongwei2023Rodm}. Painehäviömittaus on kuitenkin herkkä häiriöille ja vikaantumiselle, eikä se kykene erottelemaan nokea ja tuhkaa toisistaan.
-Toisaalta mallin ennusteen virhe kumuloituu ajan myötä \cite{YaoDongwei2023Rodm}.
-Tämän työn tarkoituksena on toteuttaa näitä arvioita yhdistelemällä hyvä nokilatausestimaatti. 
+Nokilatauksella tarkoitetaan suodattimeen kertyneen noen massaa tilavuusyksikköä kohden, ja kirjallisuudessa sen yksikkö on usein [g / l]. Varmin ja suoraviivaisin tapa arvioida nokilatausta on irrottaa ja punnita käytössä ollut DPF, jonka paino puhtaana tunnetaan \cite{Yan_state_of_the_art}. Näin voidaan käytännössä toimia vain testiympäristössä, joten nokilatauksen arvointiin tarvitaan muita keinoja.
+Käytön aikaisia arvioinitmenetelmiä ovat suodattimen yli mitatut painehäviömittaukset ja hiukkaslukumäärää kuvaavaat matemaattisfysikaaliset malliin perustuvat ennusteet \cite{YaoDongwei2023Rodm}. 
+Kirjallisuudessa tunnetaan myös useita muita menetelmiä \cite{Yan_state_of_the_art}\cite{dieselnet_sensors_soot}. 
+Painehäviömittaus on herkkä häiriöille ja vikaantumiselle, eikä se kykene erottelemaan noki- ja tuhkalatausta toisistaan. Se n myös epätarkka pienillä virtausnopeuksilla.
+Toisaalta mallin ennusteen epätarkkuus tuottaa ajan myötä kasvavaa virhettä nokilatauksen ja mallin arvion välille, kun nokilataus kasvaa \cite{YaoDongwei2023Rodm}.
+Tämän työn tarkoituksena on toteuttaa näitä arvioita yhdistelemällä luotettava nokilatausestimaatti. 
 
-Hiukkassuodattimeen kertyneen tuhkan määrää arvioidaan mallipojaisesti \cite{??}. 
-Kertynyt tuhka aiheuttaa painemittaukseen kasvavan trendin. Työssä on tarkoitus toteuttaa estimointimenetelmä tuhkalataukselle painemittaukseen perustuen.{\color{red} TODO}
+Hiukkassuodattimen tuhkalatausta arvioidaan mallipojaisesti. 
+Kertynyt tuhka aiheuttaa painehäviömittaukseen kasvavan trendin, joka vääristää tilan estimaattia, ellei sitä kompensoida. Tuhkalatausta on hankala arvioida. Suurin osa tuhkalatauksesta aiheutuu moottorin voiteluaineen kulutuksesta, jota on itsessään hankala arvioida. Lisäksi eri voiteluaineet ja erityisesti niiden lisäaineet aiheuttavat erilaista tuhkalatausta \cite{dieselnet_ash} \cite{WangHaohao2019Adid}.
 
-Estimointiin käytetään Bayesilaisia suotimia, erityisesti Kalman-suodinta. Hiukkassuodatinta mallintavien yhtälöiden epälineaarisuuden vuoksi työssä tarkastellaan Kalman-suo-timen epälineaarisia versioita, kuten laajennettua Kalman-suodinta (EKF, \emph{Extended Kalman Filter}).{\color{red} TODO}
+Työssä on tarkoitus toteuttaa estimointimenetelmä tuhkalataukselle painemittaukseen perustuen.{\color{red} TODO}
+
+Estimointiin käytetään Bayesilaisia suotimia, erityisesti Kalman-suodinta. Hiukkassuodatinta mallintavien yhtälöiden epälineaarisuuden vuoksi työssä tarkastellaan Kalman-suo-timen epälineaarisia versioita, kuten laajennettua Kalman-suodinta (EKF, \emph{Extended Kalman Filter}).{\color{red} TODO} 
 
 Työssä ei suoriteta uusia mittauksia, vaan käytetään usean kenttäkäyttöisen koneen moottorinohjausyksikön (ECU, \emph{eng. Engine Control Unit}) keräämää dataa. {\color{red} TODO}
 
