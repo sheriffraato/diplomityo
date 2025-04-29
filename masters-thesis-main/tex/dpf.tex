@@ -24,10 +24,18 @@ Jälkikäsittelyjärjestelmää on havainnollistettu Kuvassa \ref{fig:EAT_full}.
 \end{figure}
 %
 Jälkikäsittelyjärjestelmän ensimmäinen osa on hapettava katalysaattori, eli DOC. 
-Hapettavan katalysaattorin tehtävä on nimensä mukaan hapettaa moottorin raakapäästöjä, kuten hiilivetyjä, häkää ja typpimonoksidia \cite{dieselnet_doc}. Typpimonoksidista hapetettua typpidioksidia käytetään hiukkassuodattimessa noen hapettamiseen. 
+Hapettavan katalysaattorin tehtävä on nimensä mukaan hapettaa moottorin raakapäästöjä, kuten hiilivetyjä, häkää ja typpimonoksidia \cite{dieselnet_doc}. Typpimonoksidista hapetettua typpidioksidia käytetään hiukkassuodattimessa noen hapettamiseen, ja sen konsentraatio vaikuttaa hapetusreaktionopeuksiin. Täten DOC-järjestelmän poistokaasun \(\ce{NO2}\)-konsentraatio on syytä tuntea tarkasti. Tässä työssä ei syvennytä DOC-järjestelmän \(\ce{NO2}\)-malliin.
 
 Hapettavan katalysaattorin jälkeinen komponentti on hiukkassuodatin eli DPF.
-Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), jossa pakokaasu virtaa hunajakennomaisessa suodattimessa puoliavoimissa putkissa. Pakokaasu virtaa putkien välillä huokoisten seinämien läpi. Pakokaasun hiukkaset jäävät kiinni seinämien sisään ja pinnalle. Virtausta on havainnollistettu Kuvassa \ref{fig:wall-flow-dpf}.
+Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), jossa pakokaasu virtaa hunajakennomaisessa suodattimessa puoliavoimissa putkissa. Suodattimen rakennetta on havainnollistettu Kuvassa \ref{fig:honeycomb}.
+\begin{figure}[H]
+    \centering
+    \pdftooltip{\includegraphics[width=0.5\textwidth]{figures/honeycomb.pdf}}{Kuvituskuva suodattimen poikkileikkauksesta. Poikkileikkaus on ruudukko, jossa avonaiset sisäänmeno- ja suljetut ulostulokanavat ovat keskenään eri väriset.}
+    \caption{Poikkileikkauskuva DPF-järjestelmästä. Kanavien ruudukko luo järjestelmään hunajakennomaisen rakenteen.}
+    \label{fig:honeycomb}
+\end{figure}
+
+Pakokaasu virtaa putkien välillä huokoisten seinämien läpi. Pakokaasun hiukkaset jäävät kiinni seinämien sisään ja pinnalle. Virtausta on havainnollistettu Kuvassa \ref{fig:wall-flow-dpf}.
 %
 \begin{figure}[H]
     \centering 
@@ -54,33 +62,34 @@ vaatii korkean, yli 600:n \degree C lämpötilan. Tarvittava energia saadaan ajo
 
 Regeneroidessa tapahtuvat reaktiot ovat  
 \begin{align}
-    \ce{C + 1/2 O2 &->[$R_1$] CO }\label{req:active1}\\
-    \ce{C + O2 &->[$R_2$] CO2}\label{req:active2}\\
+    \ce{C + 1/2 O2 &->[$R_1$] CO }    \label{req:active1}\\
+    \ce{C + O2 &->[$R_2$] CO2}    \label{req:active2}\\
     \ce{C + NO2 &->[$R_3$] CO +  NO} \text{ ja }  \label{req:passive1} \\
-    \ce{C + 2 NO2 &->[$R_4$] CO2 + 2 NO}. \label{req:passive2}
+    \ce{C + 2 NO2 &->[$R_4$] CO2 + 2 NO}.    \label{req:passive2}  \\
     % \\\ce{NO + 1/2 O2 &<=>[$R_5$] NO2}.
 \end{align}
 Niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{LiuGuanlin2021Roio} \cite{Penghao_regen}
 \begin{align}
-    R_i =  k_i \exp\left({-\frac{E_{a,i}}{RT}}\right),\ i = 1,\ldots,4
+    R_i(t) =  k_i \exp\left({-\frac{E_{a,i}}{RT(t)}}\right),\ i = 1,\ldots,4
 \end{align}
-jossa \(k_i\) on reaktion \(i\) frekvenssitekijä, \(E_{a, i}\) on  reaktion \(i\)aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila. Karkeasti jaoteltuna reaktiot \eqref{req:active1} ja \eqref{req:active2} kuvaavat aktiivista regenerointia, ja vastaavasti reaktiot \eqref{req:passive1} ja \eqref{req:passive2} passiivista regenerointia.
+jossa \(k_i\) on reaktion \(i\) frekvenssitekijä, \(E_{a, i}\) on  reaktion \(i\) aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila. Karkeasti jaoteltuna reaktiot \eqref{req:active1} ja \eqref{req:active2} kuvaavat aktiivista regenerointia, ja vastaavasti reaktiot \eqref{req:passive1} ja \eqref{req:passive2} passiivista regenerointia.
 Suodattimessa tapahtuu paljon muitakin reaktioita \cite{Penghao_regen}, mutta ne eivät ole tämän työn kannalta olennaisia.
-Reaktionopeus kuvaa kunkin aineen konsentraation muutosnopeutta, eli aikaderivaattaa \cite[s. 24-26]{chemical_reaction_kinetics}. Suljetulle reaktiolle
-\begin{align}
-    \ce{a1 X1 + a2 X2 + \cdots {} + a_n X_n ->[R] b1 Y1 + b2 Y2 + \cdots {} + b_m Y_m}
-\end{align}
-reaktionopeus \(R\) määritellään
-\begin{align}
-    R   = -\frac{1}{\ce{a1}}\frac{d[\ce{X1}]}{dt} 
-        % = -\frac{1}{\ce{a2}}\frac{d[\ce{X2}]}{dt}
-        = \cdots 
-        = -\frac{1}{\ce{a_n}}\frac{d[\ce{X_n}]}{dt}
-        = \frac{1}{\ce{b1}}\frac{d[\ce{Y1}]}{dt} 
-        = \cdots 
-        = \frac{1}{\ce{b_m}}\frac{d[\ce{Y_m}]}{dt},
-\end{align}
-jossa \(\ce{[X_i], [Y_i]}\) on aineiden \(\ce{X_i, Y_i}\) konsentraatiot. 
+Reaktionopeus kuvaa kunkin aineen konsentraation muutosnopeutta, eli aikaderivaattaa \cite[s. 24-26]{chemical_reaction_kinetics}. 
+
+% Suljetulle reaktiolle
+% \begin{align}
+%     \ce{a1 X1 + a2 X2 + \cdots {} + a_n X_n ->[R] b1 Y1 + b2 Y2 + \cdots {} + b_m Y_m}
+% \end{align}
+% reaktionopeus \(R\) määritellään
+% \begin{align}
+%     R   = -\frac{1}{\ce{a1}}\frac{d[\ce{X1}]}{dt} 
+%         = \cdots 
+%         = -\frac{1}{\ce{a_n}}\frac{d[\ce{X_n}]}{dt}
+%         = \frac{1}{\ce{b1}}\frac{d[\ce{Y1}]}{dt} 
+%         = \cdots 
+%         = \frac{1}{\ce{b_m}}\frac{d[\ce{Y_m}]}{dt},
+% \end{align}
+% jossa \(\ce{[X_i], [Y_i]}\) on aineiden \(\ce{X_i, Y_i}\) konsentraatiot. 
 
 % Noen regeneroitumista reaktioissa \eqref{req:active1} ja \eqref{req:active2} kuvaa massataseyhtälö \cite{BaiShuzhan2016Slem} \cite{ZhongChao2022Eaos}
 % \begin{align}
@@ -95,28 +104,29 @@ jossa \(\ce{[X_i], [Y_i]}\) on aineiden \(\ce{X_i, Y_i}\) konsentraatiot.
 
 Aktiivisen regeneroinnin reaktionopeudet voidaan kirjoittaa muodossa
 \begin{align}
-    R_1 &= f_{\ce{CO}} k_1 \exp{\left( \frac{E_{a, 1}}{RT} \right)} \\% [\ce{O2}] \\
-    R_2 &= (1-f_{\ce{CO}}) k_1 \exp{\left( \frac{E_{a, 1}}{RT} \right)} ,%[\ce{O2}],
+    R_1(t) &= f_{\ce{CO}} k_1 \exp{\left( \frac{E_{a, 1}}{RT(t)} \right)} \\% [\ce{O2}] \\
+    R_2(t) &= (1-f_{\ce{CO}}) k_1 \exp{\left( \frac{E_{a, 1}}{RT(t)} \right)} ,%[\ce{O2}],
 \end{align}
 ja vastaavasti passiivisen regeneroinnin reaktionopeudet voidaan kirjoittaa muodossa
 \begin{align}
-    R_3 &= f_{\ce{NO}} k_2 \exp{\left( \frac{E_{a, 2}}{RT} \right)} \\%[\ce{NO2}], \\
-    R_4 &= (1-f_{\ce{NO}}) k_2 \exp{\left( \frac{E_{a, 2}}{RT} \right)}, % [\ce{NO2}],
+    R_3(t) &= f_{\ce{NO}} k_2 \exp{\left( \frac{E_{a, 2}}{RT(t)} \right)} \\%[\ce{NO2}], \\
+    R_4(t) &= (1-f_{\ce{NO}}) k_2 \exp{\left( \frac{E_{a, 2}}{RT(t)} \right)}, % [\ce{NO2}],
 \end{align}
 joissa \( f_{\ce{CO}}\) ja \( f_{\ce{NO}}\) ovat reaktioiden selektiivisyyteen liittyvät termit \cite{ZhongChao2022Eaos} \cite{DengYuanwang2017Iogc}.
 Kaasujen konsetraatiot hiukkassuodattimessa ovat paikan suhteen vakioita, joten työssä voidaan tarkastella vain aktiiviseksi ja passiiviseksi reaktioksi yksinkertaistettuja reaktioita.
 Näin ollen regenerointien kokonaisreaktionopeudet ovat
 \begin{align}
-    R_{active} &= R_1 + R_2 =   k_1 \exp{\left( \frac{E_{a, 1}}{RT} \right)} \\%[\ce{O2}], \\ \text{ ja }
-    R_{passive} &= R_3+ R_4 =  k_2 \exp{\left( \frac{E_{a, 2}}{RT} \right)} . %[\ce{NO2}].
+    R_{active}(t) &= R_1(t) + R_2(t) =   k_1 \exp{\left( \frac{E_{a, 1}}{RT(t)} \right)} \\%[\ce{O2}], \\ \text{ ja }
+    R_{passive}(t) &= R_3(t)+ R_4(t) =  k_2 \exp{\left( \frac{E_{a, 2}}{RT(t)} \right)} . %[\ce{NO2}].
 \end{align}
 
 % Tästä eteenpäin ei fco, fno
 
 Hiukkassuodattimen nokimäärän massataseyhtälö on tällöin
 \begin{align}
-    \frac{dm_{soot}}{dt} = m_{soot, in} - m_{soot, oxi}
-    =m_{soot, in} - m_{soot} \left( R_{active}[\ce{O2}] + R_{passive}[\ce{NO2}] \right),
+    \frac{dm_{soot}(t)}{dt} &= m_{soot, in}(t) - m_{soot, oxi}(t)\\
+    %&= m_{soot, in}(t) - m_{soot} \left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right),
+    &= m_{soot, in}(t) - V_{soot} M_{soot}\left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right),
 \end{align}
 jossa \(m_{soot}\) on suodattimeen kertyneen noen massa.
 
