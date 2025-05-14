@@ -20,21 +20,30 @@ Näin ollen DPF-järjestelmän tila -- erityisesti nokilataus -- on syytä tunte
 Nokilatauksella tarkoitetaan suodattimeen kertyneen noen massaa tilavuusyksikköä kohden, ja kirjallisuudessa sen yksikkö on usein [g / l]. Varmin ja suoraviivaisin tapa arvioida nokilatausta on irrottaa ja punnita käytössä ollut DPF, jonka paino puhtaana tunnetaan \cite{Yan_state_of_the_art}. Näin voidaan käytännössä toimia vain testiympäristössä, joten nokilatauksen arvointiin tarvitaan muita keinoja.
 Käytön aikaisia arvioinitmenetelmiä ovat suodattimen yli mitatut painehäviömittaukset ja hiukkaslukumäärää kuvaavaat matemaattisfysikaaliset malliin perustuvat ennusteet \cite{YaoDongwei2023Rodm}. 
 Kirjallisuudessa tunnetaan myös useita muita menetelmiä \cite{Yan_state_of_the_art}\cite{dieselnet_sensors_soot}. 
-Painehäviömittaus on herkkä häiriöille ja vikaantumiselle, eikä se kykene erottelemaan noki- ja tuhkalatausta toisistaan. Se n myös epätarkka pienillä virtausnopeuksilla.
+Painehäviömittaus on herkkä häiriöille ja vikaantumiselle, eikä se kykene erottelemaan noki- ja tuhkalatausta toisistaan. Se on myös epätarkka pienillä virtausnopeuksilla.
 Toisaalta mallin ennusteen epätarkkuus tuottaa ajan myötä kasvavaa virhettä nokilatauksen ja mallin arvion välille, kun nokilataus kasvaa \cite{YaoDongwei2023Rodm}.
 Tämän työn tarkoituksena on toteuttaa näitä arvioita yhdistelemällä luotettava nokilatausestimaatti. 
 
 Hiukkassuodattimen tuhkalatausta arvioidaan mallipojaisesti. 
 Kertynyt tuhka aiheuttaa painehäviömittaukseen kasvavan trendin, joka vääristää tilan estimaattia, ellei sitä kompensoida. Tuhkalatausta on hankala arvioida. Suurin osa tuhkalatauksesta aiheutuu moottorin voiteluaineen kulutuksesta, jota on itsessään hankala arvioida. Lisäksi eri voiteluaineet ja erityisesti niiden lisäaineet aiheuttavat erilaista tuhkalatausta \cite{dieselnet_ash} \cite{WangHaohao2019Adid}.
+Työssä on tarkoitus toteuttaa estimointimenetelmä nokilatauksen lisäksi myös tuhkalataukselle painemittaukseen perustuen.
 
-Työssä on tarkoitus toteuttaa estimointimenetelmä tuhkalataukselle painemittaukseen perustuen.{\color{red} TODO}
+Työssä ei suoriteta uusia mittauksia, vaan käytetään usean kenttäkäyttöisen koneen moottorinohjausyksikön (ECU, \emph{eng. Engine Control Unit}) keräämää dataa. Käytössä on myös yksittäisten hiukkassuodattimen punnitustuloksia tunnetulla moottorituntimäärällä. Nämä punnitustulokset antavat yksittäisille ajanhetkille tarkat nokilatauksen arvot, joihin nokilatauksen estimaattia voidaan verrata.
 
-Estimointiin käytetään Bayesilaisia suotimia, erityisesti Kalman-suodinta. Hiukkassuodatinta mallintavien yhtälöiden epälineaarisuuden vuoksi työssä tarkastellaan Kalman-suo-timen epälineaarisia versioita, kuten laajennettua Kalman-suodinta (EKF, \emph{Extended Kalman Filter}).{\color{red} TODO Kuinka hyvin suunniteltu estimointimenetelmä toimii? Vrt. punnitustuloksiin. Inputien epävarmuuden arviointi.}
+Nokilatausestimaatti on satunnaismuuttuja ja sen epävarmuutta mallinnetaan tilan todennäköisyysjakauman varianssina. Työtä ohjaavat tutkimuskysymykset
+%Estimointiin käytetään Bayesilaisia suotimia, erityisesti Kalman-suodinta. Hiukkassuodatinta mallintavien yhtälöiden epälineaarisuuden vuoksi työssä tarkastellaan Kalman-suotimen epälineaarisia versioita, kuten laajennettua Kalman-suodinta (EKF, \emph{Extended Kalman Filter}).
+%{\color{red} TODO Kuinka hyvin suunniteltu estimointimenetelmä toimii? Vrt. punnitustuloksiin. Inputien epävarmuuden arviointi.}
+\begin{itemize}
+    \item Kuinka tarkkoja tuloksia suunniteltu estimointimenetelmä tuottaa verrattuna punnitustuloksiin?
+    \item Kuinka paljon sisäänmenojen epävarmuudet -- kuten \(\ce{NO}_2\)-mallin virhe -- aiheuttavat epävarmuutta estimaattiin? Tosin sanoen kysymys on, kuinka paljon sisäänmenot vaikuttavat estimaatin varianssiin.
+    \item Kuinka paljon käyttöolosuhteet, kuten lämpötila vaikuttavat tilan varianssiin?
+\end{itemize}
+Tutkimuskysymysten raamien lisäksi estimointimenetelmä laaditaan riittävän laskenta- ja muistitehokkaaksi, jotta moottorinohjausyksikön laskentateho ja muisti riittävät reaaliaikaiseen estimointiin.
 
-Työssä ei suoriteta uusia mittauksia, vaan käytetään usean kenttäkäyttöisen koneen moottorinohjausyksikön (ECU, \emph{eng. Engine Control Unit}) keräämää dataa. {\color{red} TODO}
 
-Työn tavoitteena on selvittää, kuinka paljon hapettavan katalysaattorin \(\ce{NO}_2\)-mallin virhe aiheuttaa epävarmuutta DPF-tilan estimaattiin. % kaikki epävarmuudet inputeista
- Epävarmuutta mallinnetaan tilan todennäköisyysjakauman varianssina. Toisaalta kiinnostavaa on myös selvittää, kuinka paljon hiukkassuodattimen käyttöolosuhteet, kuten lämpötila vaikuttavat DPF-tilan varianssiin. 
+%Työn tavoitteena on selvittää, kuinka paljon hapettavan katalysaattorin \(\ce{NO}_2\)-mallin virhe aiheuttaa epävarmuutta DPF-tilan estimaattiin. % kaikki epävarmuudet inputeista
+ 
+ %Toisaalta kiinnostavaa on myös selvittää, kuinka paljon hiukkassuodattimen käyttöolosuhteet, kuten lämpötila vaikuttavat DPF-tilan varianssiin. 
 
 Luvussa 2 esitellään hiukkassuodatin yksityiskohtaisesti osana jälkikäsittelyjärjestelmää.
 Luvussa 3 esitellään yleisesti systeemin tilan estimointimenetelmiä, erityisesti Kalman-suodin ja sen laajennuksia.

@@ -1,5 +1,3 @@
-
-
 function sootload = regeneration_model(dataStruct, dpfDiam, dpfLen, sootLoadInit, timeStep)
 
 if nargin < 5
@@ -9,12 +7,20 @@ end
 if nargin < 4
     sootLoadInit = 0;
 end
+
+p = DpfWM_params_HAC();
+NM_Coeff.CPSM = (max(p.DpfWM_RhoCell_P,0.00000001))/0.0254^2;
+NM_Coeff.s = sqrt(4/NM_Coeff.CPSM);
+NM_Coeff.d2 = (-2*p.DpfWM_ThcknsWall_P + NM_Coeff.s)/(p.DpfWM_cdr_P + 1);
+NM_Coeff.d1 = p.DpfWM_cdr_P*NM_Coeff.d2;
+NM_Coeff.GSAic = (8*NM_Coeff.d1)/NM_Coeff.s^2;
+
 time = dataStruct.Time;
 
 dpfDiam = dpfDiam * 0.0254;                 % in -> m
 dpfLen = dpfLen * 0.0254;                   % in -> m
 V_total = dpfLen * pi*(dpfDiam/2)^2;        % Total volume of DPF [m3];
-mf = dataStruct.ExhMassFlow/3600;            % Massflow [kg/h] -> [kg/s]
+mf = dataStruct.ExhMassFlow/3600;           % Massflow [kg/h] -> [kg/s]
 temp = dataStruct.DpfTemp + 273.15;         % degC -> K
 ConcSootUs = 1e-6* dataStruct.ConcSootUs;
 
@@ -29,15 +35,16 @@ ro_soot = 34.633; % density of the soot layer [kg/m3]
 mSoot = sootLoadInit;
 
 sootload = ones(size(time))*mSoot;
+
 for k = 1:length(time)
     Vsoot = mf(k) * ConcSootUs(k) ./ ro_soot;
     Ractive = k1 * exp( Ea1 ./ (R * temp(k)) );
     Rpassive = k2 * exp( Ea2 ./ (R * temp(k)) );
     
-    dsoot = ConcSootUs(k) - Vsoot * soot_M * (Ractive  * dataStruct.ConcOxyUs(k) + ...
-                                                         Rpassive * dataStruct.ConcNoUs(k));
-    mSoot = mSoot + timeStep * dsoot / V_total;
-    sootload(k) =mSoot;% max(mSoot, 1e-8);
+    dsoot = mf*ConcSootUs(k) / V_total - 0.012*NM.GSAic * (Ractive  * dataStruct.ConcOxyUs(k) + ...
+                                                           Rpassive * dataStruct.ConcNo2Us(k));
+    mSoot = mSoot + timeStep * dsoot;
+    sootload(k) = max(mSoot, 1e-8);
 end
 
 
