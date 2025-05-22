@@ -58,24 +58,24 @@ Tässä työssä tarkastellaan jälkikäsittelyjärjestelmän komponenteista tar
 \section{Regenerointi}
 Noen poistoa suodattimesta hapettamalla kutsutaan regeneroinniksi. Regenerointi jaetaan karkeasti kahteen tapaan: aktiiviseen ja passiiviseen regenerointiin. 
 Aktiivinen regenerointi tarkoittaa käytännössä noen polttamista ja se
-vaatii korkean, yli 600:n \degree C lämpötilan. Tarvittava energia saadaan ajoneuvon polttoainetta käyttämällä \cite{dieselnet_dpf}. Passiiviseen regenerointiin riittää huomattavasti matalammat lämpötilat ja se perustuu noen hapetusreaktioihin typpidioksidin (NO\(_2\)) kanssa. Tarvittava typpidioksidi saadaan hapettamalla moottorin raakapäästöinä muodostuvaa typpimonoksidia (\ce{NO}) hapettavassa katalysaattorissa (DOC, \emph{Diesel Oxidation Catalyst}).
+vaatii korkean, yli 600:n \degree C lämpötilan. Tarvittava energia saadaan polttamalla ajoneuvon polttoainetta  \cite{dieselnet_dpf}. Passiiviseen regenerointiin riittää huomattavasti matalammat lämpötilat ja se perustuu noen hapetusreaktioihin typpidioksidin (NO\(_2\)) kanssa. Tarvittava typpidioksidi saadaan hapettamalla moottorin raakapäästöinä muodostuvaa typpimonoksidia (\ce{NO}) hapettavassa katalysaattorissa (DOC, \emph{Diesel Oxidation Catalyst}).
 
 Regeneroidessa tapahtuvat reaktiot ovat  
 \begin{align}
     \ce{C + 1/2 O2 &->[$R_1$] CO }    \label{req:active1}\\
     \ce{C + O2 &->[$R_2$] CO2}    \label{req:active2}\\
     \ce{C + NO2 &->[$R_3$] CO +  NO} \text{ ja }  \label{req:passive1} \\
-    \ce{C + 2 NO2 &->[$R_4$] CO2 + 2 NO}.    \label{req:passive2}  \\
-    % \\\ce{NO + 1/2 O2 &<=>[$R_5$] NO2}.
+    \ce{C + 2 NO2 &->[$R_4$] CO2 + 2 NO},    \label{req:passive2} 
+    % \\\ce{NO + 1/2 O2 &<=>[$R_5$] NO2}. 
 \end{align}
-Niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{LiuGuanlin2021Roio} \cite{Penghao_regen}
+ja niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{LiuGuanlin2021Roio} \cite{Penghao_regen}
 \begin{align}
     R_i(t) =  k_i \exp\left({-\frac{E_{a,i}}{RT(t)}}\right),\ i = 1,\ldots,4
 \end{align}
 jossa \(k_i\) on reaktion \(i\) frekvenssitekijä, \(E_{a, i}\) on  reaktion \(i\) aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila. Karkeasti jaoteltuna reaktiot \eqref{req:active1} ja \eqref{req:active2} kuvaavat aktiivista regenerointia, ja vastaavasti reaktiot \eqref{req:passive1} ja \eqref{req:passive2} passiivista regenerointia.
-Suodattimessa tapahtuu paljon muitakin reaktioita \cite{Penghao_regen}, mutta ne eivät ole tämän työn kannalta olennaisia.
-Reaktionopeus kuvaa kunkin aineen konsentraation muutosnopeutta, eli aikaderivaattaa \cite[s. 24-26]{chemical_reaction_kinetics}. 
+Suodattimessa tapahtuu  muitakin reaktioita \cite{Penghao_regen}, jotka eivät ole tämän työn kannalta olennaisia.
 
+Reaktionopeus kuvaa kunkin aineen konsentraation muutosnopeutta, eli aikaderivaattaa \cite[s. 24-26]{chemical_reaction_kinetics}. 
 % Suljetulle reaktiolle
 % \begin{align}
 %     \ce{a1 X1 + a2 X2 + \cdots {} + a_n X_n ->[R] b1 Y1 + b2 Y2 + \cdots {} + b_m Y_m}
@@ -100,41 +100,50 @@ Reaktionopeus kuvaa kunkin aineen konsentraation muutosnopeutta, eli aikaderivaa
 %     \frac{d m_{soot}}{dt}\Big |_{[\ce{O2}]} = (R_3 + R_4) m_{soot}^\gamma [\ce{NO2}]^\alpha.
 % \end{align}
 % Taseyhtälöissä \(m_{soot}\) on suodattimeen kertyneen noen massa, \(R_i\) on reaktionopeus, ja \(\alpha\) ja \(\gamma\) ovat noen massaan ja typpidioksidin konsentraatioon liittyvät parametrit.
-
-
 Aktiivisen regeneroinnin reaktionopeudet voidaan kirjoittaa muodossa
 \begin{align}
-    R_1(t) &= f_{\ce{CO}} k_1 \exp{\left( \frac{E_{a, 1}}{RT(t)} \right)} \\% [\ce{O2}] \\
-    R_2(t) &= (1-f_{\ce{CO}}) k_1 \exp{\left( \frac{E_{a, 1}}{RT(t)} \right)} ,%[\ce{O2}],
+    R_1(t) &= f_{\ce{CO}} k_1 \exp{\left( -\frac{E_{a, 1}}{RT(t)} \right)} \\% [\ce{O2}] \\
+    R_2(t) &= (1-f_{\ce{CO}}) k_1 \exp{\left( -\frac{E_{a, 1}}{RT(t)} \right)} ,%[\ce{O2}],
 \end{align}
 ja vastaavasti passiivisen regeneroinnin reaktionopeudet voidaan kirjoittaa muodossa
 \begin{align}
-    R_3(t) &= f_{\ce{NO}} k_2 \exp{\left( \frac{E_{a, 2}}{RT(t)} \right)} \\%[\ce{NO2}], \\
-    R_4(t) &= (1-f_{\ce{NO}}) k_2 \exp{\left( \frac{E_{a, 2}}{RT(t)} \right)}, % [\ce{NO2}],
+    R_3(t) &= f_{\ce{NO}} k_2 \exp{\left( -\frac{E_{a, 2}}{RT(t)} \right)} \\%[\ce{NO2}], \\
+    R_4(t) &= (1-f_{\ce{NO}}) k_2 \exp{\left( -\frac{E_{a, 2}}{RT(t)} \right)}, % [\ce{NO2}],
 \end{align}
 joissa \( f_{\ce{CO}}\) ja \( f_{\ce{NO}}\) ovat reaktioiden selektiivisyyteen liittyvät termit \cite{ZhongChao2022Eaos} \cite{DengYuanwang2017Iogc}.
 Kaasujen konsetraatiot hiukkassuodattimessa ovat paikan suhteen vakioita, joten työssä voidaan tarkastella vain aktiiviseksi ja passiiviseksi reaktioksi yksinkertaistettuja reaktioita.
 Näin ollen regenerointien kokonaisreaktionopeudet ovat
 \begin{align}
-    R_{active}(t) &= R_1(t) + R_2(t) =   k_1 \exp{\left( \frac{E_{a, 1}}{RT(t)} \right)} \\%[\ce{O2}], \\ \text{ ja }
-    R_{passive}(t) &= R_3(t)+ R_4(t) =  k_2 \exp{\left( \frac{E_{a, 2}}{RT(t)} \right)} . %[\ce{NO2}].
+    R_{active}(t) &= R_1(t) + R_2(t) =   k_1 \exp{\left( -\frac{E_{a, 1}}{RT(t)} \right)} \\%[\ce{O2}], \\ \text{ ja }
+    R_{passive}(t) &= R_3(t)+ R_4(t) =  k_2 \exp{\left( -\frac{E_{a, 2}}{RT(t)} \right)} . %[\ce{NO2}].
 \end{align}
+Reaktionopeuksien yksikkö on \(\frac{1}{s}\).
 
-% Tästä eteenpäin ei fco, fno
-
+Noen hapettumisnopeus on suoraan verrannollinen typpidioksidin ja hapen konsentraatioihin. Reaktion edetessä nokikerroksessa typpidioksidia ja happea kuluu, joten konsentraatiot on integroitava nokikerroksen paksuuden yli. Tällöin hapettuvan noen muutosnopeus on
+\begin{align}
+    \dot{m}_{soot, oxi} = M_{soot} A_{soot}\left(R_{active}(t) \int_0^{w_{soot}} [\ce{O2}] dz +
+                                                R_{passive}(t) \int_0^{w_{soot}} [\ce{NO2}] dz
+    \right),
+\end{align}
+jossa \(M_{soot}\) on noen moolimassa, \(A_{soot}\) on nokikerroksen pinta-ala seinämän suuntaan, ja \(w_{soot}\) on nokikerroksen paksuus. Yksinkertaistuksen vuoksi voidaan olettaa, että typpidioksidin ja hapen konsentraatiot pysyvät likimain vakioina, eli niitä on ylimäärin. Näin ollen yhtälö yksinkertaistuu muotoon
+\begin{align}
+    \dot{m}_{soot, oxi} = M_{soot}V_{soot} \left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right),
+\end{align}
+jossa \(V_{soot}=A_{soot}w_{soot}\) on kertyneen noen tilavuus.
 Hiukkassuodattimen nokimäärän massataseyhtälö on tällöin
 \begin{align}
-    \frac{dm_{soot}(t)}{dt} &= m_{soot, in}(t) - m_{soot, oxi}(t)\\
+\begin{split}
+    \dot{m} _{soot}(t) &= \dot{m} _{soot, in}(t) - \dot{m} _{soot, oxi}(t)
     %&= m_{soot, in}(t) - m_{soot} \left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right),
-    &= m_{soot, in}(t) - V_{soot} M_{soot}\left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right),
+    %&= m_{soot, in}(t) - V_{soot} M_{soot}\left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right),
+    \\ & = \dot{m}_{soot, in}(t) - M_{soot}V_{soot} \left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right).
+\end{split}
 \end{align}
-jossa \(m_{soot}\) on suodattimeen kertyneen noen massa.
-
 
 \section{Painehäviö ja sen mallintaminen}
 Hiukkassuodattimeen kertyneiden hiukkasten lukumäärää arvioidaan painehäviön avulla. Painehäviötä voidaan mitata hiukkassuodattimen yli paineantureilla, mutta olennaisesti noen ja tuhkan määrän arvointiin tarvitaan matemaattinen malli.
-Konstandopoulos et al. esittelevät artikkelissaan \cite{Konstandopoulos2000} symmetrisen, nokilatautuneen hiukkassuodattimen painehäviömallin. Tässä työssä tarkastellaan yleisesti epäsymmetristä suodatinta ja laajennetaan mallia ottamaan huomioon myös tuhka. Toisin sanoen tarkastellaan tilannetta, jossa sisäänmeno- ja ulostulokanavien poikkipinta-alat voivat olla eri kokoisia. Lisäksi kokonaispainehäviömalliin otetaan mukaan myös tuhkakerroksen aiheuttama painehäviö. Näin ollen kokonaispainehäviö on puhtaan suodattimen sisäänmenon, ulostulon ja seinämien, sekä noki- ja tuhkakerrosten aiheuttamien painehäviöiden summa \cite{Konstandopoulos2000}\cite{Konstandopoulos2008}, eli
-\begin{align}
+Konstandopoulos et al.  \cite{Konstandopoulos2000} esittelevät symmetrisen, nokilatautuneen hiukkassuodattimen painehäviömallin. Tässä työssä tarkastellaan yleisesti epäsymmetristä suodatinta ja laajennetaan mallia ottamaan huomioon myös tuhkalatauksen aiheuttama painehäviö. Toisin sanoen tarkastellaan tilannetta, jossa sisäänmeno- ja ulostulokanavien poikkipinta-alat voivat olla eri kokoisia. Lisäksi kokonaispainehäviömalliin otetaan mukaan myös tuhkakerroksen aiheuttama painehäviö. Näin ollen kokonaispainehäviö on puhtaan suodattimen sisäänmenon, ulostulon ja seinämien, sekä noki- ja tuhkakerrosten aiheuttamien painehäviöiden summa \cite{Konstandopoulos2000}\cite{Konstandopoulos2008}, eli
+\begin{align}\label{eq:deltaP_total}
     \Delta P_{tot} = \Delta P_{inlet} +  \Delta P_{outlet} + \Delta P_{wall} + \Delta P_{soot} +  \Delta P_{ash}.
 \end{align}
 Lisäksi painehäviötä tapahtuu sisäänmeno- ja ulostuloaukolla, mutta häviöt näissä ovat merkityksettömän pieniä \cite{Konstandopoulos2000}.
@@ -145,12 +154,12 @@ Lisäksi painehäviötä tapahtuu sisäänmeno- ja ulostuloaukolla, mutta hävi�
 
 Tarkastellaan aluksi puhdasta suodatinta. Puhtaassa suodattimessa yhden kanavan painehäviö on
 \begin{align}
-    \Delta P_{channel}(t) = \frac{\mu F}{3 \alpha^2} LU_{channel}(t),
+    \Delta P_{channel}(t) = \frac{ FL}{3 \alpha^2} U_{channel}(t)\mu(t),
 \end{align}
-jossa \(\mu \) on pakokaasun viskositeetti, \(F\) on kanavien kitkaan liittyvä kerroin \cite{dieselnet_wall_flow_monolith}, \(\alpha\) on kanavan leveys, \(L\) on kanavan pituus ja \(U_{channel}(t)\) on virtausnopeus \cite{Konstandopoulos2000}.
+jossa \(\mu(t) \) on pakokaasun viskositeetti, \(F\) on kanavien kitkaan liittyvä kerroin \cite{dieselnet_wall_flow_monolith}, \(\alpha\) on kanavan leveys, \(L\) on kanavan pituus ja \(U_{channel}(t)\) on virtausnopeus \cite{Konstandopoulos2000}.
 Muokataan yhtälöä hyödyntäen sylinterin geometriaa. Kun merkitään \(\frac{1}{A} = \frac{L}{V}\), jossa \(A\) on suodattimen poikkileikkauspinta-ala ja \(V\) on suodattimen kokonaistilavuus, painehäviö voidaan esittää muodossa
 \begin{align}\label{eq:clean_channel_pd}
-    \Delta P_{channel}(t) = \frac{\mu(t) F}{3 \alpha^2} \frac{L^2}{V}U_{channel}(t),
+    \Delta P_{channel}(t) = \frac{ F \,L^2}{3 \alpha^2 \,V} U_{channel}(t)\mu(t),
 \end{align}
 
 Yleisesti suodattimen sisäänmeno- ja ulostulokanavien leveydet \(\alpha_{in}\) ja \(\alpha_{out}\) eivät ole identtiset. Toisin sanoen \(\alpha_{in} \neq \alpha_{out}\). Tällaista suodatinta on havainnollistettu Kuvassa \ref{fig:hac_dpf_clean}.
@@ -196,7 +205,8 @@ Sijoittamalla yhtälöt \eqref{eq:uin} ja \eqref{eq:area_eff_in}, sekä \eqref{e
 \end{align}
 Jos kanavat ovat keskenään saman kokoiset, eli  \(\alpha_{in}=\alpha_{out}=\alpha\), saadaan sisäänmeno- ja ulostulokanavien painehäviöiksi 
 \begin{align}
-    \Delta P_{inlet}(t)= \Delta P_{outlet}(t) =  \frac{Q(t)\mu(t) F}{3} \frac{L^2}{V}\frac{(\alpha+w_s)^2}{\alpha^2}.
+    % \Delta P_{inlet}(t)= \Delta P_{outlet}(t) =  \frac{Q(t)\mu(t) F}{3} \frac{L^2}{V}\frac{(\alpha+w_s)^2}{\alpha^2}.
+     \Delta P_{inlet}(t)= \Delta P_{outlet}(t) =   \frac{(\alpha+w_s)^2F L^2}{3\alpha^2V}Q(t)\mu(t) .
 \end{align}
 
 
@@ -215,7 +225,7 @@ Pakokaasun oletetaan kulkevan seinämän läpi kohtisuoraan, joten painehäviö 
 \end{align}
 Kun \(dx \to w_s\), niin \(dP \to -\Delta P_{wall}\). Näin ollen painehäviö on
 \begin{align}
-    \Delta P_{wall}(t) = Q(t)\mu(t) \frac{w_s}{\kappa}.
+    \Delta P_{wall}(t) =  \frac{w_s}{\kappa}Q(t)\mu(t).
 \end{align}
 Suodattimessa on jokaista sisäänmenokanavaa kohden neljä seinämää, ja avoimia kanavia on yhteensä \(n_{open}\) kappaletta. Yhden seinämän pinta-ala on \(L\cdot \alpha_{out}\), joten 
 \begin{align}
@@ -223,7 +233,7 @@ Suodattimessa on jokaista sisäänmenokanavaa kohden neljä seinämää, ja avoi
 \end{align}
 Seinien kokonaispainehäviö on
 \begin{align}
-    \Delta P_{wall}(t) =  Q(t) \mu(t) \frac{w_s}{4 n_{open} L  \alpha_{out}  \kappa_{wall}}.
+    \Delta P_{wall}(t) =   \frac{w_s}{4 n_{open} L  \alpha_{out}  \kappa_{wall}}Q(t) \mu(t).
 \end{align}
 
 Tarkastellaan nyt partikkelilatautunutta suodatinta.
@@ -241,30 +251,30 @@ Koska noki ja tuhka kertyvät mallissa tasaisesti sisäänmenokanavien seinämil
     \alpha_{in}^*(t) = \alpha_{in} -2w_{soot}(t)-2w_{ash}(t).
 \end{align}
 Näin ollen saadaan suodattimen sisäänmenon painehäviö
-\begin{align}
-    \Delta P_{inlet}(t) = \frac{Q(t) \mu(t) F}{6}\cdot \frac{L^2}{V} \cdot \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2}{(\alpha_{in}^*(t))^4}.
-    \label{eq:PDinletchannel}
+\begin{align}\label{eq:deltaP_inlet}
+    \Delta P_{inlet}(t) =   \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2FL^2}{6(\alpha_{in}^*(t))^4 V}Q(t) \mu(t).
+    %\label{eq:PDinletchannel}
 \end{align}
 Seinämien ja ulostulon painehäviöihin noki- ja tuhka eivät vaikuta. 
 Tarkastellaan vielä noki- ja tuhkakerroksen aiheuttamia painehäviöitä. Molemmat kerrokset ovat huokoisia, joten niiden aiheuttamat painehäviöt voidaan mallintaa keskenään samalla tavalla. Nokikerroksen painehäviö saadaan \cite{Konstandopoulos2000} mukaan laskettua integroimalla Darcyn lakia partikkelikerroksen läpi. Laajennetaan mallia myös tuhkakerrokselle. Oletetaan mallissa kaiken tuhkan olevan seinämää lähempi kerros, ja vastaavasti kaiken noen olevan tuhkakerroksen päällä.
 Tuhkakerroksen painehäviö on
-\begin{align}
+\begin{align}\label{eq:deltaP_ash}
     \Delta P_{ash}(t) &= \frac{\mu(t)}{\kappa_{ash}} \int_0^{w_{ash}(t)}  \frac{Q(t)}{A}dx 
     \nonumber\\ &= \frac{Q(t) \mu(t) }{4 n_{open} L \kappa_{ash}} \int_0^{w_{ash}(t)}  \frac{1}{\alpha_{out}-2w_{ash}(t)+2x}dx 
     \nonumber \\ &= \frac{Q(t)\mu(t)}{8 n_{open} L \kappa_{ash}}\ln\left(\frac{\alpha_{out}}{\alpha_{out}-2w_{ash}(t)}\right).
 \end{align}
 vastaavasti nokikerroksen painehäviö voidaan laskea integroimalla Darcyn lakia. 
-\begin{align}
+\begin{align}\label{eq:deltaP_soot}
     \Delta P_{soot}(t) &= \frac{\mu(t)}{\kappa_{soot}} \int_{0}^{w_{soot}(t)}  \frac{Q(t)}{A}dx 
     \nonumber\\    &= \frac{Q(t) \mu(t) }{4 n_{open} L \kappa_{soot}} \int_{0}^{w_{soot}(t)}  \frac{1}{\alpha_{out}-2w_{ash}(t)-2w_{soot}(t)+2x}dx 
     \nonumber \\ &= \frac{Q(t)\mu(t)}{8 n_{open} L \kappa_{soot}}\ln\left(\frac{\alpha_{out}-2w_{ash}(t)}{\alpha_{out}-2w_{ash}(t)-2w_{soot}(t)}\right).
 \end{align}
 
 Tuhkakerroksen paksuus saadaan kaavalla
-\begin{align}
+\begin{align}\label{eq:deltaP_wash}
     w_{ash}(t) = \frac{\alpha_{in} - \sqrt{\alpha_{in}^2 - \frac{m_{ash}(t)}{ n_{open} L \rho_{ash}}}}{2},
 \end{align}
 ja nokikerroksen paksuus vastaavasti kaavalla
-\begin{align}
+\begin{align}\label{eq:deltaP_wsoot}
     w_{soot}(t)= \frac{\alpha_{in}-2w_{ash}(t) - \sqrt{(\alpha_{in}-2w_{ash}(t))^2 - \frac{m_{soot}(t)}{ n_{open} L \rho_{soot}}}}{2}.
 \end{align}

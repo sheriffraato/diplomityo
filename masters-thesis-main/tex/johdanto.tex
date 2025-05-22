@@ -34,9 +34,16 @@ Nokilatausestimaatti on satunnaismuuttuja ja sen epävarmuutta mallinnetaan tila
 %Estimointiin käytetään Bayesilaisia suotimia, erityisesti Kalman-suodinta. Hiukkassuodatinta mallintavien yhtälöiden epälineaarisuuden vuoksi työssä tarkastellaan Kalman-suotimen epälineaarisia versioita, kuten laajennettua Kalman-suodinta (EKF, \emph{Extended Kalman Filter}).
 %{\color{red} TODO Kuinka hyvin suunniteltu estimointimenetelmä toimii? Vrt. punnitustuloksiin. Inputien epävarmuuden arviointi.}
 \begin{itemize}
-    \item Kuinka tarkkoja tuloksia suunniteltu estimointimenetelmä tuottaa verrattuna punnitustuloksiin?
-    \item Kuinka paljon sisäänmenojen epävarmuudet -- kuten \(\ce{NO}_2\)-mallin virhe -- aiheuttavat epävarmuutta estimaattiin? Tosin sanoen kysymys on, kuinka paljon sisäänmenot vaikuttavat estimaatin varianssiin.
-    \item Kuinka paljon käyttöolosuhteet, kuten lämpötila vaikuttavat tilan varianssiin?
+
+    
+    \item Mikä on suunnitellun estimointimenetelmän noki- ja tuhkaestimaatin tarkkuus? % vast. empiiriset kokeet (noelle vertaus punnitustuloksiin)
+
+    \item Kuinka paljon epävarmuus suodattimen sisäänmenevissä noki-, tuhka- ja NO2-pitoisuuksien estimaateissa vaikuttaa noki- ja tuhkalatausestimaattien variansseihin? Kuinka paljon systemaattinen tai satunnaisjakautunut epävarmuus vaikuttaa?
+    %  Epävarmuutta on suodattimeen menevät nokipitoisuus, NO2-pitoisuus, pakokaasun lämpötila ja massavirta. Arvioidaan käyttämällä oletuksia epävarmuuksien suuruuksista (estimaattorin häiriömallissa)
+    
+    \item Millaisia menetelmiä on käytetty noki- ja tuhkalatauksen estimointiin kirjallisuudessa? %kirjallisuuskatsaus 
+    
+
 \end{itemize}
 Tutkimuskysymysten raamien lisäksi estimointimenetelmä laaditaan riittävän laskenta- ja muistitehokkaaksi, jotta moottorinohjausyksikön laskentateho ja muisti riittävät reaaliaikaiseen estimointiin.
 

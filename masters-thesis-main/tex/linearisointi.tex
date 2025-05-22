@@ -1,0 +1,134 @@
+
+\chapter{Painehäviömallin linearisointi}%
+\label{ch:linearisointi}
+
+Tässä liitteessä johdetaan painehäviömallin yhtälöiden linearisointi. Yleisesti linearisointi voidaan esittää muodossa
+\begin{align}
+    \tilde{f}(x) = \sum_{k=1}^n \frac{\doo f}{\doo x_k}\Delta x_k,
+\end{align}
+jossa \(x \in \R^k\). 
+Painehäviöt \(\Delta P_{inlet}\), \(\Delta P_{ash}\) ja \(\Delta P_{soot}\) riippuvat noki- ja tuhkakerroksista \(w_{soot}\) ja \(w_{ash}\). 
+Linearisointi toteutetaan muuttujien \(m_{soot}\) ja \( m_{ash}\) suhteen, joten
+sovelletaan derivoinnin ketjusääntöä
+\begin{align}
+    \nabla (f \circ g)(x) = \nabla f(g(x))\nabla g(x).
+\end{align}
+Linearisoidaan  yhtälöt \eqref{eq:deltaP_inlet}--\eqref{eq:deltaP_soot}.
+
+
+% Tuhkakerroksen paksuuden linearisointi on 
+% \begin{align}
+%     \tilde{w}_{ash}( m_{soot},  m_{ash}) = \frac{\doo w_{ash}}{\doo m_{soot}}  \Delta m_{soot}
+%                                                     + \frac{\doo w_{ash}}{\doo m_{ash}} \Delta m_{ash},
+% \end{align} 
+% ja nokikerroksen 
+% \begin{align}
+%     \tilde{w}_{soot}( m_{soot},  m_{ash}) = \frac{\doo w_{soot}}{\doo m_{soot}}  \Delta m_{soot}
+%                                                     + \frac{\doo w_{soot}}{\doo m_{ash}} \Delta m_{ash}.
+% \end{align}
+% Yhtälö ei riipu noen määrästä, joten
+% \begin{align}
+%     \tilde{w}_{ash}( m_{soot},  m_{ash}) =  \frac{\Delta m_{ash}}
+%     {4L n_{open} \rho_{ash}\sqrt{\alpha_{in}^2 - \frac{m_{ash, 0}}{L n_{open} \rho_{ash}}}}.
+% \end{align}
+
+% Nokikerroksen paksuuteen vaikuttaa myös tuhkakerroksen paksuus. Sijoittamalla yhtälö \eqref{eq:deltaP_wash} yhtälöön \eqref{eq:deltaP_wsoot}, saadaan
+% \begin{align}
+%     w_{soot}(m_{soot}, m_{ash}) =
+%     \frac{ \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}}}
+%             - 
+%            \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}} - \frac{m_{soot}}{L n_{open} \rho_{soot}}} }
+%     {2}.
+% \end{align}
+
+% \begin{align}
+%     \begin{split}
+%     \tilde{w}_{soot}(m_{soot}, m_{ash}) = &
+%     \frac{\Delta m_{soot}}{4 L n_{open} \rho_{{soot}} \sqrt{a_{{in}}^2 - \frac{m_{{ash,0}}}{L n_{open} \rho_{{ash}}} - \frac{m_{{soot,0}}}{L n_{open} \rho_{{soot}}}}} + \\
+%     & \frac{\Delta m_{ash}}{4 L n_{open} \rho_{{ash}} \sqrt{a_{{in}}^2 - \frac{m_{{ash,0}}}{L n_{open} \rho_{{ash}}} - \frac{m_{{soot,0}}}{L n_{open} \rho_{{soot}}}}} - \\ &
+%     \frac{\Delta m_{ash}}{4 L n_{open} \rho_{{ash}} \sqrt{a_{{in}}^2 - \frac{m_{{ash,0}}}{L n_{open} \rho_{{ash,0}}}}}
+%     \end{split}
+% \end{align}
+
+% Paremmin näin
+Ratkaistaan aluksi noki- ja tuhkakerrosten derivaatat noen ja tuhkan suhteen derivoimalla yhtälöt \eqref{eq:deltaP_ash} ja \eqref{eq:deltaP_soot}.
+Esitellään apumuuttujat
+\begin{align*}
+    a &:= L n_{open}, \\
+    b &:= \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}}}, \\
+    c &:= \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}} - \frac{m_{soot}}{L n_{open} \rho_{soot}}}.
+\end{align*}
+
+Tuhkakerroksen derivaatat ovat
+\begin{align}
+    \frac{\doo w_{ash}}{\doo m_{soot}} & =0\\
+    \frac{\doo w_{ash}}{\doo m_{ash}} &= \frac{1}{ab\rho_{ash}},
+\end{align}
+ja vastaavasti nokikerroksen derivaatat ovat
+\begin{align}
+    \frac{\doo w_{soot}}{\doo m_{soot}} &= \frac{1}{ac\rho_{soot}}\\
+    \begin{split}
+    \frac{\doo w_{soot}}{\doo m_{ash}} &= \frac{1}{ac\rho_{ash}}-\frac{1}{ab\rho_{ash}}
+    \\ &= \frac{ab \rho_{ash} - ac\rho_{ash}}{ab\rho_{ash}\cdot ac \rho_{ash}}
+    \\ &= \frac{\cancel{a}\cancel{\rho_{ash}}(b-c)}{a^{\cancel{2}} \rho_{ash}^{\cancel{2}} bc}
+    \\ &= \frac{b-c}{abc\rho_{ash}}
+    \end{split}
+\end{align}
+Laaditaan derivaatoista Jacobin matriisi
+\begin{align}
+    J_m(m_{soot}, m_{ash}) = 
+    \bm{
+        \frac{\doo w_{soot}}{\doo m_{soot}} & \frac{\doo w_{soot}}{\doo m_{ash}}
+    \\  \frac{\doo w_{ash}}{\doo m_{soot}} & \frac{\doo w_{ash}}{\doo m_{ash}}
+    }.
+\end{align}
+
+% Tuhkakerroksen paksuuden linearisointi saadaan muotoon
+% \begin{align}
+%     \tilde{w}_{ash}( m_{soot},  m_{ash}) =
+%     \frac{1}{ \rho_{ash} \, ab}\Delta m_{ash}.
+% \end{align}
+
+% % \begin{align}
+% %     w_{soot}(m_{soot}, m_{ash}) =
+% %     \frac{b - c}{2}.
+% % \end{align}
+
+% \begin{align}
+% \begin{split}
+%     \tilde{w}_{soot}(m_{soot}, m_{ash}) = 
+%     \frac{1}{  ac \rho_{{soot}} } \Delta m_{soot} +
+%     \frac{b-c}{abc\rho_{{ash}} } \Delta m_{ash} 
+% \end{split}
+% \end{align}
+
+
+
+
+Derivoidaan yhtälö \eqref{eq:deltaP_total}. Saadaan
+\begin{align}
+    \nabla \Delta P_{tot}(m_{soot}, m_{ash})=
+    \bm{  \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
+        &   \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
+        }
+    \bm{
+        \frac{\doo w_{soot}}{\doo m_{soot}} & \frac{\doo w_{soot}}{\doo m_{ash}}
+    \\  \frac{\doo w_{ash}}{\doo m_{soot}} & \frac{\doo w_{ash}}{\doo m_{ash}}
+        }
+\end{align}
+Linearisointiin tarvittavat derivaatat ovat 
+\begin{align}
+    \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=
+        \frac{\doo w_{soot}}{\doo m_{soot}}
+        \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
+        +
+        \frac{\doo w_{ash}}{\doo m_{soot}}
+        \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
+    \\
+    \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=
+        \frac{\doo w_{soot}}{\doo m_{ash}}
+        \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
+        +
+        \frac{\doo w_{ash}}{\doo m_{ash}}
+        \frac{\doo \Delta P_{tot}}{\doo w_{ash}}.
+\end{align}
