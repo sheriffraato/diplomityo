@@ -2,11 +2,11 @@
 \chapter{Painehäviömallin linearisointi}%
 \label{ch:linearisointi}
 
-Tässä liitteessä johdetaan painehäviömallin yhtälöiden linearisointi. Yleisesti linearisointi voidaan esittää muodossa
+Tässä liitteessä johdetaan painehäviömallin yhtälöiden linearisointi. Yleisesti linearisointi kohdassa \(x_0\) voidaan esittää muodossa
 \begin{align}
-    \tilde{f}(x) = \sum_{k=1}^n \frac{\doo f}{\doo x_k}\Delta x_k,
+    \tilde{f}(x) = f(x_0) \sum_{k=1}^n \frac{\doo f(x_0)}{\doo x_k} (x_k-x_0),
 \end{align}
-jossa \(x \in \R^k\). 
+jossa \(x, x_0 \in \R^k\). 
 Painehäviöt \(\Delta P_{inlet}\), \(\Delta P_{ash}\) ja \(\Delta P_{soot}\) riippuvat noki- ja tuhkakerroksista \(w_{soot}\) ja \(w_{ash}\). 
 Linearisointi toteutetaan muuttujien \(m_{soot}\) ja \( m_{ash}\) suhteen, joten
 sovelletaan derivoinnin ketjusääntöä
@@ -51,7 +51,7 @@ Linearisoidaan  yhtälöt \eqref{eq:deltaP_inlet}--\eqref{eq:deltaP_soot}.
 % \end{align}
 
 % Paremmin näin
-Ratkaistaan aluksi noki- ja tuhkakerrosten derivaatat noen ja tuhkan suhteen derivoimalla yhtälöt \eqref{eq:deltaP_ash} ja \eqref{eq:deltaP_soot}.
+Ratkaistaan noki- ja tuhkakerrosten derivaatat noen ja tuhkan suhteen derivoimalla yhtälöt \eqref{eq:deltaP_ash} ja \eqref{eq:deltaP_soot}.
 Esitellään apumuuttujat
 \begin{align*}
     a &:= L n_{open}, \\
@@ -132,3 +132,15 @@ Linearisointiin tarvittavat derivaatat ovat
         \frac{\doo w_{ash}}{\doo m_{ash}}
         \frac{\doo \Delta P_{tot}}{\doo w_{ash}}.
 \end{align}
+
+Linearisointi on muotoa
+\begin{align}
+    \begin{split}
+    \Delta\tilde{ P}_{tot}(m_{soot, 0}, m_{ash, 0}) &= \Delta P_{tot}(m_{soot, 0}, m_{ash, 0})
+    \\ &+
+    \frac{\doo {\Delta P}_{tot}(m_{soot, 0}, m_{ash, 0})}{\doo m_{soot}} (m_{soot} - m_{soot,0}) 
+    \\ &+ 
+    \frac{\doo {\Delta P}_{tot}(m_{soot, 0}, m_{ash, 0})}{\doo m_{ash}}  (m_{ash} - m_{ash,0})
+    \end{split}
+\end{align}
+

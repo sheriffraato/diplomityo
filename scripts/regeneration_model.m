@@ -58,6 +58,8 @@ Ea2 = p.DpfWM_ExpnSootCakeNo2AcvnERgn_P;
 NM_Coeff = NM_CoeffClcnAddl1(p);
 R = p.DpfWM_Rgas_P;
 rho_soot = p.DpfWM_RhoSoot_P;
+M_soot = 0.012;
+
 for k = 1:length(time)
     
     [~,CExhGaz] = DpfWall_constants(temp(k),...
@@ -67,8 +69,8 @@ for k = 1:length(time)
     Rpassive = k2 * exp(- Ea2 ./ ( temp(k)) ) * CExhGaz;
     
     
-    dsoot = mf(k)*ConcSootUs(k) / V_slice -  (Ractive  * ConcOxyUs(k) * msoot/rho_soot * 0.012 + ...
-                                                                    Rpassive * ConcNo2Us(k) * msoot/rho_soot * 0.012  );
+    dsoot = mf(k)*ConcSootUs(k) / V_slice -  msoot/rho_soot * M_soot * (Ractive  * ConcOxyUs(k) + ...
+                                                                        Rpassive * ConcNo2Us(k));
     msoot = msoot + timeStep * dsoot;
     sootload(k) = msoot;
 end
