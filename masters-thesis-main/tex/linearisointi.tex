@@ -13,7 +13,56 @@ sovelletaan derivoinnin ketjusääntöä
 \begin{align}
     \nabla (f \circ g)(x) = \nabla f(g(x))\nabla g(x).
 \end{align}
-Linearisoidaan  yhtälöt \eqref{eq:deltaP_inlet}--\eqref{eq:deltaP_soot}.
+Olkoon \(m = (m_{soot}, m_{ash})
+
+
+
+Laaditaan  Jacobin matriisi
+\begin{align}
+    J_m = 
+    \bm{
+        \frac{\doo w_{soot}}{\doo m_{soot}} & \frac{\doo w_{soot}}{\doo m_{ash}}
+    \\  \frac{\doo w_{ash}}{\doo m_{soot}} & \frac{\doo w_{ash}}{\doo m_{ash}}
+    }.
+\end{align}
+
+\begin{align}
+    \nabla \Delta P_{tot}(m_{soot}, m_{ash})=
+    \bm{  \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
+        &   \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
+        }
+    \bm{
+        \frac{\doo w_{soot}}{\doo m_{soot}} & \frac{\doo w_{soot}}{\doo m_{ash}}
+    \\  \frac{\doo w_{ash}}{\doo m_{soot}} & \frac{\doo w_{ash}}{\doo m_{ash}}
+        }
+\end{align}
+Linearisointiin tarvittavat derivaatat ovat 
+\begin{align}
+    \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=
+        \frac{\doo w_{soot}}{\doo m_{soot}}
+        \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
+        +
+        \frac{\doo w_{ash}}{\doo m_{soot}}
+        \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
+    \\
+    \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=
+        \frac{\doo w_{soot}}{\doo m_{ash}}
+        \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
+        +
+        \frac{\doo w_{ash}}{\doo m_{ash}}
+        \frac{\doo \Delta P_{tot}}{\doo w_{ash}}.
+\end{align}
+
+Linearisointi on muotoa
+\begin{align}
+    \begin{split}
+    \Delta\tilde{ P}_{tot}(m_{soot, 0}, m_{ash, 0}) &= \Delta P_{tot}(m_{soot, 0}, m_{ash, 0})
+    \\ &+
+    \frac{\doo {\Delta P}_{tot}(m_{soot, 0}, m_{ash, 0})}{\doo m_{soot}} (m_{soot} - m_{soot,0}) 
+    \\ &+ 
+    \frac{\doo {\Delta P}_{tot}(m_{soot, 0}, m_{ash, 0})}{\doo m_{ash}}  (m_{ash} - m_{ash,0})
+\end{split}
+\end{align}
 
 
 % Tuhkakerroksen paksuuden linearisointi on 
@@ -74,14 +123,7 @@ ja vastaavasti nokikerroksen derivaatat ovat
     \\ &= \frac{b-c}{abc\rho_{ash}}
     \end{split}
 \end{align}
-Laaditaan derivaatoista Jacobin matriisi
-\begin{align}
-    J_m(m_{soot}, m_{ash}) = 
-    \bm{
-        \frac{\doo w_{soot}}{\doo m_{soot}} & \frac{\doo w_{soot}}{\doo m_{ash}}
-    \\  \frac{\doo w_{ash}}{\doo m_{soot}} & \frac{\doo w_{ash}}{\doo m_{ash}}
-    }.
-\end{align}
+
 
 % Tuhkakerroksen paksuuden linearisointi saadaan muotoon
 % \begin{align}
@@ -104,43 +146,4 @@ Laaditaan derivaatoista Jacobin matriisi
 
 
 
-
-Derivoidaan yhtälö \eqref{eq:deltaP_total}. Saadaan
-\begin{align}
-    \nabla \Delta P_{tot}(m_{soot}, m_{ash})=
-    \bm{  \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
-        &   \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
-        }
-    \bm{
-        \frac{\doo w_{soot}}{\doo m_{soot}} & \frac{\doo w_{soot}}{\doo m_{ash}}
-    \\  \frac{\doo w_{ash}}{\doo m_{soot}} & \frac{\doo w_{ash}}{\doo m_{ash}}
-        }
-\end{align}
-Linearisointiin tarvittavat derivaatat ovat 
-\begin{align}
-    \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=
-        \frac{\doo w_{soot}}{\doo m_{soot}}
-        \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
-        +
-        \frac{\doo w_{ash}}{\doo m_{soot}}
-        \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
-    \\
-    \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=
-        \frac{\doo w_{soot}}{\doo m_{ash}}
-        \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
-        +
-        \frac{\doo w_{ash}}{\doo m_{ash}}
-        \frac{\doo \Delta P_{tot}}{\doo w_{ash}}.
-\end{align}
-
-Linearisointi on muotoa
-\begin{align}
-    \begin{split}
-    \Delta\tilde{ P}_{tot}(m_{soot, 0}, m_{ash, 0}) &= \Delta P_{tot}(m_{soot, 0}, m_{ash, 0})
-    \\ &+
-    \frac{\doo {\Delta P}_{tot}(m_{soot, 0}, m_{ash, 0})}{\doo m_{soot}} (m_{soot} - m_{soot,0}) 
-    \\ &+ 
-    \frac{\doo {\Delta P}_{tot}(m_{soot, 0}, m_{ash, 0})}{\doo m_{ash}}  (m_{ash} - m_{ash,0})
-    \end{split}
-\end{align}
 
