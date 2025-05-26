@@ -13,28 +13,32 @@ sovelletaan derivoinnin ketjusääntöä
 \begin{align}
     \nabla (f \circ g)(x) = \nabla f(g(x))\nabla g(x).
 \end{align}
-Olkoon \(m = (m_{soot}, m_{ash})
-
-
-
-Laaditaan  Jacobin matriisi
+Olkoon \(m = \left(m_{soot}, m_{ash}\right)\) ja \(w(m) = \big(w_{soot}(m), w_{ash}(m)  \big)\). Laaditaan funktion \(w\) Jacobin matriisi
 \begin{align}
-    J_m = 
+    J_w(m)=
     \bm{
         \frac{\doo w_{soot}}{\doo m_{soot}} & \frac{\doo w_{soot}}{\doo m_{ash}}
     \\  \frac{\doo w_{ash}}{\doo m_{soot}} & \frac{\doo w_{ash}}{\doo m_{ash}}
+    },
+\end{align}
+joka vastaa derivaattaa. Funktion \(\Delta P_{tot}(w)\) Jacobin matriisi puolestaan on 
+\begin{align}
+    J_{\Delta P}(w) = \bm{  \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
+    &   \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
     }.
 \end{align}
-
+Näin ollen 
 \begin{align}
     \nabla \Delta P_{tot}(m_{soot}, m_{ash})=
+    J_{\Delta P}(w)  J_{w}(m)
+    =
     \bm{  \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
         &   \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
         }
     \bm{
         \frac{\doo w_{soot}}{\doo m_{soot}} & \frac{\doo w_{soot}}{\doo m_{ash}}
     \\  \frac{\doo w_{ash}}{\doo m_{soot}} & \frac{\doo w_{ash}}{\doo m_{ash}}
-        }
+    }.
 \end{align}
 Linearisointiin tarvittavat derivaatat ovat 
 \begin{align}
@@ -43,7 +47,7 @@ Linearisointiin tarvittavat derivaatat ovat
         \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
         +
         \frac{\doo w_{ash}}{\doo m_{soot}}
-        \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
+        \frac{\doo \Delta P_{tot}}{\doo w_{ash}},
     \\
     \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=
         \frac{\doo w_{soot}}{\doo m_{ash}}
@@ -56,11 +60,11 @@ Linearisointiin tarvittavat derivaatat ovat
 Linearisointi on muotoa
 \begin{align}
     \begin{split}
-    \Delta\tilde{ P}_{tot}(m_{soot, 0}, m_{ash, 0}) &= \Delta P_{tot}(m_{soot, 0}, m_{ash, 0})
-    \\ &+
-    \frac{\doo {\Delta P}_{tot}(m_{soot, 0}, m_{ash, 0})}{\doo m_{soot}} (m_{soot} - m_{soot,0}) 
-    \\ &+ 
-    \frac{\doo {\Delta P}_{tot}(m_{soot, 0}, m_{ash, 0})}{\doo m_{ash}}  (m_{ash} - m_{ash,0})
+    \Delta\tilde{ P}_{tot} &= \Delta P_{tot}
+    +
+    \frac{\doo {\Delta P}_{tot}}{\doo m_{soot}} \Delta m_{soot}
+    + 
+    \frac{\doo {\Delta P}_{tot}}{\doo m_{ash}}  \Delta m_{ash}.
 \end{split}
 \end{align}
 
@@ -119,8 +123,8 @@ ja vastaavasti nokikerroksen derivaatat ovat
     \begin{split}
     \frac{\doo w_{soot}}{\doo m_{ash}} &= \frac{1}{ac\rho_{ash}}-\frac{1}{ab\rho_{ash}}
     \\ &= \frac{ab \rho_{ash} - ac\rho_{ash}}{ab\rho_{ash}\cdot ac \rho_{ash}}
-    \\ &= \frac{\cancel{a}\cancel{\rho_{ash}}(b-c)}{a^{\cancel{2}} \rho_{ash}^{\cancel{2}} bc}
-    \\ &= \frac{b-c}{abc\rho_{ash}}
+    \\ &= \frac{\cancel{a\rho}_{ash}(b-c)}{a^{\cancel{2}} \rho_{ash}^{\cancel{2}} bc}
+    \\ &= \frac{b-c}{abc\rho_{ash}}.
     \end{split}
 \end{align}
 

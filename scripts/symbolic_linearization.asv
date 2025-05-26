@@ -42,23 +42,19 @@ pretty(PDsoot)
 pretty(PDash)
 
 %%
-clc
 dPDin_wsoot = diff(PDin, wsoot);
 dPDin_wash = diff(PDin, wash);
 pretty(dPDin_wsoot)
 pretty(dPDin_wash)
 
 %%
-clc
 dPDsoot_wsoot = diff(PDsoot, wsoot);
 dPDsoot_wash = diff(PDsoot, wash);
 pretty(dPDsoot_wsoot)
 pretty(dPDsoot_wash)
 
 %%
-clc
 dPDash_wsoot = diff(PDash, wsoot);
 dPDash_wash = diff(PDash, wash);
 pretty(dPDash_wsoot)
 pretty(dPDash_wash)
-
