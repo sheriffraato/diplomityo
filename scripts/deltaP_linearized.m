@@ -1,7 +1,5 @@
-function deltaP_total=deltaP_model(Dtrap,Ltrap,mf,exhtemp,pout,sootload,ashload,ws,cpsi,R_alpha)
-%syms Dtrap Ltrap mf exhaustTemp pressureOut sootload ashload ws cpsi R_alpha
 
- 
+function PDlin=deltaP_linearized(Dtrap,Ltrap,mf,exhtemp,pout,sootload,ashload,ws,cpsi,R_alpha)
 % DPF-dimensions
 rim = 0.003875; % [m]
 plugdepth=0.005; % [m]
@@ -10,10 +8,10 @@ L=Ltrap*0.0254-2*plugdepth; %inch->m
 V=pi*D^2/4*L; %filter total volume m3
 
 % filter-properties
-ws=ws*2.54e-5; %mil->m
-cpsi=cpsi/0.0254^2; %1/inch^2 -> 1/m2
-nopen=cpsi*pi*D^2/4/2;
-alphaMean=sqrt(1/cpsi)-ws; %m mean side lenght of the filter opening
+ws_scaled=ws*2.54e-5; %mil->m
+cpsi_scaled=cpsi/0.0254^2; %1/inch^2 -> 1/m2
+nopen=cpsi_scaled*pi*D^2/4/2;
+alphaMean=sqrt(1/cpsi_scaled)-ws_scaled; %m mean side lenght of the filter opening
 alphaIn = 2*alphaMean/(1+1/R_alpha); %m side length of the filter inlet opening 
 alphaOut = 2*alphaMean/(1+R_alpha); %m side length of the filter inlet opening 
 
@@ -29,34 +27,53 @@ kash=1.65e-13; % permeability of ash layer [m2].
 ro_soot=34.633; % density of the soot layer [kg/m3]
 ro_ash=5.1832e+05; % density of ash [g/m3] !!!
 F = 28.454;
-
-
-%% Gas properties
-mf=mf/(60*60); %mass flow kg/s
+% Gas properties
+massflow=mf/(60*60); %mass flow kg/s
 mu = viscosityD(exhtemp); 
 ro = gasdensity(exhtemp, pout);
-Q = mf ./ ro;
-channel_factor = (Q .* mu .* F / 6) .* (L.^2 ./ V);
-%%
-% Particulate layers
-msoot = sootload.*V; % kg
-wash = 1/2 .* (alphaIn - sqrt(alphaIn.^2 - ashload./(nopen .* L .* ro_ash)));
-wsoot = 1/2 .* (alphaIn - 2.*wash - sqrt((alphaIn - 2.*wash).^2 - msoot./(nopen .* L .* ro_soot)));
 
-% Channel pressure drops
-deltaP_inlet = channel_factor .* ((alphaIn + alphaOut + 2 .* ws).^2 ./ (alphaIn -2*wash -2*wsoot ).^4);
-deltaP_outlet = channel_factor .* ((alphaIn + alphaOut + 2 .* ws).^2 ./ alphaOut.^4);
+msoot = sootload*V;
+mash = ashload;
+msoot_e =  0.0757*V;
+mash_e = 0;
 
-% Wall pressure drop
-deltaP_wall = Q .* mu .* ws ./ (4 .* nopen .* L .* alphaOut .* kwall);
+ash_det = max(alphaIn.^2 - mash_e./(nopen .* L .* ro_ash), 0);
+wash_e = 1/2 .* (alphaIn - sqrt(ash_det));
+soot_det = max((alphaIn - 2.*wash_e).^2 - msoot_e./(nopen .* L .* ro_soot), 0);
+wsoot_e = 1/2 .* (alphaIn - 2.*wash_e - sqrt(soot_det));
 
-% Particulate cake pressure drops
-deltaP_ash = Q.*mu ./ (8 * nopen .* L .* kash) .* log(alphaOut ./ (alphaOut - 2.*wash));
-deltaP_soot = Q.*mu ./ (8 * nopen .* L .* ksoot) .* log( (alphaOut - 2.*wash) ./ (alphaOut - 2.*wash - 2.*wsoot));
+% helper variables
+a = 4*L*nopen;
+b = sqrt( alphaIn.^2 - mash_e ./(a./4.*ro_ash) );
+c = sqrt( alphaIn.^2 - mash_e ./(a./4.*ro_ash) - msoot_e ./(a./4.*ro_soot)  );
+d = alphaIn + alphaOut + ws_scaled;
+f = alphaOut - 2.*wash_e;
+q = 1/2 * massflow ./ ro .* mu;
+q=q(1);
+astr_in = alphaIn-2.*wash_e-2.*wsoot_e;
+astr_out = alphaOut-2.*wash_e-2.*wsoot_e;
 
-% Total pressure drop of the DPF
-deltaP_total = deltaP_inlet + deltaP_outlet + deltaP_wall + deltaP_soot + deltaP_ash;
-deltaP_total = deltaP_total/1000; % Pa -> kPa
+dwash_dmsoot = 0;
+dwash_dmash = 1 ./ (a.*b.*ro_ash);
+dwsoot_dmsoot = 1 ./ (a.*c.*ro_soot);
+dwsoot_dmash = (b-c)./(a.*b.*c.*ro_ash);
+
+dPDin_wsoot = 10 .*F .*L^2 .*d.^2 .*q ./ (3.*V.*astr_in);
+dPDin_wash = dPDin_wsoot;
+
+dPDsoot_wsoot = 2.*q ./( 2.*ksoot .* astr_out);
+dPDsoot_wash = 4 .* q.* wsoot_e ./ (a.*f.*ksoot.*astr_out);
+
+dPDash_wsoot = 0;
+dPDash_wash = 2.*q ./ (a .* f .* kash);
+
+dPDtot_msoot = dwsoot_dmsoot .*(dPDin_wsoot + dPDsoot_wsoot + dPDash_wsoot) + ...
+               dwash_dmsoot .*(dPDin_wash + dPDsoot_wash + dPDash_wash);
+dPDtot_mash = dwsoot_dmash .* (dPDin_wsoot + dPDsoot_wsoot + dPDash_wsoot) + ...
+              dwash_dmash .*(dPDin_wash + dPDsoot_wash + dPDash_wash);
+
+PDlin_Pa = dPDtot_msoot .* (msoot - msoot_e) + dPDtot_mash .* (mash - mash_e);
+PDlin = deltaP_model(Dtrap,Ltrap,mf,exhtemp,pout,msoot_e,mash_e,ws,cpsi,R_alpha)/1000+max(PDlin_Pa, 0)/1000;
 
 end
 %

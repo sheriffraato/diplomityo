@@ -2,9 +2,9 @@
 \chapter{Painehäviömallin linearisointi}%
 \label{ch:linearisointi}
 
-Tässä liitteessä johdetaan painehäviömallin yhtälöiden linearisointi. Yleisesti linearisointi kohdassa \(x_0\) voidaan esittää muodossa
+Tässä liitteessä johdetaan painehäviömallin yhtälöiden linearisointi. Yleisesti linearisointi kohdassa \(x_e\) voidaan esittää muodossa
 \begin{align}
-    \tilde{f}(x) = f(x_0) \sum_{k=1}^n \frac{\doo f(x_0)}{\doo x_k} (x_k-x_0),
+    \tilde{f}(x) = f(x_e) +\sum_{k=1}^n \frac{\doo f(x_e)}{\doo x_k} (x_k-x_e),
 \end{align}
 jossa \(x, x_0 \in \R^k\). 
 Painehäviöt \(\Delta P_{inlet}\), \(\Delta P_{ash}\) ja \(\Delta P_{soot}\) riippuvat noki- ja tuhkakerroksista \(w_{soot}\) ja \(w_{ash}\). 
@@ -13,7 +13,7 @@ sovelletaan derivoinnin ketjusääntöä
 \begin{align}
     \nabla (f \circ g)(x) = \nabla f(g(x))\nabla g(x).
 \end{align}
-Olkoon \(m = \left(m_{soot}, m_{ash}\right)\) ja \(w(m) = \big(w_{soot}(m), w_{ash}(m)  \big)\). Laaditaan funktion \(w\) Jacobin matriisi
+Olkoon \(m = \left(m_{soot}, m_{ash}\right) \in \R^2\) ja \(w(m) = \big(w_{soot}(m), w_{ash}(m)  \big) \in \R^2\). Laaditaan funktion \(w\) Jacobin matriisi
 \begin{align}
     J_w(m)=
     \bm{
@@ -29,7 +29,7 @@ joka vastaa derivaattaa. Funktion \(\Delta P_{tot}(w)\) Jacobin matriisi puolest
 \end{align}
 Näin ollen 
 \begin{align}
-    \nabla \Delta P_{tot}(m_{soot}, m_{ash})=
+    \nabla \Delta P_{tot}(m)=
     J_{\Delta P}(w)  J_{w}(m)
     =
     \bm{  \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
@@ -106,15 +106,29 @@ Linearisointi on muotoa
 % Paremmin näin
 Ratkaistaan noki- ja tuhkakerrosten derivaatat noen ja tuhkan suhteen derivoimalla yhtälöt \eqref{eq:deltaP_ash} ja \eqref{eq:deltaP_soot}.
 Esitellään apumuuttujat
-\begin{align*}
-    a &:= L n_{open}, \\
-    b &:= \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}}}, \\
-    c &:= \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}} - \frac{m_{soot}}{L n_{open} \rho_{soot}}}.
-\end{align*}
+% \begin{align*}
+%     a &:= 4 L n_{open}, \\
+%     b &:= \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}}}, \\
+%     c &:= \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}} - \frac{m_{soot}}{L n_{open} \rho_{soot}}}, \\
+%     d &:= \alpha_{in} + \alpha_{out} + w_s,\\
+%     f &:= \alpha_{out}- 2 w_{ash},\\
+%     q &:= \frac{1}{2}Q\mu,\\
+%     \alpha_{in}^* &:= \alpha_{in} - 2 w_{ash} - 2 w_{soot} , \\
+%     \alpha_{out}^* &:= \alpha_{out} - 2 w_{ash}  - 2 w_{soot}.
+% \end{align*}
+\begin{center}
+\begin{tabular}{ll}
+    \( a := 4 L n_{open} \) & \( f := \alpha_{out} - 2 w_{ash} \) \\
+    \( b := \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}}} \) & \( q := \frac{1}{2} Q \mu \) \\
+    \( c := \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}} - \frac{m_{soot}}{L n_{open} \rho_{soot}}} \) & \( \alpha_{in}^* := \alpha_{in} - 2 w_{ash} - 2 w_{soot} \) \\
+    \( d := \alpha_{in} + \alpha_{out} + w_s \) & \( \alpha_{out}^* := \alpha_{out} - 2 w_{ash} - 2 w_{soot} \)
+\end{tabular}
+\end{center}
+
 
 Tuhkakerroksen derivaatat ovat
 \begin{align}
-    \frac{\doo w_{ash}}{\doo m_{soot}} & =0\\
+    \frac{\doo w_{ash}}{\doo m_{soot}} & =0,\\
     \frac{\doo w_{ash}}{\doo m_{ash}} &= \frac{1}{ab\rho_{ash}},
 \end{align}
 ja vastaavasti nokikerroksen derivaatat ovat
@@ -128,7 +142,54 @@ ja vastaavasti nokikerroksen derivaatat ovat
     \end{split}
 \end{align}
 
+Painehäviön derivaatta on
+\begin{align}
+    \nabla \Delta P_{tot} &=
+    \nabla \Delta P_{inlet} + \nabla \Delta P_{soot} + \nabla \Delta P_{ash}.
+\end{align}
+Lasketaan termien derivaatat erikseen. Sisäänmenossa derivaatat ovat
+\begin{align}
+    \frac{\doo \Delta P_{inlet}}{\doo w_{soot}} &=
+    \frac{\doo \Delta P_{inlet}}{\doo w_{ash}} =
+    \frac{10 F L^2 d^2 q}{3 V \alpha_{in}^*} .
+\end{align}
+Nokikerroksen aiheuttaman painehäviön derivaatat ovat
+\begin{align}
+    \frac{\doo \Delta P_{soot}}{\doo w_{soot}} &=
+    \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*},
+    \\\frac{\doo \Delta P_{soot}}{\doo w_{ash}}
+    &=
+    \frac{4qw_{soot}}{a f\kappa_{soot} \alpha_{out}^* }.
+\end{align}
+Tuhkakerros:
+\begin{align}
+    \frac{\doo \Delta P_{ash}}{\doo w_{soot}} &= 0,
+    \\\frac{\doo \Delta P_{ash}}{\doo w_{ash}} &=
+    \frac{2q}{a f \kappa_{ash}  }.
+\end{align}
 
+Näin ollen 
+\begin{align}
+    \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=
+     \frac{1}{ac\rho_{soot}}
+    \left(\frac{10 F L^2 d^2 q}{3 V \alpha_{in}^*} +
+     \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*}
+    \right)\\
+% \end{align}
+% \begin{align}
+\begin{split}
+    \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=
+    \frac{b-c}{abc\rho_{ash}}\left(\frac{10 F L^2 d^2 q}{3 V \alpha_{in}^*} +
+     \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*}
+    \right) \\
+    & + 
+    \frac{1}{ab\rho_{ash}} \left(
+        \frac{10 F L^2 d^2 q}{3 V \alpha_{in}^*} +
+        \frac{4qw_{soot}}{a f \kappa_{soot} \alpha_{out}^*  } +
+        \frac{2q}{a f \kappa_{ash}  }
+    \right).
+\end{split}
+\end{align}
 % Tuhkakerroksen paksuuden linearisointi saadaan muotoon
 % \begin{align}
 %     \tilde{w}_{ash}( m_{soot},  m_{ash}) =
@@ -147,7 +208,6 @@ ja vastaavasti nokikerroksen derivaatat ovat
 %     \frac{b-c}{abc\rho_{{ash}} } \Delta m_{ash} 
 % \end{split}
 % \end{align}
-
 
 
 
