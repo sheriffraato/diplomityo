@@ -34,9 +34,8 @@ ro = gasdensity(exhtemp, pout);
 
 msoot = sootload*V;
 mash = ashload;
-
-msoot_e =  max(msoot);
-mash_e = mean(mash);
+msoot_e =  1;
+mash_e = 0;
 
 ash_det = max(alphaIn.^2 - mash_e./(nopen .* L .* ro_ash), 0);
 wash_e = 1/2 .* (alphaIn - sqrt(ash_det));

@@ -1,4 +1,4 @@
-function sootload = regeneration_model(dataStruct, dpfDiam, dpfLen, sootLoadInit, timeStep, p)
+function dsoot = dsoot(dataStruct, dpfDiam, dpfLen, sootLoadInit, p)
 % Inputs:
 %    dataStruct: Input dataset in the form:
 %        dataStruct.ExhMassFlow: Exhaust massflow [kg/h]
@@ -47,7 +47,6 @@ ConcNo2Us = 1e-6* dataStruct.ConcNo2Us;
 
 msoot = sootLoadInit;
 
-sootload = ones(size(time))*msoot;
 %%
 k1 = p.DpfWM_GainSootCakeOxyAcvnERgn_P;
 k2 = p.DpfWM_GainSootCakeNo2AcvnERgn_P;
@@ -56,24 +55,18 @@ Ea2 = p.DpfWM_ExpnSootCakeNo2AcvnERgn_P;
 
 
 NM_Coeff = NM_CoeffClcnAddl1(p);
-R = p.DpfWM_Rgas_P;
 rho_soot = p.DpfWM_RhoSoot_P;
 M_soot = 0.012;
+ 
+[~,CExhGaz] = DpfWall_constants(temp,...
+    p,NM_Coeff,mf,V_slice);
 
-for k = 1:length(time)
-    
-    [~,CExhGaz] = DpfWall_constants(temp(k),...
-            p,NM_Coeff,mf(k),V_slice);
+Ractive = k1 .* exp(- Ea1 ./ ( temp) ) .* CExhGaz .* temp;
+Rpassive = k2 .* exp(- Ea2 ./ ( temp) ) .* CExhGaz;
 
-    Ractive = k1 * exp(- Ea1 ./ ( temp(k)) ) * CExhGaz * temp(k);
-    Rpassive = k2 * exp(- Ea2 ./ ( temp(k)) ) * CExhGaz;
-    
-    
-    dsoot = mf(k)*ConcSootUs(k) / V_slice -  msoot/rho_soot * M_soot * (Ractive  * ConcOxyUs(k) + ...
-                                                                        Rpassive * ConcNo2Us(k));
-    msoot = msoot + timeStep * dsoot;
-    sootload(k) = msoot;
-end
+
+dsoot = mf.*ConcSootUs ./ V_slice -  msoot./rho_soot .* M_soot .* (Ractive  .* ConcOxyUs + ...
+                                                                   Rpassive .* ConcNo2Us);
 
 
 end
@@ -112,12 +105,12 @@ function [Velocity,CExhGaz] = DpfWall_constants(TCell_K,p,NM,MfExh,VolCell)
 %CExhGaz: molarity of exhaust gas [mol/m^3]
 
 %The incoming pressure is assumed to be the standard atmosphere.
-PAmbIn = 1013 + 0; %hPa
-PAmbOut = 100*PAmbIn; %Pa
-Pressure = min(max(PAmbOut,1),1e7);
-
-FlowMolExh = (1e3*(MfExh))/p.DpfWM_MmolOfAir_P;
-Velocity = ((FlowMolExh*TCell_K*p.DpfWM_Rgas_P)/Pressure)/(VolCell*NM.GSAic);
-CExhGaz = Pressure/(TCell_K*p.DpfWM_Rgas_P);
+    PAmbIn = 1013 + 0; %hPa
+    PAmbOut = 100*PAmbIn; %Pa
+    Pressure = min(max(PAmbOut,1),1e7);
+    
+    FlowMolExh = (1e3*(MfExh))/p.DpfWM_MmolOfAir_P;
+    Velocity = ((FlowMolExh*TCell_K*p.DpfWM_Rgas_P)/Pressure)/(VolCell*NM.GSAic);
+    CExhGaz = Pressure/(TCell_K*p.DpfWM_Rgas_P);
 
 end

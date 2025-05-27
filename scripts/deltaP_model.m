@@ -40,7 +40,8 @@ channel_factor = (Q .* mu .* F / 6) .* (L.^2 ./ V);
 %%
 % Particulate layers
 msoot = sootload.*V; % kg
-wash = 1/2 .* (alphaIn - sqrt(alphaIn.^2 - ashload./(nopen .* L .* ro_ash)));
+mash = ashload;
+wash = 1/2 .* (alphaIn - sqrt(alphaIn.^2 - mash./(nopen .* L .* ro_ash)));
 wsoot = 1/2 .* (alphaIn - 2.*wash - sqrt((alphaIn - 2.*wash).^2 - msoot./(nopen .* L .* ro_soot)));
 
 % Channel pressure drops

@@ -12,9 +12,6 @@ pretty(wsoot)
 %%
 dwash_msoot = diff(wash, msoot);
 dwash_mash = diff(wash,mash);
-% 
-% pretty(dwash_msoot)
-% pretty(dwash_mash)
 
 dwsoot_mash = diff(wsoot,mash);
 dwsoot_msoot= diff(wsoot,msoot);
@@ -22,6 +19,9 @@ dwsoot_msoot= diff(wsoot,msoot);
 pretty(dwsoot_msoot)
 pretty(dwsoot_mash)
 
+pretty(dwash_msoot)
+pretty(dwash_mash)
+%%
 particulateJacobian = [dwsoot_msoot, dwsoot_mash;
                        dwash_msoot,  dwash_mash];
 
@@ -33,10 +33,10 @@ syms wsoot wash positive
 clc
 
 ast = ain -2*wsoot - 2*wash;
-% PDin = (ain + aout + ws)^2 * F * L^2 * Q * mu/ (6 * V * ast^5);
+% PDin = (ain + aout + 2*ws)^2 * F * L^2 * Q * mu/ (6 * V * ast^4);
 % PDsoot = Q*mu / (8 * nopen * L * ksoot) * log( (aout - 2*wash)/(aout - 2*wash - 2*wsoot) );
 % PDash  = Q*mu / (8 * nopen * L * kash) * log( (aout)/(aout - 2*wash ) );
-PDin = (d)^2 * F * L^2 * q/ (3 * V * ast^5);
+PDin = (d)^2 * F * L^2 * q/ (3 * V * ast^4);
 PDsoot =  q / (a* ksoot) * log( (aout - 2*wash)/(aout - 2*wash - 2*wsoot) );
 PDash  = q / (a*kash) * log( (aout)/(aout - 2*wash ) );
 
@@ -50,7 +50,6 @@ dPDin_wsoot = diff(PDin, wsoot);
 dPDin_wash = diff(PDin, wash);
 pretty(dPDin_wsoot)
 pretty(dPDin_wash)
-
 %%
 clc
 dPDsoot_wsoot = diff(PDsoot, wsoot);

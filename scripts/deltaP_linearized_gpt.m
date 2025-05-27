@@ -1,5 +1,5 @@
 
-function PDlin=deltaP_linearized(Dtrap,Ltrap,mf,exhtemp,pout,sootload,ashload,ws,cpsi,R_alpha)
+function deltaP_total_lin=deltaP_linearized_gpt(Dtrap,Ltrap,mf,exhtemp,pout,sootload,ashload,ws,cpsi,R_alpha)
 % DPF-dimensions
 rim = 0.003875; % [m]
 plugdepth=0.005; % [m]
@@ -31,51 +31,53 @@ F = 28.454;
 massflow=mf/(60*60); %mass flow kg/s
 mu = viscosityD(exhtemp); 
 ro = gasdensity(exhtemp, pout);
+Q = massflow ./ ro;
+channel_factor = (Q .* mu .* F / 6) .* (L.^2 ./ V);
 
 msoot = sootload*V;
 mash = ashload;
+% Constants (unchanged from your original context)
+beta = alphaIn; % Approximate beta = alphaIn - 2*wash ≈ alphaIn (first-order)
+C1 = nopen * L * ro_ash;
+C2 = nopen * L * ro_soot;
 
-msoot_e =  max(msoot);
-mash_e = mean(mash);
+% First-order wash and wsoot approximations
+wash_lin = mash ./ (4 * C1 * alphaIn); % Linearized wash
+wsoot_lin = msoot ./ (4 * C2 * beta);  % Linearized wsoot
 
-ash_det = max(alphaIn.^2 - mash_e./(nopen .* L .* ro_ash), 0);
-wash_e = 1/2 .* (alphaIn - sqrt(ash_det));
-soot_det = max((alphaIn - 2.*wash_e).^2 - msoot_e./(nopen .* L .* ro_soot), 0);
-wsoot_e = 1/2 .* (alphaIn - 2.*wash_e - sqrt(soot_det));
+% Precompute reusable constant for cake drop terms
+Kash = Q .* mu ./ (4 * nopen .* L .* kash .* alphaOut);
+Ksoot = Q .* mu ./ (4 * nopen .* L .* ksoot .* (alphaOut - 2 .* wash_lin));
 
-% helper variables
-a = 4*L*nopen;
-b = sqrt( alphaIn.^2 - mash_e ./(a./4.*ro_ash) );
-c = sqrt( alphaIn.^2 - mash_e ./(a./4.*ro_ash) - msoot_e ./(a./4.*ro_soot)  );
-d = alphaIn + alphaOut + 2*ws_scaled;
-f = alphaOut - 2.*wash_e;
-q = 1/2 * massflow ./ ro .* mu;
-q=q(1);
-astr_in = alphaIn-2.*wash_e-2.*wsoot_e;
-astr_out = alphaOut-2.*wash_e-2.*wsoot_e;
+% Linearized deltaP_ash and deltaP_soot
+deltaP_ash_lin = Kash .* wash_lin;
+deltaP_soot_lin = Ksoot .* wsoot_lin;
 
-dwash_dmsoot = 0;
-dwash_dmash   = 1 ./ (a.*b.*ro_ash);
-dwsoot_dmsoot = 1 ./ (a.*c.*ro_soot);
-% dwsoot_dmash = (b-c)./(a.*b.*c.*ro_ash);
-dwsoot_dmash = 1 ./ (a.*ro_ash) .* (1./c - 1./b);
+% Derivatives of deltaP_inlet wrt wash and wsoot
+denom = (alphaIn - 2 * wash_lin - 2 * wsoot_lin);
+numer = (alphaIn + alphaOut + 2 .* ws).^2;
+d_inlet_d_denom = -4 * numer ./ denom.^5;
 
-dPDin_wsoot = 8 .*F .*L^2 .*d.^2 .*q ./ (3.*V.*astr_in.^5);
-dPDin_wash = dPDin_wsoot;
+d_denom_d_wash = 2;
+d_denom_d_wsoot = 2;
 
-dPDsoot_wsoot = 2.*q ./( 2.*ksoot .* astr_out);
-dPDsoot_wash = 4 .* q.* wsoot_e ./ (a.*f.*ksoot.*astr_out);
+d_denom_d_mash = d_denom_d_wash .* (1 ./ (4 * C1 * alphaIn));
+d_denom_d_msoot = d_denom_d_wsoot .* (1 ./ (4 * C2 * beta));
 
-dPDash_wsoot = 0;
-dPDash_wash = 2.*q ./ (a .* f .* kash);
+K1 = d_inlet_d_denom .* d_denom_d_mash;  % ∂(deltaP_inlet)/∂(mash)
+K2 = d_inlet_d_denom .* d_denom_d_msoot; % ∂(deltaP_inlet)/∂(msoot)
 
-dPDtot_msoot = dwsoot_dmsoot .*(dPDin_wsoot + dPDsoot_wsoot + dPDash_wsoot) + ...
-               dwash_dmsoot .*(dPDin_wash + dPDsoot_wash + dPDash_wash);
-dPDtot_mash = dwsoot_dmash .* (dPDin_wsoot + dPDsoot_wsoot + dPDash_wsoot) + ...
-              dwash_dmash .*(dPDin_wash + dPDsoot_wash + dPDash_wash);
+% Linearized deltaP_inlet
+deltaP_inlet_lin = channel_factor .* (numer ./ denom.^4 + K1 .* mash + K2 .* msoot);
 
-PDlin_Pa = dPDtot_msoot .* (msoot - msoot_e) + dPDtot_mash .* (mash - mash_e);
-PDlin = deltaP_model(Dtrap,Ltrap,mf,exhtemp,pout,msoot_e,mash_e,ws,cpsi,R_alpha)/1000+max(PDlin_Pa, 0)/1000;
+% Remaining original terms (unchanged, constant wrt mash and msoot)
+deltaP_outlet = channel_factor .* ((alphaIn + alphaOut + 2 .* ws).^2 ./ alphaOut.^4);
+deltaP_wall = Q .* mu .* ws ./ (4 .* nopen .* L .* alphaOut .* kwall);
+
+% Total linearized pressure drop
+deltaP_total_lin = deltaP_inlet_lin + deltaP_outlet + deltaP_wall + deltaP_ash_lin + deltaP_soot_lin;
+deltaP_total_lin = deltaP_total_lin ./ 1000; % Convert Pa -> kPa
+
 
 end
 %
