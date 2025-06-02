@@ -2,6 +2,8 @@
 \label{ch:estimointi}
 Optimaaliset suotimet ovat  matemaattisia menetelmiä, joilla estimoidaan systeemien tiloja kohinaisiin mittauksiin perustuen \cite{sarkka_bayesian}. Tässä työssä tarkastellaan Bayesilaisia suotimia, jotka ratkaisevat optimointiongelman Bayesilaisittain. 
 
+\section{Lyapunov ja Riccati}
+{\color{red} Näillä teoreettista taustaa (nimi vaihtuu)}
 
 \section{Kalman-suodin}
 
@@ -42,3 +44,32 @@ Päivitysvaihe:
 \end{align}
 jossa \(I \in \R^{n\times n}\) on identiteettimatriisi.
 
+\section{EKF}
+Toisin kuin tavallinen Kalman-suodin, laajennettu Kalman-suodin, eli EKF \emph{(eng. Extended Kalman Filter)} kykenee ratkaisemaan epälineaaristen funktioiden optimointiongelman lähes optimaalisesti. Menetelmä perustuu funktioiden linearisointiin, joten ratkaisu ei välttämättä ole täysin optimaalinen, mutta usein riittävän optimaalinen. Menetelmä kuitenkin vaatii funktioiden derivoituvuutta, sillä algoritmissa ratkaistaan sekö tilanfunktion että mittausfunktion Jacobin matriisit joka iteraatiolla. Tarkastellaan diskreettiä systeemiä, jonka tilanyhtälö on
+\begin{align}
+    x_k = f(x_{k-1}, u_{k-1}) + w_{k-1},
+\end{align}
+ja mittausyhtälö on
+\begin{align}
+    z_k = h(x_{k}, u_{k}) + v_k.
+\end{align}
+Funktiot \(f\) ja \(h\) ovat yleisesti epälineaarisia ja derivoituvia. Prosessi- ja mittaushäiriöt \(w\) ja \(v\) ovat nollakeskiarvoisia ja normaalijakautuneita, ja niiden kovarianssimatriiseita merkitään \(Q\) ja \(R\).
+
+Kuten tavallisellakin Kalman-suotimella, EKF-algoritmi voidaan jakaa ennuste- ja päivitysvaiheisiin. 
+Ennustevaiheessa ratkaistaan uusi estimaatti sekä sen kovarianssimatriisi. Ennustevaihe on muotoa
+\begin{align}
+    \hat{x}_{k|k-1} &= f(\hat{x}_{k-1|k-1}, u_{k-1}) \\
+    P_{k|k-1} &= F_k P_{k-1|k-1} F_k^T + Q_{k-1},
+\end{align}
+jossa \(F\) on funktion \(f\) Jacobin matriisi. 
+Päivitysvaiheessa tilan päivitystä varten ratkaistaan Kalman-vahvistus
+\begin{align}
+    S_k &= H_k P_{k|k-1} H_k^T + R_k \\
+    K_k &= P_{k|k-1} H_k^T S_k^{-1},
+\end{align}
+jossa \(H\) on funktion \(h\) Jacobin matriisi. Kalman-vahvistuksella ja mittauksella \(z\) voidaan päivittää estimaatti ja sen kovarianssi
+\begin{align}
+    \hat{x}_{k|k} &= \hat{x}_{k|k-1} + K_k (z_k - h(\hat{x}_{k|k-1})) \\
+    P_{k|k} &= (I-K_k H_k) P_{k|k-1}.
+\end{align}
+Kalman-vahvistuksen epäoptimaalisuus johtuu linearisointien epätarkkuudesta. Täten EKF ei ole luotettava estimointialgoritmi pitkille aikaikkunoille, hitaille näytteenottotaajuuksille tai huonosti derivoituville funktioille.

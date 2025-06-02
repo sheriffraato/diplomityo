@@ -8,9 +8,9 @@ Tässä liitteessä johdetaan painehäviömallin yhtälöiden linearisointi. Yle
     \tilde{f}(x) = f(x_e) +J_f (x_e) (x_k-x_e),
 \end{align}
 jossa \(x, x_e \in \R^k\) ja \(J_f\) on funktion \(f\) Jacobin matriisi. 
-Painehäviöt \(\Delta P_{inlet}\), \(\Delta P_{ash}\) ja \(\Delta P_{soot}\) riippuvat noki- ja tuhkakerroksista \(w_{soot}\) ja \(w_{ash}\). 
+Kokonaispainehäviön termeistä vain \(\Delta P_{inlet}\), \(\Delta P_{ash}\) ja \(\Delta P_{soot}\) riippuvat noki- ja tuhkakerroksista \(w_{soot}\) ja \(w_{ash}\). 
 Linearisointi toteutetaan muuttujien \(m_{soot}\) ja \( m_{ash}\) suhteen, joten
-sovelletaan derivoinnin ketjusääntöä
+sovelletaan yleistä ketjusääntöä Jacobin matriiseille
 \begin{align}
     J_{f \circ g}(x) = J_f\big(g(x)\big)  J_g(x).
 \end{align}
@@ -24,7 +24,7 @@ Olkoon \(m = \left(m_{soot}, m_{ash}\right) \in \R^2\) ja \(w(m) = \big(w_{soot}
     }.
 \end{align}
 %joka vastaa derivaattaa.
- Funktion \(\Delta P_{tot}(w)\) Jacobin matriisi puolestaan on 
+ Funktion \(\Delta P_{tot}\) Jacobin matriisi puolestaan on 
 \begin{align}
     J_{\Delta P_{tot}}(w) = \bm{  \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
     &   \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
@@ -59,7 +59,10 @@ Näin ollen
         +
         \frac{\doo w_{ash}}{\doo m_{ash}}
         \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
-    }.
+    } 
+\\ &= 
+    \bm{\frac{\doo \Delta P_{tot}}{\doo m_{soot}} 
+        & \frac{\doo \Delta P_{tot}}{\doo m_{ash}}}.
     \end{split}
 \end{align}
 
@@ -70,11 +73,10 @@ Linearisointi on muotoa
     +
     \frac{\doo {\Delta P}_{tot}}{\doo m_{soot}} \Delta m_{soot}
     + 
-    \frac{\doo {\Delta P}_{tot}}{\doo m_{ash}}  \Delta m_{ash}.
+    \frac{\doo {\Delta P}_{tot}}{\doo m_{ash}}  \Delta m_{ash},
 \end{split}
 \end{align}
-
-
+joten ratkaistaan noki- ja tuhkakerrosten derivaatat noen ja tuhkan suhteen derivoimalla yhtälöt \eqref{eq:deltaP_ash} ja \eqref{eq:deltaP_soot}.
 % Tuhkakerroksen paksuuden linearisointi on 
 % \begin{align}
 %     \tilde{w}_{ash}( m_{soot},  m_{ash}) = \frac{\doo w_{ash}}{\doo m_{soot}}  \Delta m_{soot}
@@ -111,8 +113,7 @@ Linearisointi on muotoa
 
 % Paremmin näin
 
-Ratkaistaan noki- ja tuhkakerrosten derivaatat noen ja tuhkan suhteen derivoimalla yhtälöt \eqref{eq:deltaP_ash} ja \eqref{eq:deltaP_soot}.
-Esitellään apumuuttujat
+
 % \begin{align*}
 %     a &:= 4 L n_{open}, \\
 %     b &:= \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}}}, \\
@@ -123,6 +124,7 @@ Esitellään apumuuttujat
 %     \alpha_{in}^* &:= \alpha_{in} - 2 w_{ash} - 2 w_{soot} , \\
 %     \alpha_{out}^* &:= \alpha_{out} - 2 w_{ash}  - 2 w_{soot}.
 % \end{align*}
+Esitellään apumuuttujat
 \begin{center}
 \begin{tabular}{ll}
     \( a := 4 L n_{open} \) & \( f := \alpha_{out} - 2 w_{ash} \) \\
@@ -197,50 +199,47 @@ Näin ollen
     \right).
 \end{split}
 \end{align}
-
-
-
-
 \newpage
+
+
 Esitellään apumuuttujat
 \begin{align*}
-S(w_{{soot}}, w_{{ash}}) &=a_{{out}}-2\,w_{{ash}}-2\,w_{{soot}},\\
-T(w_{{soot}}, w_{{ash}}) &=a_{{in}}-2\,w_{{ash}}-2\,w_{{soot}},\\
-X(m_{{ash}})            &=a_{{in}}^2 -\frac{m_{{ash}}}{L\,n_{{open}}\,\rho_{{ash}}},\\
-Y(m_{{soot}}, m_{{ash}}) &=X(a_{{in}},m_{{ash}})
+S(w_{{soot}}, w_{{ash}}) &=\alpha_{{out}}-2\,w_{{ash}}-2\,w_{{soot}},\\
+T(w_{{soot}}, w_{{ash}}) &=\alpha_{{in}}-2\,w_{{ash}}-2\,w_{{soot}},\\
+U(w_{ash}) &=  \alpha_{out} - 2w_{ash}, \\
+X(m_{{ash}})            &=\alpha_{{in}}^2 -\frac{m_{{ash}}}{L\,n_{{open}}\,\rho_{{ash}}},\\
+Y(m_{{soot}}, m_{{ash}}) &=X(\alpha_{{in}},m_{{ash}})
         -\frac{m_{{soot}}}{L\,n_{{open}}\,\rho_{{soot}}},\\ 
 M &=4\,L\,n_{{open}},\\
-P &=a_{{in}}+a_{{out}}+2\,w_s,\\
+P &=\alpha_{{in}}+\alpha_{{out}}+2\,w_s,\\
 A &=\frac{Q\,\mu}{M\,k_{{soot}}\,S},\\
 B &= \frac{4\,F\,L^2\,Q\,\mu\,P^2}{3\,V\,T^5},\\
 C &= A + B,\\
 D &=M\,\rho_{{soot}}\,\sqrt{Y},\\
 E &=\frac{1}{M\,\rho_{{ash}}\,\sqrt{X}},\\
 F_v &= \frac{1}{M\,\rho_{{ash}}\,\sqrt{Y}},\\
-G &=\frac{Q\,\mu}{M\,k_{{ash}}\,(a_{{out}}-2\,w_{{ash}})},\\
-H &=\frac{Q\,\mu}{\,M\,k_{{soot}}\,(a_{{out}}-2\,w_{{ash}})}
-      \Bigl(\frac{\,(a_{{out}}-2\,w_{{ash}})}{S}+1\Bigr).
+G &=\frac{Q\,\mu}{M\,k_{ash}\,U},\\
+H &=\frac{Q\,\mu}{M\,k_{soot}\,U}
+      \Bigl(\frac{\,U}{S}+1\Bigr).
 \end{align*}
 
 Derivaattoja
 \begin{align}
     \frac{\doo w_{soot}}{\doo m_{soot}} &= \frac{1}{M \rho_{soot}\sqrt{Y}} \\
-    \frac{\doo w_{soot}}{\doo m_{ash}} &= \frac{1}{M\rho_{ash}\sqrt{Y}} - \frac{1}{M\rho_{soot}\sqrt{x}} \\
+    \frac{\doo w_{soot}}{\doo m_{ash}} &= \frac{1}{M\rho_{ash}\sqrt{Y}} - \frac{1}{M\rho_{soot}\sqrt{X}} \\
     \frac{\doo w_{ash}}{\doo m_{soot}}&=0\\
     \frac{\doo w_{ash}}{\doo m_{ash}} &= \frac{1}{M \rho_{ash}\sqrt{X}}.
 \end{align}
 
 \begin{align}
-    \frac{\doo \Delta P}{\doo w_{soot}} &= A+B\\
-    \frac{\doo \Delta P}{\doo w_{ash}} &= G+B-H.
+    \frac{\doo \Delta P_{tot}}{\doo w_{soot}} &= A+B\\
+    \frac{\doo \Delta P_{tot}}{\doo w_{ash}} &= G+B-H.
 \end{align}
 
 
 \begin{align}
-    \boxed{
-        f_{1} =\frac{C}{D},
-        \qquad
-        f_{2} =C\bigl(E - F_v\bigr)-E\,\bigl(B - G + H\bigr).
-        }
+        \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=\frac{C}{D},
+        \\
+        \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=C\bigl(E - F_v\bigr)-E\bigl(B - G + H\bigr).
 \end{align}
 
