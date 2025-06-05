@@ -65,18 +65,21 @@ Näin ollen
         & \frac{\doo \Delta P_{tot}}{\doo m_{ash}}}.
     \end{split}
 \end{align}
-
-Linearisointi on muotoa
-\begin{align}
-    \begin{split}
-    \Delta\tilde{ P}_{tot} &= \Delta P_{tot}
-    +
-    \frac{\doo {\Delta P}_{tot}}{\doo m_{soot}} \Delta m_{soot}
-    + 
-    \frac{\doo {\Delta P}_{tot}}{\doo m_{ash}}  \Delta m_{ash},
-\end{split}
-\end{align}
-joten ratkaistaan noki- ja tuhkakerrosten derivaatat noen ja tuhkan suhteen derivoimalla yhtälöt \eqref{eq:deltaP_ash} ja \eqref{eq:deltaP_soot}.
+% Linearisointi on muotoa
+% \begin{align}
+%     \begin{split}
+%     \Delta\tilde{ P}_{tot} &= \Delta P_{tot}
+%     +
+%     \frac{\doo {\Delta P}_{tot}}{\doo m_{soot}} \Delta m_{soot}
+%     + 
+%     \frac{\doo {\Delta P}_{tot}}{\doo m_{ash}}  \Delta m_{ash},
+% \end{split}
+% \end{align}
+% joten r
+Ratkaistaan Jacobin matriisi 
+derivoimalla yhtälöt 
+\eqref{eq:deltaP_ash} ja \eqref{eq:deltaP_soot}
+noki- ja tuhkalatauksen suhteen. 
 % Tuhkakerroksen paksuuden linearisointi on 
 % \begin{align}
 %     \tilde{w}_{ash}( m_{soot},  m_{ash}) = \frac{\doo w_{ash}}{\doo m_{soot}}  \Delta m_{soot}
@@ -124,82 +127,83 @@ joten ratkaistaan noki- ja tuhkakerrosten derivaatat noen ja tuhkan suhteen deri
 %     \alpha_{in}^* &:= \alpha_{in} - 2 w_{ash} - 2 w_{soot} , \\
 %     \alpha_{out}^* &:= \alpha_{out} - 2 w_{ash}  - 2 w_{soot}.
 % \end{align*}
-Esitellään apumuuttujat
-\begin{center}
-\begin{tabular}{ll}
-    \( a := 4 L n_{open} \) & \( f := \alpha_{out} - 2 w_{ash} \) \\
-    \( b := \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}}} \) & \( q := \frac{1}{2} Q \mu \) \\
-    \( c := \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}} - \frac{m_{soot}}{L n_{open} \rho_{soot}}} \) & \( \alpha_{in}^* := \alpha_{in} - 2 w_{ash} - 2 w_{soot} \) \\
-    \( d := \alpha_{in} + \alpha_{out} + 2w_s \) & \( \alpha_{out}^* := \alpha_{out} - 2 w_{ash} - 2 w_{soot} \)
-\end{tabular}
-\end{center}
+
+% Esitellään apumuuttujat
+% \begin{center}
+% \begin{tabular}{ll}
+%     \( a := 4 L n_{open} \) & \( f := \alpha_{out} - 2 w_{ash} \) \\
+%     \( b := \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}}} \) & \( q := \frac{1}{2} Q \mu \) \\
+%     \( c := \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}} - \frac{m_{soot}}{L n_{open} \rho_{soot}}} \) & \( \alpha_{in}^* := \alpha_{in} - 2 w_{ash} - 2 w_{soot} \) \\
+%     \( d := \alpha_{in} + \alpha_{out} + 2w_s \) & \( \alpha_{out}^* := \alpha_{out} - 2 w_{ash} - 2 w_{soot} \)
+% \end{tabular}
+% \end{center}
 
 
-Tuhkakerroksen derivaatat ovat
-\begin{align}
-    \frac{\doo w_{ash}}{\doo m_{soot}} & =0,\\
-    \frac{\doo w_{ash}}{\doo m_{ash}} &= \frac{1}{ab\rho_{ash}},
-\end{align}
-ja vastaavasti nokikerroksen derivaatat ovat
-\begin{align}
-    \frac{\doo w_{soot}}{\doo m_{soot}} &= \frac{1}{ac\rho_{soot}}\\
-    \begin{split}
-    \frac{\doo w_{soot}}{\doo m_{ash}} &= \frac{1}{ac\rho_{ash}}-\frac{1}{ab\rho_{ash}}
-    \\ &= \frac{ab \rho_{ash} - ac\rho_{ash}}{ab\rho_{ash}\cdot ac \rho_{ash}}
-    \\ &= \frac{\cancel{a\rho}_{ash}(b-c)}{a^{\cancel{2}} \rho_{ash}^{\cancel{2}} bc}
-    \\ &= \frac{b-c}{abc\rho_{ash}}.
-    \end{split}
-\end{align}
-
-Painehäviön derivaatta on
-\begin{align}
-    \nabla \Delta P_{tot} &=
-    \nabla \Delta P_{inlet} + \nabla \Delta P_{soot} + \nabla \Delta P_{ash}.
-\end{align}
-Lasketaan termien derivaatat erikseen. Sisäänmenossa derivaatat ovat
-\begin{align}
-    \frac{\doo \Delta P_{inlet}}{\doo w_{soot}} &=
-    \frac{\doo \Delta P_{inlet}}{\doo w_{ash}} =
-    \frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} .
-\end{align}
-Nokikerroksen aiheuttaman painehäviön derivaatat ovat
-\begin{align}
-    \frac{\doo \Delta P_{soot}}{\doo w_{soot}} &=
-    \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*},
-    \\\frac{\doo \Delta P_{soot}}{\doo w_{ash}}
-    &=
-    \frac{4qw_{soot}}{a f\kappa_{soot} \alpha_{out}^* }.
-\end{align}
-Tuhkakerros:
-\begin{align}
-    \frac{\doo \Delta P_{ash}}{\doo w_{soot}} &= 0,
-    \\\frac{\doo \Delta P_{ash}}{\doo w_{ash}} &=
-    \frac{2q}{a f \kappa_{ash}  }.
-\end{align}
-
-Näin ollen 
-\begin{align}
-    \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=
-     \frac{1}{ac\rho_{soot}}
-    \left(\frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} +
-     \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*}
-    \right)\\
-% \end{align}
+% Tuhkakerroksen derivaatat ovat
 % \begin{align}
-\begin{split}
-    \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=
-    \frac{b-c}{abc\rho_{ash}}\left(\frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} +
-     \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*}
-    \right) \\
-    & + 
-    \frac{1}{ab\rho_{ash}} \left(
-        \frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} +
-        \frac{4qw_{soot}}{a f \kappa_{soot} \alpha_{out}^*  } +
-        \frac{2q}{a f \kappa_{ash}  }
-    \right).
-\end{split}
-\end{align}
-\newpage
+%     \frac{\doo w_{ash}}{\doo m_{soot}} & =0,\\
+%     \frac{\doo w_{ash}}{\doo m_{ash}} &= \frac{1}{ab\rho_{ash}},
+% \end{align}
+% ja vastaavasti nokikerroksen derivaatat ovat
+% \begin{align}
+%     \frac{\doo w_{soot}}{\doo m_{soot}} &= \frac{1}{ac\rho_{soot}}\\
+%     \begin{split}
+%     \frac{\doo w_{soot}}{\doo m_{ash}} &= \frac{1}{ac\rho_{ash}}-\frac{1}{ab\rho_{ash}}
+%     \\ &= \frac{ab \rho_{ash} - ac\rho_{ash}}{ab\rho_{ash}\cdot ac \rho_{ash}}
+%     \\ &= \frac{\cancel{a\rho}_{ash}(b-c)}{a^{\cancel{2}} \rho_{ash}^{\cancel{2}} bc}
+%     \\ &= \frac{b-c}{abc\rho_{ash}}.
+%     \end{split}
+% \end{align}
+
+% Painehäviön derivaatta on
+% \begin{align}
+%     \nabla \Delta P_{tot} &=
+%     \nabla \Delta P_{inlet} + \nabla \Delta P_{soot} + \nabla \Delta P_{ash}.
+% \end{align}
+% Lasketaan termien derivaatat erikseen. Sisäänmenossa derivaatat ovat
+% \begin{align}
+%     \frac{\doo \Delta P_{inlet}}{\doo w_{soot}} &=
+%     \frac{\doo \Delta P_{inlet}}{\doo w_{ash}} =
+%     \frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} .
+% \end{align}
+% Nokikerroksen aiheuttaman painehäviön derivaatat ovat
+% \begin{align}
+%     \frac{\doo \Delta P_{soot}}{\doo w_{soot}} &=
+%     \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*},
+%     \\\frac{\doo \Delta P_{soot}}{\doo w_{ash}}
+%     &=
+%     \frac{4qw_{soot}}{a f\kappa_{soot} \alpha_{out}^* }.
+% \end{align}
+% Tuhkakerros:
+% \begin{align}
+%     \frac{\doo \Delta P_{ash}}{\doo w_{soot}} &= 0,
+%     \\\frac{\doo \Delta P_{ash}}{\doo w_{ash}} &=
+%     \frac{2q}{a f \kappa_{ash}  }.
+% \end{align}
+
+% Näin ollen 
+% \begin{align}
+%     \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=
+%      \frac{1}{ac\rho_{soot}}
+%     \left(\frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} +
+%      \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*}
+%     \right)\\
+% % \end{align}
+% % \begin{align}
+% \begin{split}
+%     \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=
+%     \frac{b-c}{abc\rho_{ash}}\left(\frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} +
+%      \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*}
+%     \right) \\
+%     & + 
+%     \frac{1}{ab\rho_{ash}} \left(
+%         \frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} +
+%         \frac{4qw_{soot}}{a f \kappa_{soot} \alpha_{out}^*  } +
+%         \frac{2q}{a f \kappa_{ash}  }
+%     \right).
+% \end{split}
+% \end{align}
+% \newpage
 
 
 Esitellään apumuuttujat
@@ -208,8 +212,7 @@ S(w_{{soot}}, w_{{ash}}) &=\alpha_{{out}}-2\,w_{{ash}}-2\,w_{{soot}},\\
 T(w_{{soot}}, w_{{ash}}) &=\alpha_{{in}}-2\,w_{{ash}}-2\,w_{{soot}},\\
 U(w_{ash}) &=  \alpha_{out} - 2w_{ash}, \\
 X(m_{{ash}})            &=\alpha_{{in}}^2 -\frac{m_{{ash}}}{L\,n_{{open}}\,\rho_{{ash}}},\\
-Y(m_{{soot}}, m_{{ash}}) &=X(\alpha_{{in}},m_{{ash}})
-        -\frac{m_{{soot}}}{L\,n_{{open}}\,\rho_{{soot}}},\\ 
+Y(m_{{soot}}, m_{{ash}}) &=X-\frac{m_{{soot}}}{L\,n_{{open}}\,\rho_{{soot}}},\\ 
 M &=4\,L\,n_{{open}},\\
 P &=\alpha_{{in}}+\alpha_{{out}}+2\,w_s,\\
 A &=\frac{Q\,\mu}{M\,k_{{soot}}\,S},\\
@@ -240,6 +243,11 @@ Derivaattoja
 \begin{align}
         \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=\frac{C}{D},
         \\
-        \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=C\bigl(E - F_v\bigr)-E\bigl(B - G + H\bigr).
+        \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=
+        C\bigl(E - F_v\bigr)-E\bigl(B - G + H\bigr).
 \end{align}
 
+Näin ollen 
+\begin{align}
+    J_{\Delta P_{tot}} = \bm{\frac{C}{D} & \quad C\bigl(E - F_v\bigr)-E\bigl(B - G + H\bigr)}
+\end{align}

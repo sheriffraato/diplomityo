@@ -2,8 +2,8 @@
 \label{ch:estimointi}
 Optimaaliset suotimet ovat  matemaattisia menetelmiä, joilla estimoidaan systeemien tiloja kohinaisiin mittauksiin perustuen \cite{sarkka_bayesian}. Tässä työssä tarkastellaan Bayesilaisia suotimia, jotka ratkaisevat optimointiongelman Bayesilaisittain. 
 
-\section{Lyapunov ja Riccati}
-{\color{red} Näillä teoreettista taustaa (nimi vaihtuu)}
+\section{Teoreettista taustaa}
+{\color{red} (nimi vaihtuu), Lyapunov ja Riccati yms.}
 
 \section{Kalman-suodin}
 
@@ -13,11 +13,11 @@ Ennustevaihe tehdään lähtökohtaisesti jokaisella aika-askeleella. Päivitysv
 Tarkastellaan lineaarista systeemiä
 \begin{align}
     \begin{split}
-        x_k &= A_{k-1}x_{k-1} + q_{k-1} \\
-        y_k &= H_k x_k + r_k,
+        x_k &= A_{k-1}x_{k-1} + w_{k-1} \\
+        y_k &= H_k x_k + v_k,
     \end{split}
 \end{align}
-jossa \(x_k \in \R^n \) on systeemin tila hetkellä \(k\), \(A_{k-1}\in \R^{n\times n}\) on tilamatriisi, \(y_k\in \R^m\) on mittaus, \(H_k \in \R^{m \times n}\) on mittausmatriisi. Muuttujat \(q_{k-1} \sim \mathcal{N}(0, Q_{k-1})\) ja \(r_k \sim \mathcal{N}(0, R_k)\) ovat normaalijakautuneet (Gaussiset) prosessi- ja mittauskohinat, joissa \(Q_{k-1}\) ja \(R_k\) ovat vastaavat kovarianssimatriisit. Tilan ja mittauksen estimaatteja merkitään \(\hat{x}_k\) ja \(\hat{y}_k\).
+jossa \(x_k \in \R^n \) on systeemin tila hetkellä \(k\), \(A_{k-1}\in \R^{n\times n}\) on tilamatriisi, \(y_k\in \R^m\) on mittaus, \(H_k \in \R^{m \times n}\) on mittausmatriisi. Muuttujat \(w_{k-1} \sim \mathcal{N}(0, Q_{k-1})\) ja \(v_k \sim \mathcal{N}(0, R_k)\) ovat normaalijakautuneet (Gaussiset) prosessi- ja mittauskohinat, joissa \(Q_{k-1}\) ja \(R_k\) ovat vastaavat kovarianssimatriisit. Tilan ja mittauksen estimaatteja merkitään \(\hat{x}_k\) ja \(\hat{y}_k\).
 
 Kalman-suodin ratkaisee jokaisella iteraatiolla normaalijakautuneen estimaatin, jossa keskiarvo on \(\hat{x}_k\) ja optimoitu kovarianssi on \(P_k\).  
 
@@ -67,9 +67,11 @@ Päivitysvaiheessa tilan päivitystä varten ratkaistaan Kalman-vahvistus
     S_k &= H_k P_{k|k-1} H_k^T + R_k \\
     K_k &= P_{k|k-1} H_k^T S_k^{-1},
 \end{align}
-jossa \(H\) on funktion \(h\) Jacobin matriisi. Kalman-vahvistuksella ja mittauksella \(z\) voidaan päivittää estimaatti ja sen kovarianssi
+jossa \(H\) on funktion \(h\) Jacobin matriisi. 
+Kalman-vahvistuksella ja mittauksen ja mallin välisellä virheellä  \(e_{z, k} = z_k - h(\hat{x}_{k|k-1}) \) 
+voidaan päivittää estimaatti ja sen kovarianssi
 \begin{align}
-    \hat{x}_{k|k} &= \hat{x}_{k|k-1} + K_k (z_k - h(\hat{x}_{k|k-1})) \\
+    \hat{x}_{k|k} &= \hat{x}_{k|k-1} + K_k e_{z, k}, \\
     P_{k|k} &= (I-K_k H_k) P_{k|k-1}.
 \end{align}
 Kalman-vahvistuksen epäoptimaalisuus johtuu linearisointien epätarkkuudesta. Täten EKF ei ole luotettava estimointialgoritmi pitkille aikaikkunoille, hitaille näytteenottotaajuuksille tai huonosti derivoituville funktioille.

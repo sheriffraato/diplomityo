@@ -24,7 +24,7 @@ Jälkikäsittelyjärjestelmää on havainnollistettu Kuvassa \ref{fig:EAT_full}.
 \end{figure}
 %
 Jälkikäsittelyjärjestelmän ensimmäinen osa on hapettava katalysaattori, eli DOC. 
-Hapettavan katalysaattorin tehtävä on nimensä mukaan hapettaa moottorin raakapäästöjä, kuten hiilivetyjä, häkää ja typpimonoksidia \cite{dieselnet_doc}. Typpimonoksidista hapetettua typpidioksidia käytetään hiukkassuodattimessa noen hapettamiseen, ja sen konsentraatio vaikuttaa hapetusreaktionopeuksiin. Täten DOC-järjestelmän poistokaasun \(\ce{NO2}\)-konsentraatio on syytä tuntea tarkasti. Tässä työssä ei syvennytä DOC-järjestelmän \(\ce{NO2}\)-malliin.
+Hapettavan katalysaattorin tehtävä on nimensä mukaan hapettaa moottorin raakapäästöjä, kuten hiilivetyjä, häkää ja typpimonoksidia \cite{dieselnet_doc}. Typpimonoksidista hapetettua typpidioksidia käytetään hiukkassuodattimessa noen hapettamiseen, ja sen konsentraatio vaikuttaa hapetusreaktionopeuksiin. Täten DOC-järjestelmän poistokaasun \ce{NO2}-konsentraatio on syytä tuntea tarkasti. Tässä työssä ei syvennytä DOC-järjestelmän \ce{NO2}-malliin.
 
 Hapettavan katalysaattorin jälkeinen komponentti on hiukkassuodatin eli DPF.
 Tyypillisin DPF-tyyppi on ns. seimämävirtaus-DPF (\emph{eng. wall-flow DPF}), jossa pakokaasu virtaa hunajakennomaisessa suodattimessa puoliavoimissa putkissa. Suodattimen rakennetta on havainnollistettu Kuvassa \ref{fig:honeycomb}.
@@ -72,10 +72,9 @@ ja niiden reaktionopeudet voidaan määrittää Arrheniuksen yhtälöinä \cite{
 \begin{align}
     R_i(t) =  k_i \exp\left({-\frac{E_{a,i}}{RT(t)}}\right),\ i = 1,\ldots,4
 \end{align}
-jossa \(k_i\) on reaktion \(i\) frekvenssitekijä, \(E_{a, i}\) on  reaktion \(i\) aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila. Karkeasti jaoteltuna reaktiot \eqref{req:active1} ja \eqref{req:active2} kuvaavat aktiivista regenerointia, ja vastaavasti reaktiot \eqref{req:passive1} ja \eqref{req:passive2} passiivista regenerointia.
-Suodattimessa tapahtuu  muitakin reaktioita \cite{Penghao_regen}, jotka eivät ole tämän työn kannalta olennaisia.
-
-Reaktionopeus kuvaa kunkin aineen konsentraation muutosnopeutta, eli aikaderivaattaa \cite[s. 24-26]{chemical_reaction_kinetics}. 
+jossa \(k_i\) on reaktion \(i\) frekvenssitekijä, \(E_{a, i}\) on  reaktion \(i\) aktivoitumisenergia, \(R\) on moolinen kaasuvakio ja \(T\) on lämpötila. 
+Reaktionopeus kuvaa kunkin aineen konsentraation muutosnopeutta, eli aikaderivaattaa \cite[s. 24-26]{chemical_reaction_kinetics}. Karkeasti jaoteltuna reaktiot \eqref{req:active1} ja \eqref{req:active2} kuvaavat aktiivista regenerointia, ja vastaavasti reaktiot \eqref{req:passive1} ja \eqref{req:passive2} passiivista regenerointia.
+Suodattimessa tapahtuu useita muitakin reaktioita \cite{Penghao_regen}, jotka eivät ole tämän työn kannalta olennaisia.
 % Suljetulle reaktiolle
 % \begin{align}
 %     \ce{a1 X1 + a2 X2 + \cdots {} + a_n X_n ->[R] b1 Y1 + b2 Y2 + \cdots {} + b_m Y_m}
@@ -117,28 +116,32 @@ Näin ollen regenerointien kokonaisreaktionopeudet ovat
     R_{active}(t) &= R_1(t) + R_2(t) =   k_1 \exp{\left( -\frac{E_{a, 1}}{RT(t)} \right)} \\%[\ce{O2}], \\ \text{ ja }
     R_{passive}(t) &= R_3(t)+ R_4(t) =  k_2 \exp{\left( -\frac{E_{a, 2}}{RT(t)} \right)} . %[\ce{NO2}].
 \end{align}
-Reaktionopeuksien yksikkö on \(\frac{1}{s}\).
-
+%Reaktionopeuksien yksikkö on \(\frac{1}{s}\).
 Noen hapettumisnopeus on suoraan verrannollinen typpidioksidin ja hapen konsentraatioihin. Reaktion edetessä nokikerroksessa typpidioksidia ja happea kuluu, joten konsentraatiot on integroitava nokikerroksen paksuuden yli. Tällöin hapettuvan noen muutosnopeus on
 \begin{align}
-    \dot{m}_{soot, oxi} = M_{soot} A_{soot}\left(R_{active}(t) \int_0^{w_{soot}} [\ce{O2}] dz +
-                                                R_{passive}(t) \int_0^{w_{soot}} [\ce{NO2}] dz
+    \dot{m}_{soot, oxi} = M_{soot} A_{soot}\left(R_{active}(t) \int_0^{w_{soot}} c_{\ce{O2}} dz +
+                 R_{passive}(t) \int_0^{w_{soot}} c_{\ce{NO2}} dz
     \right),
 \end{align}
-jossa \(M_{soot}\) on noen moolimassa, \(A_{soot}\) on nokikerroksen pinta-ala seinämän suuntaan, ja \(w_{soot}\) on nokikerroksen paksuus. Yksinkertaistuksen vuoksi voidaan olettaa, että typpidioksidin ja hapen konsentraatiot pysyvät likimain vakioina, eli niitä on ylimäärin. Näin ollen yhtälö yksinkertaistuu muotoon
+jossa \(M_{soot}\) on noen moolimassa, \(A_{soot}\) on nokikerroksen seinämän suuntainen pinta-ala, ja \(w_{soot}\) on nokikerroksen paksuus. Yksinkertaistuksena  voidaan olettaa, että typpidioksidin ja hapen konsentraatiot pysyvät nokikerroksessa likimain vakioina {\color{red} syystä x [Y]}. 
+Integraalit yksinkertaistuvat muotoon 
+\(\int_0^{w_{soot}} dz = w_{soot}\)
+ja yhtälö yksinkertaistuu 
 \begin{align}
-    \dot{m}_{soot, oxi} = M_{soot}V_{soot} \left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right),
+    \dot{m}_{soot, oxi} = M_{soot}V_{soot} \left( R_{active}(t)
+    c_{\ce{O2}} + R_{passive}(t)c_{\ce{NO2}} \right),
 \end{align}
 jossa \(V_{soot}=A_{soot}w_{soot}\) on kertyneen noen tilavuus.
 Hiukkassuodattimen nokimäärän massataseyhtälö on tällöin
-\begin{align}
+\begin{align}\label{eq:tilanyhtalo_noki}
 \begin{split}
     \dot{m} _{soot}(t) &= \dot{m} _{soot, in}(t) - \dot{m} _{soot, oxi}(t)
     %&= m_{soot, in}(t) - m_{soot} \left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right),
     %&= m_{soot, in}(t) - V_{soot} M_{soot}\left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right),
-    \\ & = \dot{m}_{soot, in}(t) - M_{soot}V_{soot} \left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right).
+    \\ & = \dot{m}_{soot, in}(t) - M_{soot}V_{soot} \left( R_{active}(t)c_{\ce{O2}} + R_{passive}(t)c_{\ce{NO2}}\right).
 \end{split}
 \end{align}
+Masstaseyhtälö toimii työn estimointialgoritmin tilanyhtälönä.
 
 \section{Painehäviö ja sen mallintaminen}
 Hiukkassuodattimeen kertyneiden hiukkasten lukumäärää arvioidaan painehäviön avulla. Painehäviötä voidaan mitata hiukkassuodattimen yli paineantureilla, mutta olennaisesti noen ja tuhkan määrän arvointiin tarvitaan matemaattinen malli.
@@ -186,7 +189,7 @@ Kokonaisvirtausnopeudet saadaan sisäänmenon ja ulostulon solujen pinta-alan av
     A_{eff, in} &= 2 \pi \left(\frac{D}{2}\right)^2 \cdot \frac{\alpha_{in}^2}{(\alpha_{in}+\alpha_{out}+2w_s)^2}, \label{eq:area_eff_in} \\
     A_{eff, out} &= 2 \pi \left(\frac{D}{2}\right)^2 \cdot \frac{\alpha_{out}^2}{(\alpha_{in}+\alpha_{out}+2w_s)^2},\label{eq:area_eff_out}
 \end{align}
-jossa \(D \) suodattimen halkaisija, ja kerroin \(\frac{1}{2}\) poistaa efektiivisestä pinta-alasta suljetut kanavat.
+jossa \(D \) suodattimen halkaisija.%, ja kerroin \(\frac{1}{2}\) poistaa efektiivisestä pinta-alasta suljetut kanavat.
 
 Sisäänmenon ja ulostulon virtausnopeudet ovat tällöin
 \begin{align}
