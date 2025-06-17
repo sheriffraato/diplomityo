@@ -57,7 +57,7 @@ Ea2 = p.DpfWM_ExpnSootCakeNo2AcvnERgn_P;
 
 
 NM_Coeff = NM_CoeffClcnAddl1(p);
-R = p.DpfWM_Rgas_P;
+% R = p.DpfWM_Rgas_P;
 rho_soot = p.DpfWM_RhoSoot_P;
 M_soot = 0.012;
 

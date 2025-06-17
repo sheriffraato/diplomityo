@@ -8,8 +8,8 @@ Tässä liitteessä johdetaan painehäviömallin yhtälöiden linearisointi. Yle
     \tilde{f}(x) = f(x_e) +J_f (x_e) (x_k-x_e),
 \end{align}
 jossa \(x, x_e \in \R^k\) ja \(J_f\) on funktion \(f\) Jacobin matriisi. 
-Kokonaispainehäviön termeistä vain \(\Delta P_{inlet}\), \(\Delta P_{ash}\) ja \(\Delta P_{soot}\) riippuvat noki- ja tuhkakerroksista \(w_{soot}\) ja \(w_{ash}\). 
-Linearisointi toteutetaan muuttujien \(m_{soot}\) ja \( m_{ash}\) suhteen, joten
+Kokonaispainehäviön termeistä vain \(\Delta P_{inlet}\), \(\Delta P_{soot}\) ja \(\Delta P_{ash}\) riippuvat noki- ja tuhkakerroksista \(w_{soot}\) ja \(w_{ash}\). 
+Linearisointi toteutetaan muuttujien \(m_{ash}\) ja \( m_{soot}\) suhteen, joten
 sovelletaan yleistä ketjusääntöä Jacobin matriiseille
 \begin{align}
     J_{f \circ g}(x) = J_f\big(g(x)\big)  J_g(x).
@@ -19,19 +19,26 @@ Olkoon \(m = \left(m_{soot}, m_{ash}\right) \in \R^2\) ja \(w(m) = \big(w_{soot}
 \begin{align}
     J_w(m)=
     \bm{
-        \frac{\doo w_{soot}}{\doo m_{soot}} & \frac{\doo w_{soot}}{\doo m_{ash}}
-    \\  \frac{\doo w_{ash}}{\doo m_{soot}} & \frac{\doo w_{ash}}{\doo m_{ash}}
+        \frac{\doo w_{soot}}{\doo m_{soot}}
+        & 
+        \frac{\doo w_{soot}}{\doo m_{ash}} 
+        \\  
+        \frac{\doo w_{ash}}{\doo m_{soot}}
+        & 
+        \frac{\doo w_{ash}}{\doo m_{ash}} 
     }.
 \end{align}
 %joka vastaa derivaattaa.
  Funktion \(\Delta P_{tot}\) Jacobin matriisi puolestaan on 
 \begin{align}
-    J_{\Delta P_{tot}}(w) = \bm{  \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
-    &   \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
+    J_{\Delta P_{tot}}(w) = \bm{  
+        \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
+        &   
+        \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
     }.
 \end{align}
 Näin ollen 
-\begin{align}
+\begin{align}\label{eq:jacob_total_general}
     \begin{split}
         J_{\Delta P_{tot}}(m)&=
         J_{\Delta P}\big(w(m)\big)  J_{w}(m)
@@ -42,27 +49,34 @@ Näin ollen
         \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
         }
     \bm{
-        \frac{\doo w_{soot}}{\doo m_{soot}} & \frac{\doo w_{soot}}{\doo m_{ash}}
+        \frac{\doo w_{soot}}{\doo m_{soot}}
+        & 
+        \frac{\doo w_{soot}}{\doo m_{ash}} 
         \\ 
-        \frac{\doo w_{ash}}{\doo m_{soot}} & \frac{\doo w_{ash}}{\doo m_{ash}}
+        \frac{\doo w_{ash}}{\doo m_{soot}}
+        & 
+        \frac{\doo w_{ash}}{\doo m_{ash}} 
         }
 \\ &=
     \bm{
-        \frac{\doo w_{soot}}{\doo m_{soot}}
-        \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
-        +
+        \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
         \frac{\doo w_{ash}}{\doo m_{soot}}
-        \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
-        &
-        \frac{\doo w_{soot}}{\doo m_{ash}}
-        \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
         +
-        \frac{\doo w_{ash}}{\doo m_{ash}}
+        \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
+        \frac{\doo w_{soot}}{\doo m_{soot}}
+        &
         \frac{\doo \Delta P_{tot}}{\doo w_{ash}}
-    } 
+        \frac{\doo w_{ash}}{\doo m_{ash}}
+        +
+        \frac{\doo \Delta P_{tot}}{\doo w_{soot}}
+        \frac{\doo w_{soot}}{\doo m_{ash}}
+        } 
 \\ &= 
-    \bm{\frac{\doo \Delta P_{tot}}{\doo m_{soot}} 
-        & \frac{\doo \Delta P_{tot}}{\doo m_{ash}}}.
+    \bm{
+        \frac{\doo \Delta P_{tot}}{\doo m_{soot}}
+        & 
+        \frac{\doo \Delta P_{tot}}{\doo m_{ash}} 
+        }.
     \end{split}
 \end{align}
 % Linearisointi on muotoa
@@ -70,47 +84,47 @@ Näin ollen
 %     \begin{split}
 %     \Delta\tilde{ P}_{tot} &= \Delta P_{tot}
 %     +
-%     \frac{\doo {\Delta P}_{tot}}{\doo m_{soot}} \Delta m_{soot}
+%     \frac{\doo {\Delta P}_{tot}}{\doo m_{ash}} \Delta m_{ash}
 %     + 
-%     \frac{\doo {\Delta P}_{tot}}{\doo m_{ash}}  \Delta m_{ash},
+%     \frac{\doo {\Delta P}_{tot}}{\doo m_{soot}}  \Delta m_{soot},
 % \end{split}
 % \end{align}
 % joten r
 Ratkaistaan Jacobin matriisi 
 derivoimalla yhtälöt 
-\eqref{eq:deltaP_ash} ja \eqref{eq:deltaP_soot}
+\eqref{eq:deltaP_soot} ja \eqref{eq:deltaP_ash}
 noki- ja tuhkalatauksen suhteen. 
 % Tuhkakerroksen paksuuden linearisointi on 
 % \begin{align}
-%     \tilde{w}_{ash}( m_{soot},  m_{ash}) = \frac{\doo w_{ash}}{\doo m_{soot}}  \Delta m_{soot}
-%                                                     + \frac{\doo w_{ash}}{\doo m_{ash}} \Delta m_{ash},
+%     \tilde{w}_{soot}( m_{ash},  m_{soot}) = \frac{\doo w_{soot}}{\doo m_{ash}}  \Delta m_{ash}
+%                                                     + \frac{\doo w_{soot}}{\doo m_{soot}} \Delta m_{soot},
 % \end{align} 
 % ja nokikerroksen 
 % \begin{align}
-%     \tilde{w}_{soot}( m_{soot},  m_{ash}) = \frac{\doo w_{soot}}{\doo m_{soot}}  \Delta m_{soot}
-%                                                     + \frac{\doo w_{soot}}{\doo m_{ash}} \Delta m_{ash}.
+%     \tilde{w}_{ash}( m_{ash},  m_{soot}) = \frac{\doo w_{ash}}{\doo m_{ash}}  \Delta m_{ash}
+%                                                     + \frac{\doo w_{ash}}{\doo m_{soot}} \Delta m_{soot}.
 % \end{align}
 % Yhtälö ei riipu noen määrästä, joten
 % \begin{align}
-%     \tilde{w}_{ash}( m_{soot},  m_{ash}) =  \frac{\Delta m_{ash}}
-%     {4L n_{open} \rho_{ash}\sqrt{\alpha_{in}^2 - \frac{m_{ash, 0}}{L n_{open} \rho_{ash}}}}.
+%     \tilde{w}_{soot}( m_{ash},  m_{soot}) =  \frac{\Delta m_{soot}}
+%     {4L n_{open} \rho_{soot}\sqrt{\alpha_{in}^2 - \frac{m_{soot, 0}}{L n_{open} \rho_{soot}}}}.
 % \end{align}
 
-% Nokikerroksen paksuuteen vaikuttaa myös tuhkakerroksen paksuus. Sijoittamalla yhtälö \eqref{eq:deltaP_wash} yhtälöön \eqref{eq:deltaP_wsoot}, saadaan
+% Nokikerroksen paksuuteen vaikuttaa myös tuhkakerroksen paksuus. Sijoittamalla yhtälö \eqref{eq:deltaP_wsoot} yhtälöön \eqref{eq:deltaP_wash}, saadaan
 % \begin{align}
-%     w_{soot}(m_{soot}, m_{ash}) =
-%     \frac{ \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}}}
+%     w_{ash}(m_{ash}, m_{soot}) =
+%     \frac{ \sqrt{\alpha_{in}^2 - \frac{m_{soot}}{L n_{open} \rho_{soot}}}
 %             - 
-%            \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}} - \frac{m_{soot}}{L n_{open} \rho_{soot}}} }
+%            \sqrt{\alpha_{in}^2 - \frac{m_{soot}}{L n_{open} \rho_{soot}} - \frac{m_{ash}}{L n_{open} \rho_{ash}}} }
 %     {2}.
 % \end{align}
 
 % \begin{align}
 %     \begin{split}
-%     \tilde{w}_{soot}(m_{soot}, m_{ash}) = &
-%     \frac{\Delta m_{soot}}{4 L n_{open} \rho_{{soot}} \sqrt{a_{{in}}^2 - \frac{m_{{ash,0}}}{L n_{open} \rho_{{ash}}} - \frac{m_{{soot,0}}}{L n_{open} \rho_{{soot}}}}} + \\
-%     & \frac{\Delta m_{ash}}{4 L n_{open} \rho_{{ash}} \sqrt{a_{{in}}^2 - \frac{m_{{ash,0}}}{L n_{open} \rho_{{ash}}} - \frac{m_{{soot,0}}}{L n_{open} \rho_{{soot}}}}} - \\ &
-%     \frac{\Delta m_{ash}}{4 L n_{open} \rho_{{ash}} \sqrt{a_{{in}}^2 - \frac{m_{{ash,0}}}{L n_{open} \rho_{{ash,0}}}}}
+%     \tilde{w}_{ash}(m_{ash}, m_{soot}) = &
+%     \frac{\Delta m_{ash}}{4 L n_{open} \rho_{{ash}} \sqrt{a_{{in}}^2 - \frac{m_{{soot,0}}}{L n_{open} \rho_{{soot}}} - \frac{m_{{ash,0}}}{L n_{open} \rho_{{ash}}}}} + \\
+%     & \frac{\Delta m_{soot}}{4 L n_{open} \rho_{{soot}} \sqrt{a_{{in}}^2 - \frac{m_{{soot,0}}}{L n_{open} \rho_{{soot}}} - \frac{m_{{ash,0}}}{L n_{open} \rho_{{ash}}}}} - \\ &
+%     \frac{\Delta m_{soot}}{4 L n_{open} \rho_{{soot}} \sqrt{a_{{in}}^2 - \frac{m_{{soot,0}}}{L n_{open} \rho_{{soot,0}}}}}
 %     \end{split}
 % \end{align}
 
@@ -119,135 +133,289 @@ noki- ja tuhkalatauksen suhteen.
 
 % \begin{align*}
 %     a &:= 4 L n_{open}, \\
-%     b &:= \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}}}, \\
-%     c &:= \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}} - \frac{m_{soot}}{L n_{open} \rho_{soot}}}, \\
+%     b &:= \sqrt{\alpha_{in}^2 - \frac{m_{soot}}{L n_{open} \rho_{soot}}}, \\
+%     c &:= \sqrt{\alpha_{in}^2 - \frac{m_{soot}}{L n_{open} \rho_{soot}} - \frac{m_{ash}}{L n_{open} \rho_{ash}}}, \\
 %     d &:= \alpha_{in} + \alpha_{out} + w_s,\\
-%     f &:= \alpha_{out}- 2 w_{ash},\\
+%     f &:= \alpha_{out}- 2 w_{soot},\\
 %     q &:= \frac{1}{2}Q\mu,\\
-%     \alpha_{in}^* &:= \alpha_{in} - 2 w_{ash} - 2 w_{soot} , \\
-%     \alpha_{out}^* &:= \alpha_{out} - 2 w_{ash}  - 2 w_{soot}.
+%     \alpha_{in}^* &:= \alpha_{in} - 2 w_{soot} - 2 w_{ash} , \\
+%     \alpha_{out}^* &:= \alpha_{out} - 2 w_{soot}  - 2 w_{ash}.
 % \end{align*}
 
 % Esitellään apumuuttujat
 % \begin{center}
 % \begin{tabular}{ll}
-%     \( a := 4 L n_{open} \) & \( f := \alpha_{out} - 2 w_{ash} \) \\
-%     \( b := \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}}} \) & \( q := \frac{1}{2} Q \mu \) \\
-%     \( c := \sqrt{\alpha_{in}^2 - \frac{m_{ash}}{L n_{open} \rho_{ash}} - \frac{m_{soot}}{L n_{open} \rho_{soot}}} \) & \( \alpha_{in}^* := \alpha_{in} - 2 w_{ash} - 2 w_{soot} \) \\
-%     \( d := \alpha_{in} + \alpha_{out} + 2w_s \) & \( \alpha_{out}^* := \alpha_{out} - 2 w_{ash} - 2 w_{soot} \)
+%     \( a := 4 L n_{open} \) & \( f := \alpha_{out} - 2 w_{soot} \) \\
+%     \( b := \sqrt{\alpha_{in}^2 - \frac{m_{soot}}{L n_{open} \rho_{soot}}} \) & \( q := \frac{1}{2} Q \mu \) \\
+%     \( c := \sqrt{\alpha_{in}^2 - \frac{m_{soot}}{L n_{open} \rho_{soot}} - \frac{m_{ash}}{L n_{open} \rho_{ash}}} \) & \( \alpha_{in}^* := \alpha_{in} - 2 w_{soot} - 2 w_{ash} \) \\
+%     \( d := \alpha_{in} + \alpha_{out} + 2w_s \) & \( \alpha_{out}^* := \alpha_{out} - 2 w_{soot} - 2 w_{ash} \)
 % \end{tabular}
 % \end{center}
 
 
 % Tuhkakerroksen derivaatat ovat
 % \begin{align}
-%     \frac{\doo w_{ash}}{\doo m_{soot}} & =0,\\
-%     \frac{\doo w_{ash}}{\doo m_{ash}} &= \frac{1}{ab\rho_{ash}},
+%     \frac{\doo w_{soot}}{\doo m_{ash}} & =0,\\
+%     \frac{\doo w_{soot}}{\doo m_{soot}} &= \frac{1}{ab\rho_{soot}},
 % \end{align}
 % ja vastaavasti nokikerroksen derivaatat ovat
 % \begin{align}
-%     \frac{\doo w_{soot}}{\doo m_{soot}} &= \frac{1}{ac\rho_{soot}}\\
+%     \frac{\doo w_{ash}}{\doo m_{ash}} &= \frac{1}{ac\rho_{ash}}\\
 %     \begin{split}
-%     \frac{\doo w_{soot}}{\doo m_{ash}} &= \frac{1}{ac\rho_{ash}}-\frac{1}{ab\rho_{ash}}
-%     \\ &= \frac{ab \rho_{ash} - ac\rho_{ash}}{ab\rho_{ash}\cdot ac \rho_{ash}}
-%     \\ &= \frac{\cancel{a\rho}_{ash}(b-c)}{a^{\cancel{2}} \rho_{ash}^{\cancel{2}} bc}
-%     \\ &= \frac{b-c}{abc\rho_{ash}}.
+%     \frac{\doo w_{ash}}{\doo m_{soot}} &= \frac{1}{ac\rho_{soot}}-\frac{1}{ab\rho_{soot}}
+%     \\ &= \frac{ab \rho_{soot} - ac\rho_{soot}}{ab\rho_{soot}\cdot ac \rho_{soot}}
+%     \\ &= \frac{\cancel{a\rho}_{soot}(b-c)}{a^{\cancel{2}} \rho_{soot}^{\cancel{2}} bc}
+%     \\ &= \frac{b-c}{abc\rho_{soot}}.
 %     \end{split}
 % \end{align}
 
 % Painehäviön derivaatta on
 % \begin{align}
 %     \nabla \Delta P_{tot} &=
-%     \nabla \Delta P_{inlet} + \nabla \Delta P_{soot} + \nabla \Delta P_{ash}.
+%     \nabla \Delta P_{inlet} + \nabla \Delta P_{ash} + \nabla \Delta P_{soot}.
 % \end{align}
 % Lasketaan termien derivaatat erikseen. Sisäänmenossa derivaatat ovat
 % \begin{align}
-%     \frac{\doo \Delta P_{inlet}}{\doo w_{soot}} &=
-%     \frac{\doo \Delta P_{inlet}}{\doo w_{ash}} =
+%     \frac{\doo \Delta P_{inlet}}{\doo w_{ash}} &=
+%     \frac{\doo \Delta P_{inlet}}{\doo w_{soot}} =
 %     \frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} .
 % \end{align}
 % Nokikerroksen aiheuttaman painehäviön derivaatat ovat
 % \begin{align}
-%     \frac{\doo \Delta P_{soot}}{\doo w_{soot}} &=
-%     \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*},
-%     \\\frac{\doo \Delta P_{soot}}{\doo w_{ash}}
+%     \frac{\doo \Delta P_{ash}}{\doo w_{ash}} &=
+%     \frac{2 q}{2 \kappa_{ash} \alpha_{out}^*},
+%     \\\frac{\doo \Delta P_{ash}}{\doo w_{soot}}
 %     &=
-%     \frac{4qw_{soot}}{a f\kappa_{soot} \alpha_{out}^* }.
+%     \frac{4qw_{ash}}{a f\kappa_{ash} \alpha_{out}^* }.
 % \end{align}
 % Tuhkakerros:
 % \begin{align}
-%     \frac{\doo \Delta P_{ash}}{\doo w_{soot}} &= 0,
-%     \\\frac{\doo \Delta P_{ash}}{\doo w_{ash}} &=
-%     \frac{2q}{a f \kappa_{ash}  }.
+%     \frac{\doo \Delta P_{soot}}{\doo w_{ash}} &= 0,
+%     \\\frac{\doo \Delta P_{soot}}{\doo w_{soot}} &=
+%     \frac{2q}{a f \kappa_{soot}  }.
 % \end{align}
 
 % Näin ollen 
 % \begin{align}
-%     \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=
-%      \frac{1}{ac\rho_{soot}}
+%     \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=
+%      \frac{1}{ac\rho_{ash}}
 %     \left(\frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} +
-%      \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*}
+%      \frac{2 q}{2 \kappa_{ash} \alpha_{out}^*}
 %     \right)\\
 % % \end{align}
 % % \begin{align}
 % \begin{split}
-%     \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=
-%     \frac{b-c}{abc\rho_{ash}}\left(\frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} +
-%      \frac{2 q}{2 \kappa_{soot} \alpha_{out}^*}
+%     \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=
+%     \frac{b-c}{abc\rho_{soot}}\left(\frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} +
+%      \frac{2 q}{2 \kappa_{ash} \alpha_{out}^*}
 %     \right) \\
 %     & + 
-%     \frac{1}{ab\rho_{ash}} \left(
+%     \frac{1}{ab\rho_{soot}} \left(
 %         \frac{8 F L^2 d^2 q}{3 V \alpha_{in}^{*5}} +
-%         \frac{4qw_{soot}}{a f \kappa_{soot} \alpha_{out}^*  } +
-%         \frac{2q}{a f \kappa_{ash}  }
+%         \frac{4qw_{ash}}{a f \kappa_{ash} \alpha_{out}^*  } +
+%         \frac{2q}{a f \kappa_{soot}  }
 %     \right).
 % \end{split}
 % \end{align}
 % \newpage
 
 
-Esitellään apumuuttujat
+% Esitellään apumuuttujat
+% \begin{align*}
+% S(w_{{ash}}, w_{{soot}}) &=\alpha_{{out}}-2\,w_{{soot}}-2\,w_{{ash}},\\
+% T(w_{{ash}}, w_{{soot}}) &=\alpha_{{in}}-2\,w_{{soot}}-2\,w_{{ash}},\\
+% U(w_{soot}) &=  \alpha_{out} - 2w_{soot}, \\
+% X(m_{{soot}})            &=\alpha_{{in}}^2 -\frac{m_{{soot}}}{L\,n_{{open}}\,\rho_{{soot}}},\\
+% Y(m_{{ash}}, m_{{soot}}) &=X-\frac{m_{{ash}}}{L\,n_{{open}}\,\rho_{{ash}}},\\ 
+% M &=4\,L\,n_{{open}},\\
+% P &=\alpha_{{in}}+\alpha_{{out}}+2\,w_s,\\
+% A &=\frac{Q\,\mu}{M\,k_{{ash}}\,S},\\
+% B &= \frac{4\,F\,L^2\,Q\,\mu\,P^2}{3\,V\,T^5},\\
+% C &= A + B,\\
+% D &=M\,\rho_{{ash}}\,\sqrt{Y},\\
+% E &=\frac{1}{M\,\rho_{{soot}}\,\sqrt{X}},\\
+% F_v &= \frac{1}{M\,\rho_{{soot}}\,\sqrt{Y}},\\
+% G &=\frac{Q\,\mu}{M\,k_{soot}\,U},\\
+% H &=\frac{Q\,\mu}{M\,k_{ash}\,U}
+%       \Bigl(\frac{\,U}{S}+1\Bigr).
+% \end{align*}
+
+% Derivaattoja
+% \begin{align}
+%     \frac{\doo w_{ash}}{\doo m_{ash}} &= \frac{1}{M \rho_{ash}\sqrt{Y}} \\
+%     \frac{\doo w_{ash}}{\doo m_{soot}} &= \frac{1}{M\rho_{soot}\sqrt{Y}} - \frac{1}{M\rho_{ash}\sqrt{X}} \\
+%     \frac{\doo w_{soot}}{\doo m_{ash}}&=0\\
+%     \frac{\doo w_{soot}}{\doo m_{soot}} &= \frac{1}{M \rho_{soot}\sqrt{X}}.
+% \end{align}
+
+% \begin{align}
+%     \frac{\doo \Delta P_{tot}}{\doo w_{ash}} &= A+B\\
+%     \frac{\doo \Delta P_{tot}}{\doo w_{soot}} &= G+B-H.
+% \end{align}
+
+
+% \begin{align}
+%         \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=\frac{C}{D},
+%         \\
+%         \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=
+%         C\bigl(E - F_v\bigr)-E\bigl(B - G + H\bigr).
+% \end{align}
+
+% Näin ollen 
+% \begin{align}
+%     J_{\Delta P_{tot}} = \bm{\frac{C}{D} & \quad C\bigl(E - F_v\bigr)-E\bigl(B - G + H\bigr)}
+% \end{align}
+
+% \newpage
+
+
+Tarkastellaan funktioita 
 \begin{align*}
-S(w_{{soot}}, w_{{ash}}) &=\alpha_{{out}}-2\,w_{{ash}}-2\,w_{{soot}},\\
-T(w_{{soot}}, w_{{ash}}) &=\alpha_{{in}}-2\,w_{{ash}}-2\,w_{{soot}},\\
-U(w_{ash}) &=  \alpha_{out} - 2w_{ash}, \\
-X(m_{{ash}})            &=\alpha_{{in}}^2 -\frac{m_{{ash}}}{L\,n_{{open}}\,\rho_{{ash}}},\\
-Y(m_{{soot}}, m_{{ash}}) &=X-\frac{m_{{soot}}}{L\,n_{{open}}\,\rho_{{soot}}},\\ 
-M &=4\,L\,n_{{open}},\\
-P &=\alpha_{{in}}+\alpha_{{out}}+2\,w_s,\\
-A &=\frac{Q\,\mu}{M\,k_{{soot}}\,S},\\
-B &= \frac{4\,F\,L^2\,Q\,\mu\,P^2}{3\,V\,T^5},\\
-C &= A + B,\\
-D &=M\,\rho_{{soot}}\,\sqrt{Y},\\
-E &=\frac{1}{M\,\rho_{{ash}}\,\sqrt{X}},\\
-F_v &= \frac{1}{M\,\rho_{{ash}}\,\sqrt{Y}},\\
-G &=\frac{Q\,\mu}{M\,k_{ash}\,U},\\
-H &=\frac{Q\,\mu}{M\,k_{soot}\,U}
-      \Bigl(\frac{\,U}{S}+1\Bigr).
+    w_{soot}(m)
+        &= \frac{\alpha_{in}-2w_{ash}(m) - \sqrt{(\alpha_{in}-2w_{ash}(m))^2 - \frac{m_{soot}(t)}{ n_{open} L \rho_{soot}}}}{2}.
+    \\ 
+    w_{ash}(m)
+        &=\frac{\alpha_{in} - \sqrt{\alpha_{in}^2 - \frac{m_{ash}(t)}{ n_{open} L \rho_{ash}}}}{2} ,
 \end{align*}
-
-Derivaattoja
+Jacobin matriisin termit, eli osittaisderivaatat ovat
+% jossa 
+% \begin{align}
+%     X(m) &= \alpha_{in}^2 -\frac{m_{ash}}{L n_{open} \rho_{ash}},
+% \end{align}
 \begin{align}
-    \frac{\doo w_{soot}}{\doo m_{soot}} &= \frac{1}{M \rho_{soot}\sqrt{Y}} \\
-    \frac{\doo w_{soot}}{\doo m_{ash}} &= \frac{1}{M\rho_{ash}\sqrt{Y}} - \frac{1}{M\rho_{soot}\sqrt{X}} \\
-    \frac{\doo w_{ash}}{\doo m_{soot}}&=0\\
-    \frac{\doo w_{ash}}{\doo m_{ash}} &= \frac{1}{M \rho_{ash}\sqrt{X}}.
+    \frac{\doo w_{soot}(m)}{\doo m_{soot}} &= \frac{1}{Z\rho_{soot} \sqrt{Y(m)}},
+    \\
+    \frac{\doo w_{soot}(m)}{\doo m_{ash}} &=
+    \frac{1}{Z \rho_{ash}} \left( \frac{1}{\sqrt{Y(m)}}-\frac{1}{\sqrt{X(m)}} \right),
 \end{align}
-
+ja
 \begin{align}
-    \frac{\doo \Delta P_{tot}}{\doo w_{soot}} &= A+B\\
-    \frac{\doo \Delta P_{tot}}{\doo w_{ash}} &= G+B-H.
+    \frac{\doo w_{ash}(m)}{\doo m_{soot}}&=0,
+    \\
+    \frac{\doo w_{ash}(m)}{\doo m_{ash}}&=\frac{1}{Z \rho_{ash} \sqrt{X(m)}},
 \end{align}
-
-
+jossa 
 \begin{align}
-        \frac{\doo \Delta P_{tot}}{\doo m_{soot}} &=\frac{C}{D},
+    X(m) &= \alpha_{in}^2 -\frac{m_{ash}}{L n_{open} \rho_{ash}},
+    \\
+    \begin{split}
+        Y(m) &= X(m) - \frac{m_{soot}}{L n_{open} \rho_{soot}}  
+        \\&= \alpha_{in}^2 -\frac{m_{ash}}{L n_{open} \rho_{ash}}- \frac{m_{soot}}{L n_{open} \rho_{soot}}
+    \end{split}
+    \\
+    Z &= 4 L n_{open}.
+\end{align}
+Jacobin matriisi on muotoa
+\begin{align}
+    J_{w}(m) &=
+    \frac{1}{Z} 
+    \bm{
+        \frac{1}{\rho_{soot}\sqrt{Y(m)}}
+        &
+        \frac{1}{\rho_{ash} \sqrt{Y(m)}}-\frac{1}{\rho_{ash} \sqrt{X(m)}} 
         \\
-        \frac{\doo \Delta P_{tot}}{\doo m_{ash}} &=
-        C\bigl(E - F_v\bigr)-E\bigl(B - G + H\bigr).
+        0 
+        &
+        \frac{1}{\rho_{ash} \sqrt{X(m)}} 
+    }.
+\end{align}
+Tarkastellaan painehäviöyhtälön tuhka- ja nokikerrosriippuvaisia termejä
+\begin{align}
+    \Delta P_{inlet}(w) &=   
+    \frac{(\alpha_{in}+\alpha_{out}+2 w_s)^2FL^2}{6V(\alpha_{in} -2w_{soot}(m)-2w_{ash}(m))^4 }Q(t) \mu(t)
+        \\
+    \Delta P_{ash}(w) &=
+    \frac{Q(t)\mu(t)}{8 n_{open} L \kappa_{ash}}\ln\left(\frac{\alpha_{out}}{\alpha_{out}-2w_{ash}(m)}\right)
+        \\
+    \Delta P_{soot}(w) &= \frac{Q(t)\mu(t)}{8 n_{open} L \kappa_{soot}}\ln\left(\frac{\alpha_{out}-2w_{ash}(m)}{\alpha_{out}-2w_{ash}(m)-2w_{soot}(m)}\right).
 \end{align}
 
-Näin ollen 
+Näiden osittaisderivaatat ovat
 \begin{align}
-    J_{\Delta P_{tot}} = \bm{\frac{C}{D} & \quad C\bigl(E - F_v\bigr)-E\bigl(B - G + H\bigr)}
+    \frac{\doo \Delta P_{inlet}(w)}{\doo w_{soot}}
+    &= 
+    \frac{\doo \Delta P_{inlet}(w)}{\doo w_{ash}}
+    = 
+    \frac{4 F L^2  \alpha_{cell}^2 Q(t) \mu(t) }{3 V\bigl(\alpha_{in}^*(m)\bigr)^5},
+\end{align}
+jossa \(\alpha_{cell} = \alpha_{in} + \alpha_{out} + 2w_s\), ja \(\alpha_{in}^*(m)=\alpha_{in}- 2 w_{ash}(m)-2w_{soot}(m)\).
+Tuhkakerroksen aiheuttaman painehäviön osittaisderivaatat ovat 
+\begin{align}
+    \frac{\doo \Delta P_{ash}}{\doo w_{soot}} &= 0 ,
+    \\
+    \frac{\doo \Delta P_{ash}}{\doo w_{ash}} &= 
+    \frac{Q(t)\mu(t)}{Z \kappa_{ash} \alpha_{out}^{+}(m)}.
+\end{align}
+ja nokikerroksen
+\begin{align}
+    \frac{\doo \Delta P_{soot}}{\doo w_{soot}} &= 
+    \frac{Q(t)\mu(t)}{Z\kappa_{soot}\alpha_{out}^*(m)},
+    \\
+    \frac{\doo \Delta P_{soot}}{\doo w_{ash}} &=
+    \frac{2Q(t)\mu(t)w_{soot}(m)}
+         {Z\kappa_{soot}\alpha_{out}^{+}(m)\alpha_{out}^*(m)},
+\end{align}
+jossa \(\alpha_{out}^*(m)=\alpha_{out}-2w_{ash}(m)-2w_{soot}(m)\) ja \(\alpha_{out}^{+}(m)=\alpha_{out}-2w_{ash}(m)\).
+Näin ollen kokonaispainehäviön osittaisderivaatat ovat
+\begin{align}
+\begin{split}
+    \frac{\doo \Delta P_{tot}}{\doo w_{soot}} &=
+    \frac{\doo (\Delta P_{inlet}(w)+ \Delta P_{soot}(w)+ \Delta P_{ash}(w))}{\doo w_{soot}}
+    \\ &=
+    \frac{4 F L^2  \alpha_{cell}^2 Q(t) \mu(t) }{3V \bigl(\alpha_{in}^*(m)\bigr)^5}
+    +
+    0
+    +
+    \frac{Q(t)\mu(t)}{Z\kappa_{soot}\alpha_{out}^*(m)}
+    \\ &=
+    \frac{Q(t)\mu(t)}{Z}
+    \left( 
+    \frac{4 ZF L^2  \alpha_{cell}^2}{3 V\bigl(\alpha_{in}^*(m)\bigr)^5}
+    +
+    \frac{1}{\kappa_{soot}\alpha_{out}^*(m)}
+    \right),
+\end{split}
+\\
+\begin{split}
+    \frac{\doo \Delta P_{tot}}{\doo w_{ash}} &=
+    \frac{\doo (\Delta P_{inlet}(w)+ \Delta P_{soot}(w)+ \Delta P_{ash}(w))}{\doo w_{ash}}
+    \\ &=
+    \frac{Q(t)\mu(t)}{Z}
+    \left(
+    \frac{4 Z F L^2 \alpha_{cell}^2}{3 V\bigl(\alpha_{in}^*(m)\bigr)^5}
+    +
+    \frac{1}{\kappa_{ash} \alpha_{out}^{+}(m)}
+    +
+    \frac{2 w_{soot}(m)}{\alpha_{out}^{+}(m)\alpha_{out}^*(m)}
+    \right),
+\end{split}
+\end{align}
+ja Jacobin matriisi \eqref{eq:jacob_total_general} saadaan muotoon
+\begin{align}
+\begin{split}
+    J_{\Delta P_{tot}}(m) =
+    \frac{Q(t)\mu(t)}{Z^2} 
+    &
+    \bm{
+        \frac{4 ZF L^2  \alpha_{cell}^2}{3 V\bigl(\alpha_{in}^*(m)\bigr)^5}
+        +
+        \frac{1}{\kappa_{soot}\alpha_{out}^*(m)}
+        \\
+        \frac{4 Z F L^2 \alpha_{cell}^2}{3 V\bigl(\alpha_{in}^*(m)\bigr)^5}
+        +
+        \frac{1}{\kappa_{ash} \alpha_{out}^{+}(m)}
+        +
+        \frac{2 w_{soot}(m)}{\alpha_{out}^{+}(m)\alpha_{out}^*(m)}
+        }^T
+    \\ & \cdot
+    \bm{
+        \frac{1}{\rho_{soot}\sqrt{Y(m)}}
+        &
+        \frac{1}{\rho_{ash} \sqrt{Y(m)}}-\frac{1}{\rho_{ash} \sqrt{X(m)}} 
+        \\
+        0 
+        &
+        \frac{1}{\rho_{ash} \sqrt{X(m)}} 
+        }
+\end{split}
 \end{align}

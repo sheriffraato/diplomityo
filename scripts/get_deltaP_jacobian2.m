@@ -1,59 +1,68 @@
-
-% Get DeltaP Jacobian
-% Inputs
-syms msoot mash
-
+function Jdp = get_deltaP_jacobian2(DPFDiam,DPFLen,mf,exhtemp,pout,sootload,ashload,ws,cpsi,R_alpha)
 % DPF-params:
-...
-alphaOut = 0.1
-alphaIn = 0.1
-L = 0.1
-D = 0.1
-nopen = 1
-ws=0.1
+ 
+% DPF-dimensions
+rim = 0.003875; % [m]
+plugdepth=0.005; % [m]
+D=DPFDiam*0.0254-2*rim; %inch->m
+L=DPFLen*0.0254-2*plugdepth; %inch->m
 V=pi*D^2/4*L; %filter total volume m3
+
+% filter-properties
+ws=ws*2.54e-5; %mil->m
+cpsi=cpsi/0.0254^2; %1/inch^2 -> 1/m2
+nopen=cpsi*pi*D^2/4/2;
+alphaMean=sqrt(1/cpsi)-ws; %m mean side lenght of the filter opening
+alphaIn = 2*alphaMean/(1+1/R_alpha); %m side length of the filter inlet opening 
+alphaOut = 2*alphaMean/(1+R_alpha); %m side length of the filter inlet opening 
 
 % Constants and fitted parameters
 ro_soot=34.633; % density of the soot layer [kg/m3]
 ro_ash=5.1832e+05; % density of ash [g/m3] !!!
+
 F = 28.454;
-%kwall = 3.189e-13;% permeability of filter wall [m2]
 %ksoot=4.399e-14;% permeability of soot layer [m2]
 %kash=1.3204e-09; % permeability of ash layer [m2]
-kwall=3.4e-13;% permeability of filter wall [m2]
 ksoot=9.14130161581979e-14;% permeability of soot layer [m2]
 kash=1.65e-13; % permeability of ash layer [m2]. 
 
 % Time variant parameters
-mf = 0.1
-exhtemp = 0.1
-pout = 1
+mf=mf/(60*60); %mass flow kg/s
+exhtemp = exhtemp + 0; % temperature degC
+pout = pout * 1; % pressure kPa
 mu = viscosityD(exhtemp); 
 ro = gasdensity(exhtemp, pout);
 Q = mf ./ ro;
 
 % Input dependent parameters
+msoot = sootload * V; % kg
+mash = ashload; % g !!!
 wash = 1/2 .* (alphaIn - sqrt(alphaIn.^2 - mash./(nopen .* L .* ro_ash)));
 wsoot = 1/2 .* (alphaIn - 2.*wash - sqrt((alphaIn - 2.*wash).^2 - msoot./(nopen .* L .* ro_soot)));
 
+Z = 4*L*nopen;
+X = max(0, alphaIn.^2 - 4*mash./(Z*ro_ash));
+Y = max(0, X - 4*msoot./(Z*ro_soot));
 
-X = max(alphaIn^2 - mash ./ (L .* nopen .* ro_ash), 0);
-Y = max(X - msoot ./ (L .* nopen .* ro_soot), 0);
-S = alphaOut - 2*wsoot - 2*wash;
-T = alphaIn - 2*wsoot - 2*wash;
-U = alphaOut - 2*wash;
-M = 4*L*nopen;
-P = alphaIn + alphaOut + 2*ws;
-A = Q .* mu ./ (M .* ksoot .* S);
-B = 4 .* F .* L^2 .* P^2 .* Q .* mu ./ (3 * V * T^5);
-C = A + B;
-D = M .* ro_soot .* sqrt(Y);
-E = (M .* ro_ash .* sqrt(X)).^(-1);
-Fv = (M .* ro_ash .* sqrt(Y) ).^(-1);
-G = Q .* mu ./ (M .* kash .* U);
-H = Q .* mu ./ (M .* ksoot .* U) .* (U./S + 1);
+alphaCell = alphaIn + alphaOut + 2*ws;
+alphaStrIn = alphaIn - 2*wash - 2*wsoot;
+alphaStrOut = alphaOut - 2*wash - 2*wsoot;
+alphaPlsOut = alphaStrOut + 2*wsoot;
 
-Jdp = [C./D, C.*(E-Fv)-E.*(B-G+H)]
+A = 4.*Z.*F.*L^2.* alphaCell.^2 ./ (3.*V.*alphaStrIn.^5);
+B = 1./ (ksoot.*alphaStrOut);
+C = 1./ (kash.*alphaPlsOut);
+D = 2.*wsoot ./ (alphaPlsOut.*alphaStrOut);
+
+Jdp_soot = (A+B) .* (1./(ro_soot.*sqrt(Y)));
+Jdp_ash  = (A+B) .* (1./(ro_ash.*sqrt(Y))-1./(ro_ash.*sqrt(X))) +...
+           (A+C+D) .* (1./(ro_ash.*sqrt(X)));
+
+Jdp = Q.*mu./Z.^2.* [Jdp_soot Jdp_ash];
+Jdp = Jdp*1e-3;
+
+end
+
 
 function ro=gasdensity(T,p,M)
     %calculates ideal gas density under given temperature and pressure
@@ -67,6 +76,7 @@ function ro=gasdensity(T,p,M)
     if nargin<3
         M=1.030388422.*28.02; %g/mol (assumed 78 v-% N2, 14 v-% O2, 4 v-% CO2, 4 v-% H2O
     end
+
     M=M./1000; %kg/mol
     R=8.314462; % J/(mol K) kaasuvakio
     T=T+273.15; %C->K

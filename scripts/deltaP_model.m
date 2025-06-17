@@ -1,12 +1,12 @@
-function deltaP_total=deltaP_model(Dtrap,Ltrap,mf,exhtemp,pout,sootload,ashload,ws,cpsi,R_alpha)
+function deltaP_total=deltaP_model(DPFDiam,DPFLen,mf,exhtemp,pout,sootload,ashload,ws,cpsi,R_alpha)
 %syms Dtrap Ltrap mf exhaustTemp pressureOut sootload ashload ws cpsi R_alpha
 
  
 % DPF-dimensions
 rim = 0.003875; % [m]
 plugdepth=0.005; % [m]
-D=Dtrap*0.0254-2*rim; %inch->m
-L=Ltrap*0.0254-2*plugdepth; %inch->m
+D=DPFDiam*0.0254-2*rim; %inch->m
+L=DPFLen*0.0254-2*plugdepth; %inch->m
 V=pi*D^2/4*L; %filter total volume m3
 
 % filter-properties
@@ -18,16 +18,14 @@ alphaIn = 2*alphaMean/(1+1/R_alpha); %m side length of the filter inlet opening
 alphaOut = 2*alphaMean/(1+R_alpha); %m side length of the filter inlet opening 
 
 % Fitted parameters
-%kwall = 3.189e-13;% permeability of filter wall [m2]
 kwall=3.4e-13;% permeability of filter wall [m2]
-ksoot=4.399e-14;% permeability of soot layer [m2]
 ksoot=9.14130161581979e-14;% permeability of soot layer [m2]
-
-kash=1.3204e-09; % permeability of ash layer [m2]
 kash=1.65e-13; % permeability of ash layer [m2]. 
 
 ro_soot=34.633; % density of the soot layer [kg/m3]
 ro_ash=5.1832e+05; % density of ash [g/m3] !!!
+% ro_ash=5.1832e+02; % density of ash [kg/m3] !!!
+
 F = 28.454;
 
 
@@ -36,11 +34,11 @@ mf=mf/(60*60); %mass flow kg/s
 mu = viscosityD(exhtemp); 
 ro = gasdensity(exhtemp, pout);
 Q = mf ./ ro;
-channel_factor = (Q .* mu .* F / 6) .* (L.^2 ./ V);
+channel_factor = Q .* mu .* F .* L.^2 ./ (6 * V);
 %%
 % Particulate layers
 msoot = sootload.*V; % kg
-mash = ashload;
+mash = ashload; % g
 wash = 1/2 .* (alphaIn - sqrt(alphaIn.^2 - mash./(nopen .* L .* ro_ash)));
 wsoot = 1/2 .* (alphaIn - 2.*wash - sqrt((alphaIn - 2.*wash).^2 - msoot./(nopen .* L .* ro_soot)));
 
