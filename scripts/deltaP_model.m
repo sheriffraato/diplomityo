@@ -1,4 +1,4 @@
-function deltaP_total=deltaP_model(DPFDiam,DPFLen,mf,exhtemp,pout,sootload,ashload,ws,cpsi,R_alpha)
+function deltaP_total=deltaP_model(dataStruct, DPFDiam,DPFLen,sootload,ashload,ws,cpsi,R_alpha)
 %syms Dtrap Ltrap mf exhaustTemp pressureOut sootload ashload ws cpsi R_alpha
 
  
@@ -30,7 +30,10 @@ F = 28.454;
 
 
 %% Gas properties
-mf=mf/(60*60); %mass flow kg/s
+mf = dataStruct.ExhMassFlow/3600;     % Massflow [kg/h] -> [kg/s]
+exhtemp = dataStruct.DpfTemp;         % degC 
+pout = dataStruct.OutletPress;
+
 mu = viscosityD(exhtemp); 
 ro = gasdensity(exhtemp, pout);
 Q = mf ./ ro;

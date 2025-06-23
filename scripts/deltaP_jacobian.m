@@ -1,4 +1,4 @@
-function Jdp = get_deltaP_jacobian2(dataStruct, DPFDiam,DPFLen,sootload,ashload,ws,cpsi,R_alpha)
+function Jdp = deltaP_jacobian(DPFDiam,DPFLen,mf,exhtemp,pout,sootload,ashload,ws,cpsi,R_alpha)
 % DPF-params:
  
 % DPF-dimensions
@@ -31,9 +31,7 @@ kash=1.65e-13; % permeability of ash layer [m2].
 % exhtemp = exhtemp + 0; % temperature degC
 % pout = pout * 1; % pressure kPa
 
-mf = dataStruct.ExhMassFlow/3600;     % Massflow [kg/h] -> [kg/s]
-exhtemp = dataStruct.DpfTemp;         % degC 
-pout = dataStruct.OutletPress;        % kPa
+mf = mf/3600;     % Massflow [kg/h] -> [kg/s]
 
 mu = viscosityD(exhtemp); 
 ro = gasdensity(exhtemp, pout);
@@ -42,8 +40,10 @@ Q = mf ./ ro;
 % Input dependent parameters
 msoot = sootload * V; % kg
 mash = ashload; % g !!!
-wash = 1/2 .* (alphaIn - sqrt(alphaIn.^2 - mash./(nopen .* L .* ro_ash)));
-wsoot = 1/2 .* (alphaIn - 2.*wash - sqrt((alphaIn - 2.*wash).^2 - msoot./(nopen .* L .* ro_soot)));
+X = sqrt(alphaIn.^2 - mash./(nopen .* L .* ro_ash));
+wash = 1/2 .* (alphaIn - X);
+Y =  sqrt((alphaIn - 2.*wash).^2 - msoot./(nopen .* L .* ro_soot));
+wsoot = 1/2 .* (alphaIn - 2.*wash - Y);
 
 Z = 4*L*nopen;
 X = max(0, alphaIn.^2 - 4*mash./(Z*ro_ash));

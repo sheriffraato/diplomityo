@@ -6,22 +6,12 @@ Tässä luvussa laaditaan EFK-estimointialgoritmi noki-, ja tuhkalatauksille. Al
 Esitellään EKF-algoritmin muuttujat
 \begin{align*}
     x &= \bm{m_{soot} \\ m_{ash}},  
-    \qquad  u = \bm{m_{soot, in} \\ m_{ash,in} \\ c_{NO_2, in}} 
+    \qquad  u = \bm{ \dot{m}_{soot, in} \\ \dot{m}_{ash,in} \\ c_{NO_2, in}} 
     \\
     z &= \Delta P_{meas},
     \qquad \hat{z} =  \Delta P_{tot} \\
 \end{align*}
-Lämpötila tunnetaan tarkasti, joten se voidaan jättää mallin parametriksi. Hapen konsentraatio on useita kertaluokkia korkeampi kuin typpidioksidin, joten sitä ei tarvita sisäänmenoksi. Tilanyhtälö on muotoa
-\begin{align}
-    \dot{x} = \bm{\dot{m}_{soot} \\ \dot{m}_{ash}} &=
-    \bm{a &0 \\0 & 1} \bm{m_{soot} \\ m_{ash}} + 
-    \bm{1 & 0 & b\\ 0 & 1 & 0} \bm{\dot{m}_{soot, in} \\ \dot{m}_{ash, in} \\ \dot{c}_{NO_2, in}},
-\end{align}
-jossa parametrit
-\begin{align*}
-    a &= -\frac{M_{soot}R_{active}(t)c_{O_2}(t)}{\rho_{soot}}, \qquad b = -\frac{M_{soot}R_{passive}(t)}{{\rho_{soot}}}.
-\end{align*}
-Tilanyhtälö on tilanmuuttujien suhteen lineaarinen, joten sitä voidaan käyttää sellaisenaan. Mittausyhtälö puolestaan ei ole. 
+Lämpötila tunnetaan tarkasti, joten se voidaan jättää mallin parametriksi. Hapen konsentraatio on useita kertaluokkia korkeampi kuin typpidioksidin, joten sitä ei tarvita sisäänmenoksi. 
 EKF-algoritmia voidaan käyttää, kunhan funktiot linearisoidaan. 
 Painehäviömallin funktiot ovat derivoituvia kaikkialla, joten painehäviöyhtälöt voidaan linearisoida.
-Linearisointi on toteutettu liitteessä \ref{ch:linearisointi}.
+Linearisointi on toteutettu liitteessä \ref{ch:dP_linearisointi}.

@@ -131,14 +131,14 @@ ja yhtälö yksinkertaistuu
     \dot{m}_{soot, oxi} = M_{soot}V_{soot} \left( R_{active}(t)
     c_{\ce{O2}} + R_{passive}(t)c_{\ce{NO2}} \right),
 \end{align}
-jossa \(V_{soot}=A_{soot}w_{soot}\) on kertyneen noen tilavuus.
+jossa \(V_{soot}=A_{soot}w_{soot} = \frac{m_{soot}}{ \rho_{soot}}\) on kertyneen noen tilavuus.
 Hiukkassuodattimen nokimäärän massataseyhtälö on tällöin
 \begin{align}\label{eq:tilanyhtalo_noki}
 \begin{split}
     \dot{m} _{soot}(t) &= \dot{m} _{soot, in}(t) - \dot{m} _{soot, oxi}(t)
     %&= m_{soot, in}(t) - m_{soot} \left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right),
     %&= m_{soot, in}(t) - V_{soot} M_{soot}\left( R_{active}(t)[\ce{O2}] + R_{passive}(t)[\ce{NO2}] \right),
-    \\ & = \dot{m}_{soot, in}(t) - M_{soot}V_{soot} \left( R_{active}(t)c_{\ce{O2}} + R_{passive}(t)c_{\ce{NO2}}\right).
+    \\ & = \dot{m}_{soot, in}(t) - M_{soot} \frac{m_{soot}(t)}{ \rho_{soot}}\left( R_{active}(t)c_{\ce{O2}}(t) + R_{passive}(t)c_{\ce{NO2}}(t)\right).
 \end{split}
 \end{align}
 Masstaseyhtälö toimii työn estimointialgoritmin tilanyhtälönä.

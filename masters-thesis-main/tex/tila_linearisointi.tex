@@ -1,0 +1,28 @@
+
+\chapter{Tilanyhtälön linearisointi}%
+\label{ch:tila_linearisointi}
+
+Tässä liitteessä johdetaan linearisointi tilanyhtälölle.
+
+\begin{align}
+    f_1(x,u) &=
+    \dot{m}_{soot, in} - \frac{M_{soot}}{\rho_{soot}} 
+    \left(R_{active} c_{\ce{O2}} + R_{passive} c_{\ce{NO2}} \right) m_{soot},
+    \\
+    f_2(x, u) &= \dot{m}_{ash, in} + m_{ash}
+\end{align}
+
+Jacobin matriisi on
+\begin{align}
+    J_m =
+    \bm{
+    - \frac{M_{soot}}{\rho_{soot}} 
+    \left(R_{active} c_{\ce{O2}} + R_{passive} c_{\ce{NO2}} \right)
+    &
+    0
+    \\
+    0
+    &
+    1
+    }
+\end{align}
